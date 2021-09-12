@@ -1,25 +1,35 @@
 module.exports = {
+  root: true,
   env: {
-    browser: true,
-    es6: true,
-    jest: true
+    node: true
   },
   extends: [
     'plugin:vue/essential',
-    'airbnb-base',
+    'prettier',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
+    ecmaVersion: 2020
   },
-  plugins: [
-    'vue',
-  ],
   rules: {
     semi: 'off'
   },
+  overrides: [
+    {
+      files: ['**/__tests__/*.{j}s?(x)', '**/tests/unit/**/*.spec.{j}s?(x)'],
+      env: {
+        jest: true
+      }
+    },
+    {
+      files: ['**/*.vue'],
+      extends: [
+        'plugin:vue/essential',
+        'eslint:recommended',
+        '@vue/prettier'
+      ],
+      plugins: [
+        'vue'
+      ]
+    }
+  ]
 };

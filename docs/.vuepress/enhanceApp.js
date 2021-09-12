@@ -5,7 +5,7 @@
  */
 
 import Quasar from 'quasar'
-import number from '@coders-tm/vue-number-format'
+import number from '../../'
 
 import 'quasar/dist/quasar.min.css'
 export default ({

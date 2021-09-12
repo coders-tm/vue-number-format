@@ -1,7 +1,7 @@
 import vue from 'rollup-plugin-vue'
 import cleanup from 'rollup-plugin-cleanup'
 import filesize from 'rollup-plugin-filesize'
-import css from 'rollup-plugin-css-only'
+import resolve from 'rollup-plugin-node-resolve'
 import pkg from './package.json'
 
 const banner = `/**
@@ -18,31 +18,46 @@ export default [
         file: pkg.main,
         format: 'cjs',
         exports: 'named',
+        name: 'VNumber',
+        sourcemap: true,
         banner
       },
       {
         file: pkg.module,
-        format: 'es',
+        format: 'esm',
         exports: 'named',
+        name: 'VNumber',
+        sourcemap: true,
+        banner
+      },
+      {
+        file: pkg.unpkg,
+        format: 'iife',
+        exports: 'named',
+        name: 'VNumber',
+        sourcemap: true,
         banner
       }
     ],
     plugins: [
-      css({
-        output: pkg.style,
+      cleanup({
+        extensions: [
+          'js',
+          'vue'
+        ]
       }),
       vue({
         template: {
           isProduction: true,
         },
-        css: false,
       }),
-      cleanup({
-        extensions: [
-          'js'
-        ]
+      resolve({
+        customResolveOptions: {
+          moduleDirectory: 'src'
+        }
       }),
       filesize()
-    ]
+    ],
+    external: ['vue-demi']
   }
 ]

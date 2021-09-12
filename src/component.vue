@@ -4,7 +4,13 @@
     autocomplete="off"
     :value="formattedValue"
     @change="change"
-    v-number="{precision, decimal, separator, prefix, suffix}"
+    v-number="{
+      precision,
+      decimal,
+      separator,
+      prefix,
+      suffix
+    }"
     class="v-number"
   />
 </template>
@@ -15,7 +21,6 @@ import options from './options'
 import { NumberFormat } from './utils'
 
 export default {
-  name: 'Number',
   props: {
     value: {
       required: true,

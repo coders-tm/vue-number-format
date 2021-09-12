@@ -14,9 +14,13 @@
   },
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
+  "unpkg": "dist/index.min.js",
   "files": [
     "dist/*"
   ],
+  "dependencies": {
+    "vue": "^2.6.11"
+  },
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
@@ -43,15 +47,12 @@
     "rollup": "^2.56.3",
     "rollup-plugin-buble": "^0.19.8",
     "rollup-plugin-cleanup": "^3.2.1",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-vue": "^6.0.0",
-    "vue": "^2.6.11",
+    "vue-demi": "^0.11.4",
     "vue-jest": "^3.0.7",
-    "vuepress": "^1.8.2",
-    "@coders-tm/vue-number-format": "^1.0.3"
+    "vuepress": "^1.8.2"
   },
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"
@@ -77,7 +78,6 @@
     "type": "git",
     "url": "https://github.com/coders-tm/vue-number-format.git"
   },
-  "style": "dist/styles.css",
   "publishConfig": {
     "@coders-tm:registry": "https://npm.pkg.github.com"
   }
