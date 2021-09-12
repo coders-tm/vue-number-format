@@ -15,7 +15,6 @@ jobs:
           node-version: 16
       - run: yarn install
       - run: yarn test --coverage
-      - run: yarn build
 
   publish-gpr:
     needs: build
@@ -33,8 +32,9 @@ jobs:
       - name: Github ref check
         run: echo "Deploying to production server on branch $GITHUB_REF"
 
-      - name: Install npm dependencies
-        run: yarn install
+      - name: Install npm dependencies and Build package
+      - run: yarn install
+      - run: yarn build
 
       - name: Publish tag to npm
         if: contains(github.ref, 'tags')
@@ -59,8 +59,9 @@ jobs:
       - name: Github ref check
         run: echo "Deploying to production server on branch $GITHUB_REF"
 
-      - name: Install npm dependencies
-        run: yarn install
+      - name: Install npm dependencies and Build package
+      - run: yarn install
+      - run: yarn build
 
       - name: Publish tag to npm
         if: contains(github.ref, 'tags')

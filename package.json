@@ -63,7 +63,13 @@
     "directive",
     "currency",
     "money",
-    "percentage"
+    "vue",
+    "directive component",
+    "vue mask",
+    "vue number input",
+    "vue money input",
+    "vue currecny input",
+    "vue percentage input"
   ],
   "license": "MIT",
   "repository": {
@@ -73,5 +79,6 @@
   "style": "dist/styles.css",
   "publishConfig": {
     "@coders-tm:registry": "https://npm.pkg.github.com"
-  }
+  },
+  "dependencies": {}
 }
