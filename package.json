@@ -42,6 +42,7 @@
     "jest": "^25.3.0",
     "node-fetch": "^2.6.0",
     "npm-run-all": "^4.1.5",
+    "postcss": "6.0",
     "quasar": "^1.11.3",
     "rollup": "^2.6.1",
     "rollup-plugin-buble": "^0.19.8",
