@@ -1,12 +1,12 @@
-import vue from 'rollup-plugin-vue';
-import buble from 'rollup-plugin-buble';
-import commonjs from 'rollup-plugin-commonjs';
-import replace from 'rollup-plugin-replace';
-import { terser } from 'rollup-plugin-terser';
-import resolve from 'rollup-plugin-node-resolve';
+import vue from 'rollup-plugin-vue'
+import buble from 'rollup-plugin-buble'
+import commonjs from 'rollup-plugin-commonjs'
+import replace from 'rollup-plugin-replace'
+import { terser } from 'rollup-plugin-terser'
+import resolve from 'rollup-plugin-node-resolve'
 import filesize from 'rollup-plugin-filesize'
-import css from 'rollup-plugin-css-only';
-import pkg from './package.json';
+import css from 'rollup-plugin-css-only'
+import pkg from './package.json'
 
 const banner = `/**
  * Vue Number Format ${pkg.version}
