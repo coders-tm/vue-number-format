@@ -24,7 +24,6 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "@shopify/jest-dom-mocks": "^2.8.11",
     "@vue/cli-plugin-unit-jest": "^4.5.13",
     "@vue/test-utils": "^1.2.2",
     "@vuedoc/md": "^1.6.0",
@@ -55,7 +54,7 @@
     "vue": "^2.6.11",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.4.1",
+    "vuepress": "^1.8.2",
     "vuepress-plugin-demo-code": "^0.5.0"
   },
   "bugs": {
