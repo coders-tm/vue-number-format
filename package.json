@@ -1,5 +1,5 @@
 {
-  "name": "@coderstm/vue-number-format",
+  "name": "@coders-tm/vue-number-format",
   "version": "1.0.0",
   "private": false,
   "description": "Easy formatted numbers, currency and percentage with input/directive mask for Vue.js",

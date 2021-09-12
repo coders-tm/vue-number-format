@@ -17,30 +17,30 @@ jobs:
       - run: yarn test --coverage
       - run: yarn build
 
-  # publish-gpr:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     packages: write
-  #     contents: read
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/setup-node@v2
-  #       with:
-  #         node-version: 16
-  #         registry-url: https://npm.pkg.github.com/
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
 
-  #     - name: Github ref check
-  #       run: echo "Deploying to production server on branch $GITHUB_REF"
+      - name: Github ref check
+        run: echo "Deploying to production server on branch $GITHUB_REF"
 
-  #     - name: Install npm dependencies
-  #       run: yarn install
+      - name: Install npm dependencies
+        run: yarn install
 
-  #     - name: Publish tag to npm
-  #       if: contains(github.ref, 'tags')
-  #       run: yarn publish --new-version "${GITHUB_REF:11}" --access public --no-git-tag-version
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
+      - name: Publish tag to npm
+        if: contains(github.ref, 'tags')
+        run: yarn publish --new-version "${GITHUB_REF:11}" --access public --no-git-tag-version
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GH_AUTH_TOKEN }}
 
   publish-npm:
     needs: build
