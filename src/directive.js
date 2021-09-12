@@ -3,6 +3,7 @@ import { NumberFormat, setCursor } from './utils'
 
 export default function (el, binding) {
     const { value } = binding
+    if (!value) return false
     const config = Object.assign(options, value)
     // console.log('src/components/directive:config', config)
 

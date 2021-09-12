@@ -80,5 +80,7 @@
   "publishConfig": {
     "@coders-tm:registry": "https://npm.pkg.github.com"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@coders-tm/vue-number-format": "^1.0.1"
+  }
 }
