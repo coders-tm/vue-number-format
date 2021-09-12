@@ -33,16 +33,6 @@ module.exports = {
     docsDir: 'docs',
     editLinkText: '',
     lastUpdated: true,
-    nav: [
-      {
-        text: 'Guide',
-        link: '/guide/',
-      },
-      {
-        text: 'Config',
-        link: '/config/'
-      }
-    ],
     sidebar: {
       '/guide/': [
         {
@@ -50,20 +40,11 @@ module.exports = {
           collapsable: false,
           children: [
             '',
-            'using-vue',
+            'config',
             'example',
           ]
         }
-      ],
-      '/config/': [
-        {
-          title: 'Config',
-          collapsable: false,
-          children: [
-            '',
-          ]
-        }
-      ],
+      ]
     }
   },
 
