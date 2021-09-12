@@ -937,10 +937,12 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@coders-tm/vue-number-format@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@coders-tm/vue-number-format/-/vue-number-format-1.0.1.tgz#4088de054f8c10943bf0147e126c0ec31795a91f"
-  integrity sha512-KFrK5oSfjpIWoH/+Lb6gKnDx1kjxVelcxtqdEs4MY+0T9wQz7ff22qKV1ZxmkuIVXiARaB0TETjcPn5p7JJGBg==
+"@coders-tm/vue-number-format@^1.0.1", "@coders-tm/vue-number-format@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@coders-tm/vue-number-format/-/vue-number-format-1.0.3.tgz#1969171bb73da62a204b74e44bcf7e957a00ea2b"
+  integrity sha512-8ZjXMVGonxkeV7F4xSxrFm5uD7tZoaRS87TO99sgFl1b5ZphjNHerXXc8zu0ewsi3aeEFM5ppP5CsSnNEEl0xg==
+  dependencies:
+    "@coders-tm/vue-number-format" "^1.0.1"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"

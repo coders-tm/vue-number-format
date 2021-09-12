@@ -1,10 +1,11 @@
 import options from "./options";
 import { NumberFormat, setCursor } from './utils'
+import assign from './assign'
 
 export default function (el, binding) {
     const { value } = binding
     if (!value) return false
-    const config = Object.assign(options, value)
+    const config = assign(options, value)
     // console.log('src/components/directive:config', config)
 
     // v-number used on a component that's not a input element

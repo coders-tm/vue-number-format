@@ -50,7 +50,8 @@
     "rollup-plugin-vue": "^6.0.0",
     "vue": "^2.6.11",
     "vue-jest": "^3.0.7",
-    "vuepress": "^1.8.2"
+    "vuepress": "^1.8.2",
+    "@coders-tm/vue-number-format": "^1.0.3"
   },
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"
@@ -79,8 +80,5 @@
   "style": "dist/styles.css",
   "publishConfig": {
     "@coders-tm:registry": "https://npm.pkg.github.com"
-  },
-  "dependencies": {
-    "@coders-tm/vue-number-format": "^1.0.1"
   }
 }
