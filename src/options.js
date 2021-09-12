@@ -4,5 +4,5 @@ export default {
   separator: ',',
   decimal: '.',
   precision: 2,
-  null_value: 0
+  null_value: 0,
 }

@@ -4,13 +4,7 @@
     autocomplete="off"
     :value="formattedValue"
     @change="change"
-    v-number="{
-      precision,
-      decimal,
-      separator,
-      prefix,
-      suffix
-    }"
+    v-number="{precision, decimal, separator, prefix, suffix}"
     class="v-number"
   />
 </template>
@@ -25,43 +19,43 @@ export default {
     value: {
       required: true,
       type: [Number, String],
-      default: 0
+      default: 0,
     },
     null_value: {
       type: [Number, String],
-      default: () => options.null_value
+      default: () => options.null_value,
     },
     masked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     precision: {
       type: Number,
-      default: () => options.precision
+      default: () => options.precision,
     },
     decimal: {
       type: String,
-      default: () => options.decimal
+      default: () => options.decimal,
     },
     separator: {
       type: String,
-      default: () => options.separator
+      default: () => options.separator,
     },
     prefix: {
       type: String,
-      default: () => options.prefix
+      default: () => options.prefix,
     },
     suffix: {
       type: String,
-      default: () => options.suffix
-    }
+      default: () => options.suffix,
+    },
   },
 
   directives: {
-    number: directive
+    number: directive,
   },
 
-  data () {
+  data() {
     return {
       formattedValue: '',
     }
@@ -70,20 +64,20 @@ export default {
   watch: {
     value: {
       immediate: true,
-      handler (newValue) {
+      handler(newValue) {
         const formatted = new NumberFormat(newValue, this.$props).format()
         if (formatted !== this.formattedValue) {
           this.formattedValue = formatted
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
-    change (evt) {
+    change(evt) {
       const number = new NumberFormat(evt.target.value, this.$props)
       this.$emit('input', this.masked ? number.format(true) : number.unformat(true))
-    }
-  }
+    },
+  },
 }
 </script>

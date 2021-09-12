@@ -1,8 +1,12 @@
-import vue from 'rollup-plugin-vue'
-import cleanup from 'rollup-plugin-cleanup'
+import vue from 'rollup-plugin-vue';
+import buble from 'rollup-plugin-buble';
+import commonjs from 'rollup-plugin-commonjs';
+import replace from 'rollup-plugin-replace';
+import { terser } from 'rollup-plugin-terser';
+import resolve from 'rollup-plugin-node-resolve';
 import filesize from 'rollup-plugin-filesize'
-import resolve from 'rollup-plugin-node-resolve'
-import pkg from './package.json'
+import css from 'rollup-plugin-css-only';
+import pkg from './package.json';
 
 const banner = `/**
  * Vue Number Format ${pkg.version}
@@ -10,54 +14,109 @@ const banner = `/**
  * @license ${pkg.license}
  */`
 
-export default [
-  {
-    input: `src/index.js`,
-    output: [
-      {
-        file: pkg.main,
-        format: 'cjs',
-        exports: 'named',
-        name: 'VNumber',
-        sourcemap: true,
-        banner
-      },
-      {
-        file: pkg.module,
-        format: 'esm',
-        exports: 'named',
-        name: 'VNumber',
-        sourcemap: true,
-        banner
-      },
-      {
-        file: pkg.unpkg,
-        format: 'iife',
-        exports: 'named',
-        name: 'VNumber',
-        sourcemap: true,
-        banner
-      }
-    ],
-    plugins: [
-      cleanup({
-        extensions: [
-          'js',
-          'vue'
-        ]
+const baseConfig = {
+  input: 'src/index.js',
+  plugins: {
+    preVue: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
       }),
-      vue({
-        template: {
-          isProduction: true,
+      commonjs(),
+    ],
+    vue: {
+      css: true,
+      template: {
+        isProduction: true,
+      },
+    },
+    postVue: [
+      buble({
+        transforms: {
+          dangerousForOf: true,
         },
       }),
-      resolve({
-        customResolveOptions: {
-          moduleDirectory: 'src'
-        }
-      }),
-      filesize()
+      filesize(),
     ],
-    external: ['vue-demi']
-  }
-]
+  },
+};
+
+export default [
+  {
+    ...baseConfig,
+    output: {
+      file: pkg.module,
+      format: 'esm',
+      exports: 'named',
+      sourcemap: true,
+      banner,
+    },
+    plugins: [
+      ...baseConfig.plugins.preVue,
+      css({
+        output: pkg.style,
+      }),
+      vue({
+        ...baseConfig.plugins.vue,
+        css: false,
+      }),
+      ...baseConfig.plugins.postVue,
+      terser({
+        output: {
+          ecma: 6,
+        },
+      }),
+      resolve(),
+    ],
+  },
+  {
+    ...baseConfig,
+    output: {
+      compact: true,
+      file: pkg.main,
+      format: 'cjs',
+      name: 'VueNumberFormat',
+      exports: 'named',
+      sourcemap: true,
+      banner,
+    },
+    plugins: [
+      ...baseConfig.plugins.preVue,
+      css({
+        output: pkg.style,
+      }),
+      vue({
+        ...baseConfig.plugins.vue,
+        template: {
+          ...baseConfig.plugins.vue.template,
+          optimizeSSR: true,
+        },
+        css: false,
+      }),
+      ...baseConfig.plugins.postVue,
+      resolve(),
+    ],
+  },
+  {
+    ...baseConfig,
+    output: {
+      compact: true,
+      file: pkg.unpkg,
+      format: 'iife',
+      name: 'VueNumberFormat',
+      exports: 'named',
+      sourcemap: true,
+      banner,
+    },
+    plugins: [
+      ...baseConfig.plugins.preVue,
+      vue(baseConfig.plugins.vue),
+      ...baseConfig.plugins.postVue,
+      terser({
+        output: {
+          ecma: 5,
+        },
+      }),
+      resolve(),
+    ],
+  },
+];

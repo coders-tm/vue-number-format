@@ -5,13 +5,14 @@ import options from './options'
 export {
   Number,
   VNumber,
-  options
+  options,
 }
 
-function install (Vue, globalOptions) {
+function install(Vue, globalOptions) {
   if (globalOptions) {
-    Object.keys(globalOptions).map(function(key){
+    Object.keys(globalOptions).map((key) => {
       options[key] = globalOptions[key]
+      return options
     })
   }
   Vue.directive('number', VNumber)
