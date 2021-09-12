@@ -1,4 +1,4 @@
-# v-number Mask for Vue.js
+# vue-number-format
 
 ## Features
 
@@ -10,14 +10,14 @@
 - Editable
 
 ## Demo
-[https://coders-tm.github.io/v-number/](https://coders-tm.github.io/v-number/)
+[https://coders-tm.github.io/vue-number-format/](https://coders-tm.github.io/vue-number-format/)
 ## Usage
 
 ### A. Globally
 
 ```js
 import Vue from 'vue'
-import number from 'v-number'
+import number from 'vue-number-format'
 
 // register directive v-number and component <number>
 Vue.use(number, {precision: 4})
@@ -33,7 +33,7 @@ Vue.use(number, {precision: 4})
 </template>
 
 <script>
-  import { Number } from 'v-number'
+  import { Number } from 'vue-number-format'
 
   export default {
     components: {
@@ -67,7 +67,7 @@ Must use `vmodel.lazy` to bind works properly.
 </template>
 
 <script>
-  import { VNumber } from 'v-number'
+  import { VNumber } from 'vue-number-format'
 
   export default {
     data () {
