@@ -29,6 +29,7 @@
     "@vue/test-utils": "^1.2.2",
     "@vuedoc/md": "^1.6.0",
     "@vuepress/plugin-back-to-top": "^1.8.2",
+    "@vuepress/plugin-google-analytics": "^1.8.2",
     "@vuepress/plugin-medium-zoom": "^1.8.2",
     "@vuepress/plugin-register-components": "^1.4.1",
     "babel-core": "^6.26.3",
