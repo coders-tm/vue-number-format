@@ -1,4 +1,4 @@
-name: Build docs and push to docs branch
+name: Deploy to Docs Pages
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      # The build command of your docs
+      - name: Build
       - run: yarn build
       - run: yarn docs:build
 
