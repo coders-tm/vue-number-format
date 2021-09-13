@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: yarn
 
-      - name: Build
+      # The build command of your docs
       - run: yarn build
       - run: yarn docs:build
 
