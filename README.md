@@ -1,3 +1,4 @@
+[![codecov](https://codecov.io/gh/coders-tm/vue-number-format/branch/master/graph/badge.svg?token=OML1CQSPLA)](https://codecov.io/gh/coders-tm/vue-number-format)
 [![npm Version](https://badgen.net/npm/v/@coders-tm/vue-number-format?color=green)](https://www.npmjs.com/package/@coders-tm/vue-number-format)
 [![npm Downloads](https://badgen.net/npm/dt/@coders-tm/vue-number-format?color=green)](https://www.npmjs.com/package/@coders-tm/vue-number-format)
 [![Bundlephobia](https://badgen.net/bundlephobia/minzip/@coders-tm/vue-number-format?color=green)](https://bundlephobia.com/result?p=@coders-tm/vue-number-format)
