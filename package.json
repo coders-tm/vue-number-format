@@ -63,7 +63,7 @@
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"
   },
-  "homepage": "https://coders-tm.github.io/vue-number-format/",
+  "homepage": "https://vue-number-format.netlify.app",
   "keywords": [
     "vue",
     "input",

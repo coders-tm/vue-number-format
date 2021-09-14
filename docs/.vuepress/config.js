@@ -26,7 +26,7 @@ module.exports = {
    *
    * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
    */
-  base: '/vue-number-format/',
+  // base: '/vue-number-format/',
   themeConfig: {
     editLinks: true,
     repo: 'coders-tm/vue-number-format',
