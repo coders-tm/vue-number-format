@@ -10,10 +10,7 @@ export {
 
 function install(Vue, globalOptions) {
   if (globalOptions) {
-    Object.keys(globalOptions).map((key) => {
-      options[key] = globalOptions[key]
-      return options
-    })
+    Object.assign(options, globalOptions)
   }
   Vue.directive('number', VNumber)
   Vue.component('number', Number)

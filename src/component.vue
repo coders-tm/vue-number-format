@@ -65,7 +65,7 @@ export default {
     value: {
       immediate: true,
       handler(newValue) {
-        const formatted = new NumberFormat(newValue, this.$props).format()
+        const formatted = new NumberFormat(this.$props).format(newValue)
         if (formatted !== this.formattedValue) {
           this.formattedValue = formatted
         }
@@ -75,8 +75,8 @@ export default {
 
   methods: {
     change(evt) {
-      const number = new NumberFormat(evt.target.value, this.$props)
-      this.$emit('input', this.masked ? number.format(true) : number.unformat(true))
+      const number = new NumberFormat(this.$props).clean()
+      this.$emit('input', this.masked ? number.format(evt.target.value) : number.unformat(evt.target.value))
     },
   },
 }

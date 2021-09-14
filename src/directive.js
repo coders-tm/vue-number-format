@@ -23,7 +23,7 @@ export default function (el, binding) {
   el.oninput = () => {
     // console.log('oninput()')
     var positionFromEnd = el.value.length - el.selectionEnd
-    el.value = new NumberFormat(el.value, config).format()
+    el.value = new NumberFormat(config).format(el.value)
     positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
     positionFromEnd = el.value.length - positionFromEnd
     positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
@@ -32,7 +32,7 @@ export default function (el, binding) {
 
   el.onblur = () => {
     // clean up after end the input
-    el.value = new NumberFormat(el.value, config).format(true)
+    el.value = new NumberFormat(config).clean().format(el.value)
     el.dispatchEvent(new Event('input'))
     el.dispatchEvent(new Event('change'))
   }
