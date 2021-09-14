@@ -4,7 +4,7 @@
  * https://v1.vuepress.vuejs.org/guide/basic-config.html#app-level-enhancements
  */
 
-import number from '../../'
+import number from '../../src'
 import Quasar from 'quasar'
 import 'quasar/dist/quasar.min.css'
 

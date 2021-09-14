@@ -22,6 +22,9 @@ module.exports = {
     ['meta', { name: 'google-site-verification', content: 'Tf6UVeu-ZmZtGqB5tdcYymZ79101gyGKcpzqwWhDb1U' }]
   ],
 
+  // Specify the port to use for the dev server.
+  port: 8081,
+
   /**
    * Theme configuration, here is the default theme configuration for VuePress.
    *
