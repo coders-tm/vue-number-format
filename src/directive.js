@@ -5,7 +5,7 @@ export default function (el, binding) {
   const { value } = binding
   if (!value) return false
   const config = Object.assign(options, value)
-  // console.log('src/components/directive:config', config)
+  // console.log('src/components/directive:init()', config)
 
   // v-number used on a component that's not a input element
   if (el.localName !== 'input') {
@@ -21,28 +21,29 @@ export default function (el, binding) {
   el.setAttribute('type', 'text')
 
   el.oninput = () => {
-    // console.log('oninput()')
+    // console.log('src/directive.js:oninput()', evt)
     var positionFromEnd = el.value.length - el.selectionEnd
     el.value = new NumberFormat(config).format(el.value)
     positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
     positionFromEnd = el.value.length - positionFromEnd
     positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
     setCursor(el, positionFromEnd)
-    // el.dispatchEvent(new Event('change'))
   }
 
   el.onblur = () => {
     // clean up after end the input
+    // console.log('src/directive.js:onblur()')
     el.value = new NumberFormat(config).clean().format(el.value)
     el.dispatchEvent(new Event('change'))
   }
 
   el.onfocus = () => {
-    // console.log('onfocus()')
+    // console.log('src/directive.js:onfocus()')
     setCursor(el, el.value.length - config.suffix.length)
   }
 
   el.onkeydown = (evt) => {
+    // console.log('src/directive.js:onkeydown()')
     // Check deciaml
     if (evt.key === config.decimal && evt.target.value.includes(config.decimal)) {
       evt.preventDefault()
@@ -75,5 +76,4 @@ export default function (el, binding) {
   // force format after initialization
   el.oninput()
   el.dispatchEvent(new Event('input'))
-  el.dispatchEvent(new Event('change'))
 }

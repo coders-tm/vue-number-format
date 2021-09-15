@@ -19,7 +19,6 @@ export default {
     value: {
       required: true,
       type: [Number, String],
-      default: 0,
     },
     null_value: {
       type: [Number, String],
@@ -62,23 +61,27 @@ export default {
   },
 
   watch: {
-    value: {
+    masked: {
       immediate: true,
-      handler(newValue) {
-        const formatted = new NumberFormat(this.$props).format(newValue)
-        if (formatted !== this.formattedValue) {
-          this.formattedValue = formatted
-        }
+      deep: true,
+      handler() {
+        // console.log('src/component.vue:watch()', val)
+        const number = new NumberFormat(this.$props).clean()
+        this.$emit('input', this.masked ? this.formattedValue : number.unformat(this.value))
       },
     },
   },
 
   methods: {
     change(evt) {
+      // console.log('src/component.vue:change()', evt.target.value)
       const number = new NumberFormat(this.$props).clean()
-      console.log('number.unformat(evt.target.value)', number.unformat(evt.target.value));
       this.$emit('input', this.masked ? number.format(evt.target.value) : number.unformat(evt.target.value))
     },
+  },
+  mounted() {
+    // console.log('src/component.vue:created()', this.value)
+    this.formattedValue = new NumberFormat(this.$props).format(this.value)
   },
 }
 </script>
