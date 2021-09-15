@@ -5,7 +5,7 @@ import options from './options'
 export {
   Number,
   VNumber,
-  options,
+  options
 }
 
 function install(Vue, globalOptions) {

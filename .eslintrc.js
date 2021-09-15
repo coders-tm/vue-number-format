@@ -17,7 +17,8 @@ module.exports = {
   },
   ignorePatterns: ['**/tests/unit/*.spec.js'],
   rules: {
-    semi: 'off',
+    'semi': 'off',
+    'comma-dangle': ["error", "never"],
     'prefer-arrow-callback': 0,
     'consistent-return': 0,
     'prefer-destructuring': 0,

@@ -70,5 +70,5 @@ function setCursor(el, position) {
 
 export {
   NumberFormat,
-  setCursor,
+  setCursor
 }
