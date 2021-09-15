@@ -68,14 +68,14 @@
 export default {
   data () {
     return {
-      price: 0,
+      price: 154.52,
       priceDirective: 5432.1,
       priceUnmasked: 6789.10,
       config: {
-        decimal: '.',
-        separator: ',',
+        decimal: ',',
+        separator: '.',
         prefix: '$',
-        suffix: '%',
+        suffix: '',
         precision: 2,
         masked: false
       }

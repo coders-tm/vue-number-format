@@ -76,6 +76,7 @@ export default {
   methods: {
     change(evt) {
       const number = new NumberFormat(this.$props).clean()
+      console.log('number.unformat(evt.target.value)', number.unformat(evt.target.value));
       this.$emit('input', this.masked ? number.format(evt.target.value) : number.unformat(evt.target.value))
     },
   },

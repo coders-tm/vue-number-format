@@ -15,8 +15,9 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2020
   },
+  ignorePatterns: ['**/tests/unit/*.spec.js'],
   rules: {
-    semi: 0,
+    semi: 'off',
     'prefer-arrow-callback': 0,
     'consistent-return': 0,
     'prefer-destructuring': 0,
@@ -26,7 +27,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['**/__tests__/*.{j}s?(x)', '**/tests/unit/**/*.spec.{j}s?(x)'],
+      files: ['**/tests/unit/*.spec.js'],
       env: {
         jest: true
       }

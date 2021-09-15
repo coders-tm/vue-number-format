@@ -3,55 +3,60 @@ import options from './options'
 function NumberFormat(opt = options) {
   this.options = Object.assign(options, opt)
   this.input = this.options.null_value
+  this.number = this.options.null_value
   this.isClean = false
   this.clean = () => {
     this.isClean = true
     return this
   }
   this.negative = () => {
-    const negetive = (this.input.toString().indexOf('-') >= 0 && this.numberOnly() > 0) ? '-' : ''
+    const negetive = (this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0) ? '-' : ''
     return negetive
   }
   this.numbers = () => {
     if (typeof this.input === 'number') {
-      this.numbers = this.input.toFixed(this.options.precision)
+      this.number = this.input.toFixed(this.options.precision).toString().replace('-', '').replace('.', this.options.decimal)
     } else {
-      this.numbers = this.numberOnly(this.input)
+      this.number = this.numberOnly()
     }
-    return this.numbers
+    return this.number
   }
   this.numberOnly = () => {
     const regExp = new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
-    this.numbers = this.input.toString().replace(regExp, '')
-    if (this.isClean) {
-      const parts = this.numbers.split(this.options.decimal)
-      return parts.length > 1 && parts[1] ? parts.join(this.options.decimal) : parts[0]
-    }
-    return this.numbers
+    this.number = this.input.toString().replace(regExp, '')
+    return this.parts(this.number).join(this.options.decimal)
   }
-  this.parts = () => {
-    const parts = this.numbers().toString().split(this.options.decimal)
-    parts[0] = this.negative() + (Number(parts[0]) ? Number(parts[0]) : 0)
+  this.realNumber = () => Number(this.numbers().toString().replace(this.options.decimal, '.'))
+  this.parts = (number = '', decimal = this.options.decimal) => {
+    var parts = number.toString().split(decimal)
+    parts[0] = (Number(parts[0]) ? Number(parts[0]) : 0)
     if (parts.length > 1) {
-      parts[1] = parts[1].slice(0, this.options.precision)
+      parts[1] = parts.slice(1, parts.length).join('')
+      parts = parts.slice(0, 2)
+      if (parts[1].length > this.options.precision) {
+        parts[1] = parts[1].slice(0, this.options.precision)
+      }
     }
-    return parts
+    return parts.slice(0, 2)
   }
   this.addSeparator = () => {
-    const parts = this.parts()
+    var parts = this.numbers().split(this.options.decimal)
     parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
     if (this.isClean) {
-      return parts[1] && parts[1].length > 0 ? parts.join(this.options.decimal) : parts[0]
+      parts[1] = Number(`.${parts[1]}`).toString().replace('0.', '')
+      return parts[1] && parts[1] > 0 ? parts.join(this.options.decimal) : parts[0]
     }
     return parts.join(this.options.decimal)
   }
   this.format = (input) => {
+    if (input === '') return this.options.null_value
     this.input = input
-    return this.options.prefix + this.addSeparator() + this.options.suffix
+    return this.negative() + this.options.prefix + this.addSeparator() + this.options.suffix
   }
   this.unformat = (input) => {
+    if (input === '') return this.options.null_value
     this.input = input
-    return this.negative() + this.numberOnly()
+    return this.negative() + this.realNumber()
   }
 }
 

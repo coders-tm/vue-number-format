@@ -28,12 +28,12 @@ export default function (el, binding) {
     positionFromEnd = el.value.length - positionFromEnd
     positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
     setCursor(el, positionFromEnd)
+    // el.dispatchEvent(new Event('change'))
   }
 
   el.onblur = () => {
     // clean up after end the input
     el.value = new NumberFormat(config).clean().format(el.value)
-    el.dispatchEvent(new Event('input'))
     el.dispatchEvent(new Event('change'))
   }
 
