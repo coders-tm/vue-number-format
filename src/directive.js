@@ -14,6 +14,7 @@ export default {
   inserted: (el) => {
     el = core.getInputElement(el)
     const option = el[CONFIG_KEY]
+    const { config } = option
     // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
     const handlerOwner = el.parentElement || el
@@ -24,6 +25,16 @@ export default {
     handlerOwner.addEventListener('input', oninput, true)
 
     el.onblur = (e) => core.blurHandler(e)
+
+    // check decimal key and insert to current element
+    el.onkeydown = (e) => {
+      if (e.key === '.') {
+        e.preventDefault()
+        el.setRangeText(config.decimal)
+        el.dispatchEvent(new Event('input'))
+        core.updateCursor(el, el.value.length - config.precision - config.suffix.length)
+      }
+    }
 
     option.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
   },

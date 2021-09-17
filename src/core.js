@@ -47,10 +47,6 @@ export function getInputElement(el) {
  * @param {Number} position
  */
 export function updateCursor(el, position) {
-  const config = el[CONFIG_KEY] && el[CONFIG_KEY].config
-  position = Math.max(position, config.suffix.length)
-  position = el.value.length - position
-  position = Math.max(position, config.prefix.length + 1)
   const setSelectionRange = () => { el.setSelectionRange(position, position) }
   if (el === document.activeElement) {
     setSelectionRange()
@@ -111,10 +107,14 @@ export function inputHandler(event) {
   // we can stop propagation of this native event
   event.stopPropagation()
 
-  const positionFromEnd = target.value.length - target.selectionEnd
-  const { oldValue } = target[CONFIG_KEY]
+  let positionFromEnd = target.value.length - target.selectionEnd
+  const { oldValue, config } = target[CONFIG_KEY]
 
   updateValue(target, null, { emit: false }, event)
+  // updated cursor position
+  positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
+  positionFromEnd = target.value.length - positionFromEnd
+  positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
