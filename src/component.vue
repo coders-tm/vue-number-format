@@ -5,7 +5,7 @@
     :value="maskedValue"
     @change="change"
     @input="input"
-    v-number="{precision, decimal, separator, prefix, suffix}"
+    v-number="config"
     class="v-number"
   />
 </template>
@@ -76,6 +76,9 @@ export default {
   computed: {
     emittedValue() {
       return this.masked ? this.maskedValue : this.unmaskedValue
+    },
+    config() {
+      return this.$props
     }
   }
 }

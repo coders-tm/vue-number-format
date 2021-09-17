@@ -9,31 +9,33 @@ export default function NumberFormat(opt = options) {
   this.input = this.options.null_value
   this.number = this.options.null_value
   this.isClean = false
-  this.clean = () => {
-    this.isClean = true
+  this.clean = (clean = false) => {
+    this.isClean = clean
     return this
   }
-  this.negative = () => {
-    const negetive = (this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0) ? '-' : ''
-    return negetive
+  this.sign = () => {
+    const sign = (this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0) ? '-' : ''
+    return sign
   }
+  this.toNumber = (string) => Number(string)
+  this.isNegative = this.sign() === '-'
   this.numbers = () => {
     if (typeof this.input === 'number') {
       this.number = this.input.toFixed(this.options.precision).toString().replace('-', '').replace('.', this.options.decimal)
+    // eslint-disable-next-line no-restricted-globals
+    } else if (!isNaN(this.toNumber(this.input))) {
+      this.number = this.input.replace('-', '').replace('.', this.options.decimal)
     } else {
-      this.number = this.numberOnly()
+      const regExp = new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
+      this.number = this.input.toString().replace(regExp, '')
+      this.number = this.parts(this.number).join(this.options.decimal)
     }
     return this.number
   }
-  this.numberOnly = () => {
-    const regExp = new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
-    this.number = this.input.toString().replace(regExp, '')
-    return this.parts(this.number).join(this.options.decimal)
-  }
-  this.realNumber = () => Number(this.numbers().toString().replace(this.options.decimal, '.'))
+  this.realNumber = () => this.toNumber(this.numbers().toString().replace(this.options.decimal, '.'))
   this.parts = (number = '', decimal = this.options.decimal) => {
     var parts = number.toString().split(decimal)
-    parts[0] = (Number(parts[0]) ? Number(parts[0]) : 0)
+    parts[0] = this.toNumber(parts[0]) || 0
     if (parts.length > 1) {
       parts[1] = parts.slice(1, parts.length).join('')
       parts = parts.slice(0, 2)
@@ -47,19 +49,29 @@ export default function NumberFormat(opt = options) {
     var parts = this.numbers().split(this.options.decimal)
     parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
     if (this.isClean) {
-      parts[1] = Number(`.${parts[1]}`).toString().replace('0.', '')
+      parts[1] = this.toNumber(`.${parts[1]}`).toString().replace('0.', '')
       return parts[1] && parts[1] > 0 ? parts.join(this.options.decimal) : parts[0]
     }
     return parts.join(this.options.decimal)
   }
+  /**
+   * Format the input with default config if there is no constructor config
+   * @param {Number, String} input
+   * @return {String}
+   */
   this.format = (input) => {
     if (input === '') return this.options.null_value
     this.input = input
-    return this.negative() + this.options.prefix + this.addSeparator() + this.options.suffix
+    return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
   }
+  /**
+   * Unformat the input with default config if there is no constructor config
+   * @param {Number, String} input
+   * @return {String}
+   */
   this.unformat = (input) => {
     if (input === '') return this.options.null_value
     this.input = input
-    return this.negative() + this.realNumber()
+    return this.sign() + this.realNumber()
   }
 }

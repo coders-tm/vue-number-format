@@ -72,18 +72,13 @@ export default {
       priceDirective: 5432.1,
       priceUnmasked: 6789.10,
       config: {
-        decimal: '.',
-        separator: ',',
+        decimal: ',',
+        separator: '.',
         prefix: '$',
         suffix: '',
         precision: 2,
         masked: false
       }
-    }
-  },
-  methods: {
-    change (evt) {
-      console.log('change', evt.target.value);
     }
   }
 }

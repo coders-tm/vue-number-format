@@ -67,7 +67,7 @@ export function updateCursor(el, position) {
  * @param {Boolean} options.emit Wether to dispatch a new InputEvent or not
  * @param {Boolean} options.force Forces the update even if the old value and the new value are the same
  */
-export function updateValue(el, vnode, { emit = true, force = false } = {}) {
+export function updateValue(el, vnode, { emit = true, force = false, clean = false } = {}) {
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
 
@@ -77,7 +77,7 @@ export function updateValue(el, vnode, { emit = true, force = false } = {}) {
   currentValue = currentValue || ''
 
   if (force || oldValue !== currentValue) {
-    const number = new NumberFormat(config)
+    const number = new NumberFormat(config).clean(clean)
     const masked = number.format(currentValue)
     const unmasked = number.unformat(currentValue)
 
@@ -116,6 +116,27 @@ export function inputHandler(event) {
 
   updateValue(target, null, { emit: false }, event)
   updateCursor(target, positionFromEnd)
+
+  if (oldValue !== target.value) {
+    target.dispatchEvent(FacadeInputEvent())
+  }
+}
+
+/**
+ * Blur event handler
+ *
+ * @param {Event} event The event object
+ */
+export function blurHandler(event) {
+  const { target, detail } = event
+  // We dont need to run this method on the event we emit (prevent event loop)
+  if (detail && detail.facade) {
+    return false
+  }
+
+  const { oldValue } = target[CONFIG_KEY]
+
+  updateValue(target, null, { force: true, clean: true }, event)
 
   if (oldValue !== target.value) {
     target.dispatchEvent(FacadeInputEvent())

@@ -13,22 +13,23 @@ export default {
 
   inserted: (el) => {
     el = core.getInputElement(el)
-    const config = el[CONFIG_KEY]
+    const option = el[CONFIG_KEY]
     // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
     const handlerOwner = el.parentElement || el
 
     // use anonymous event handler to avoid inadvertently removing masking for all inputs within a container
-    const handler = (e) => core.inputHandler(e)
+    const oninput = (e) => core.inputHandler(e)
 
-    handlerOwner.addEventListener('input', handler, true)
+    handlerOwner.addEventListener('input', oninput, true)
 
-    config.cleanup = () => handlerOwner.removeEventListener('input', handler, true)
+    el.onblur = (e) => core.blurHandler(e)
+
+    option.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
   },
 
   update: (el, { value, oldValue }, vnode) => {
     el = core.getInputElement(el)
-
     if (value !== oldValue) {
       el[CONFIG_KEY].config = core.normalizeConfig(value)
       core.updateValue(el, vnode, { force: true })
