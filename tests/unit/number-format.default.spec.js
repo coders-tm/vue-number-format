@@ -1,4 +1,4 @@
-import { NumberFormat } from '../../src/utils'
+import NumberFormat from '../../src/number-format'
 
 describe('should not throw error on empty config', () => {
   expect(() => new NumberFormat({})).not.toThrow()

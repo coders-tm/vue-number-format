@@ -1,6 +1,10 @@
 import options from './options'
 
-function NumberFormat(opt = options) {
+/**
+ * Number format function
+ * @param {Object} options
+ */
+export default function NumberFormat(opt = options) {
   this.options = Object.assign(options, opt)
   this.input = this.options.null_value
   this.number = this.options.null_value
@@ -58,17 +62,4 @@ function NumberFormat(opt = options) {
     this.input = input
     return this.negative() + this.realNumber()
   }
-}
-
-function setCursor(el, position) {
-  const setSelectionRange = () => { el.setSelectionRange(position, position) }
-  if (el === document.activeElement) {
-    setSelectionRange()
-    setTimeout(setSelectionRange, 1) // Android Fix
-  }
-}
-
-export {
-  NumberFormat,
-  setCursor
 }
