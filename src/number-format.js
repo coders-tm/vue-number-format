@@ -6,9 +6,10 @@ import options from './options'
  */
 export default function NumberFormat(opt = options) {
   this.options = Object.assign(options, opt)
-  this.input = this.options.null_value
-  this.number = this.options.null_value
+  this.input = ''
+  this.number = ''
   this.isClean = false
+  this.isNull = (input = this.input) => !input.toString().replace(new RegExp('[^0-9]+', 'gi'), '')
   this.clean = (clean = false) => {
     this.isClean = clean
     return this
@@ -21,13 +22,12 @@ export default function NumberFormat(opt = options) {
   this.isNegative = this.sign() === '-'
   this.numbers = () => {
     if (typeof this.input === 'number') {
-      this.number = this.input.toFixed(this.options.precision).toString().replace('-', '').replace('.', this.options.decimal)
+      this.number = this.toNumber(this.input.toFixed(this.options.precision)).toString().replace('-', '').replace('.', this.options.decimal)
     // eslint-disable-next-line no-restricted-globals
     } else if (!isNaN(this.toNumber(this.input))) {
       this.number = this.input.replace('-', '').replace('.', this.options.decimal)
     } else {
-      const regExp = new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
-      this.number = this.input.toString().replace(regExp, '')
+      this.number = this.input.toString().replace(new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi'), '')
       this.number = this.parts(this.number).join(this.options.decimal)
     }
     return this.number
@@ -40,7 +40,7 @@ export default function NumberFormat(opt = options) {
       parts[1] = parts.slice(1, parts.length).join('')
       parts = parts.slice(0, 2)
       if (parts[1].length > this.options.precision) {
-        parts[1] = parts[1].slice(0, this.options.precision)
+        parts[1] = this.toNumber(`.${parts[1]}`).toFixed(this.options.precision).toString().replace('0.', '')
       }
     }
     return parts.slice(0, 2)
@@ -62,6 +62,7 @@ export default function NumberFormat(opt = options) {
   this.format = (input) => {
     if (input === '') return this.options.null_value
     this.input = input
+    if (this.isNull()) return this.options.null_value
     return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
   }
   /**
@@ -72,6 +73,7 @@ export default function NumberFormat(opt = options) {
   this.unformat = (input) => {
     if (input === '') return this.options.null_value
     this.input = input
-    return this.sign() + this.realNumber()
+    if (this.isNull()) return this.options.null_value
+    return this.toNumber(this.sign() + this.realNumber())
   }
 }

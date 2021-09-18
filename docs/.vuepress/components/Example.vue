@@ -69,7 +69,7 @@ export default {
   data () {
     return {
       price: 154.52,
-      priceDirective: 5432.1,
+      priceDirective: 0,
       priceUnmasked: 6789.10,
       config: {
         decimal: ',',
@@ -77,6 +77,7 @@ export default {
         prefix: '$',
         suffix: ' %',
         precision: 2,
+        null_value: '',
         masked: false
       }
     }
