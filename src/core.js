@@ -72,14 +72,19 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 
-  if (force || oldValue !== currentValue) {
-    const number = new NumberFormat(config).clean(clean)
-    const masked = number.format(currentValue)
-    const unmasked = number.unformat(currentValue)
+  const number = new NumberFormat(config).clean(clean)
+  let masked = number.format(currentValue)
+  let unmasked = number.unformat(currentValue)
 
+  // check value with in range max and min value
+  if ((config.max && unmasked > config.max) || (config.min && unmasked < config.min)) {
+    masked = number.format(oldValue)
+    unmasked = number.unformat(oldValue)
+  }
+
+  if (force || oldValue !== currentValue) {
     el[CONFIG_KEY].oldValue = masked
     el.unmaskedValue = unmasked
-
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
     if (el.value !== masked) {
       el.value = masked

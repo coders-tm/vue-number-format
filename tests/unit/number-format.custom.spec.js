@@ -5,7 +5,7 @@ describe('should not throw error on empty config', () => {
     prefix: '$',
     separator: '.',
     decimal: ',',
-    null_value: '',
+    null_value: 0,
   })).not.toThrow()
 })
 describe('when the value is invalid with custom config', () => {
@@ -13,7 +13,7 @@ describe('when the value is invalid with custom config', () => {
     prefix: '$',
     separator: '.',
     decimal: ',',
-    null_value: '',
+    null_value: 0,
   })
   it('should return as follows', () => {
     expect(numberFormat.format('')).toEqual('')
