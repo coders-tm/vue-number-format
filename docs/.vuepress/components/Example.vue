@@ -61,7 +61,7 @@
             :dark="false"
             dense
             outlined
-            v-model="priceUnmasked"
+            v-model.lazy="priceUnmasked"
             v-number="config"
           />
           <div>Model value: <span class="text-bold">{{priceUnmasked}}</span></div>
@@ -95,13 +95,15 @@ export default {
         suffix: ' %',
         precision: 2,
         null_value: '',
-        masked: false
+        masked: false,
+        reverseFill: false
       },
       reverseFill: 6789.10,
       configReverseFill: {
         decimal: ',',
         separator: '.',
         prefix: '$',
+        suffix: '',
         precision: 2,
         null_value: '',
         reverseFill: true

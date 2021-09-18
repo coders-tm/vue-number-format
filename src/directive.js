@@ -1,11 +1,12 @@
 import * as core from './core'
+import defaults from './options'
 
 const CONFIG_KEY = core.CONFIG_KEY
 
 export default {
   bind: (el, { value }, vnode) => {
     el = core.getInputElement(el)
-    const config = core.normalizeConfig(value)
+    const config = core.normalizeConfig(value, value)
     el[CONFIG_KEY] = { config }
     // set initial value
     core.updateValue(el, vnode, { force: config.prefill })
@@ -43,7 +44,8 @@ export default {
   update: (el, { value, oldValue }, vnode) => {
     el = core.getInputElement(el)
     if (value !== oldValue) {
-      el[CONFIG_KEY].config = core.normalizeConfig(value)
+      const { config } = el[CONFIG_KEY]
+      el[CONFIG_KEY].config = core.normalizeConfig(config, value)
       core.updateValue(el, vnode, { force: true })
     } else {
       core.updateValue(el, vnode)

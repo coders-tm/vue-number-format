@@ -1,7 +1,7 @@
 import NumberFormat from './number-format'
-import options from './options'
+// import options from './options'
 
-export const CONFIG_KEY = '__input-number-format__'
+export const CONFIG_KEY = '__input-facade__'
 
 /**
  * Creates a CustomEvent('input') with detail = { facade: true }
@@ -14,15 +14,18 @@ export function FacadeInputEvent() {
     detail: { facade: true }
   })
 }
-
 /**
  * Transform an array or string config into an object
  *
- * @param {Object} config The mask config object
- * @param {Object} modifiers An object of modifier flags that can influence the masking process
+ * @param {object} config The format config object
+ * @param {object} modifiers An object of modifier flags that can influence the formating process
  */
-export function normalizeConfig(config) {
-  return Object.assign(options, config)
+export function normalizeConfig(config, modifiers) {
+  if (Array.isArray(config) || typeof config === 'string') {
+    config = { modifiers: config }
+  }
+
+  return Object.assign(config || {}, modifiers)
 }
 
 /**
