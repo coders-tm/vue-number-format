@@ -4,5 +4,9 @@ export default {
   separator: ',',
   decimal: '.',
   precision: 2,
-  null_value: 0
+  prefill: true,
+  reverseFill: false,
+  min: false,
+  max: false,
+  null_value: ''
 }

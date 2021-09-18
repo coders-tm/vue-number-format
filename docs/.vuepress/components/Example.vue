@@ -20,6 +20,23 @@
           <div>Model value: <span class="text-bold">{{price}}</span></div>
         </div>
         <div class="column">
+          <div class="text-h6">Reverse Fill</div>
+          <q-field
+            :dark="false"
+            dense
+            outlined
+          >
+            <template v-slot:control>
+              <number
+                class="q-field__input"
+                v-model="reverseFill"
+                v-bind="configReverseFill"
+              />
+            </template>
+          </q-field>
+          <div>Model value: <span class="text-bold">{{reverseFill}}</span></div>
+        </div>
+        <div class="column">
           <div class="text-h6">Directive</div>
           <q-field
             :dark="false"
@@ -45,7 +62,7 @@
             dense
             outlined
             v-model="priceUnmasked"
-            v-number="config"
+            v-number.lazy="config"
           />
           <div>Model value: <span class="text-bold">{{priceUnmasked}}</span></div>
         </div>
@@ -69,21 +86,23 @@ export default {
   data () {
     return {
       price: 154.52,
-      priceDirective: 5432.1,
+      priceDirective: null,
       priceUnmasked: 6789.10,
       config: {
         decimal: ',',
         separator: '.',
         prefix: '$',
-        suffix: '',
+        suffix: ' %',
         precision: 2,
-        masked: false
+        null_value: '',
+        masked: false,
+        reverseFill: false
+      },
+      reverseFill: 6789.10,
+      configReverseFill: {
+        reverseFill: true,
+        suffix: '',
       }
-    }
-  },
-  methods: {
-    change (evt) {
-      console.log('change', evt.target.value);
     }
   }
 }

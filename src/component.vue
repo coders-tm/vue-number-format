@@ -2,9 +2,10 @@
   <input
     type="text"
     autocomplete="off"
-    :value="formattedValue"
+    :value="maskedValue"
     @change="change"
-    v-number="{precision, decimal, separator, prefix, suffix}"
+    @input="input"
+    v-number="config"
     class="v-number"
   />
 </template>
@@ -12,7 +13,6 @@
 <script>
 import directive from './directive'
 import options from './options'
-import { NumberFormat } from './utils'
 
 export default {
   props: {
@@ -27,6 +27,10 @@ export default {
     masked: {
       type: Boolean,
       default: false
+    },
+    reverseFill: {
+      type: Boolean,
+      default: options.reverseFill
     },
     precision: {
       type: Number,
@@ -49,39 +53,37 @@ export default {
       default: () => options.suffix
     }
   },
-
   directives: {
     number: directive
   },
-
   data() {
     return {
-      formattedValue: ''
+      maskedValue: this.value,
+      unmaskedValue: null
     }
   },
-
   watch: {
-    masked: {
-      immediate: true,
-      deep: true,
-      handler() {
-        // console.log('src/component.vue:watch()', val)
-        const number = new NumberFormat(this.$props).clean()
-        this.$emit('input', this.masked ? this.formattedValue : number.unformat(this.value))
-      }
+    masked() {
+      this.$emit('input', this.emittedValue)
     }
   },
-
   methods: {
-    change(evt) {
-      // console.log('src/component.vue:change()', evt.target.value)
-      const number = new NumberFormat(this.$props).clean()
-      this.$emit('input', this.masked ? number.format(evt.target.value) : number.unformat(evt.target.value))
+    input({ target }) {
+      this.maskedValue = target.value
+      this.unmaskedValue = target.unmaskedValue
+      this.$emit('input', this.emittedValue)
+    },
+    change() {
+      this.$emit('change', this.emittedValue)
     }
   },
-  mounted() {
-    // console.log('src/component.vue:created()', this.value)
-    this.formattedValue = new NumberFormat(this.$props).format(this.value)
+  computed: {
+    emittedValue() {
+      return this.masked ? this.maskedValue : this.unmaskedValue
+    },
+    config() {
+      return this.$props
+    }
   }
 }
 </script>
