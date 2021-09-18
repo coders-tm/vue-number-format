@@ -28,6 +28,10 @@ export default {
       type: Boolean,
       default: false
     },
+    reverseFill: {
+      type: Boolean,
+      default: options.reverseFill
+    },
     precision: {
       type: Number,
       default: () => options.precision

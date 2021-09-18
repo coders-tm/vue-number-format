@@ -20,6 +20,23 @@
           <div>Model value: <span class="text-bold">{{price}}</span></div>
         </div>
         <div class="column">
+          <div class="text-h6">Reverse Fill</div>
+          <q-field
+            :dark="false"
+            dense
+            outlined
+          >
+            <template v-slot:control>
+              <number
+                class="q-field__input"
+                v-model="reverseFill"
+                v-bind="configReverseFill"
+              />
+            </template>
+          </q-field>
+          <div>Model value: <span class="text-bold">{{reverseFill}}</span></div>
+        </div>
+        <div class="column">
           <div class="text-h6">Directive</div>
           <q-field
             :dark="false"
@@ -79,6 +96,15 @@ export default {
         precision: 2,
         null_value: '',
         masked: false
+      },
+      reverseFill: 6789.10,
+      configReverseFill: {
+        decimal: ',',
+        separator: '.',
+        prefix: '$',
+        precision: 2,
+        null_value: '',
+        reverseFill: true
       }
     }
   }
