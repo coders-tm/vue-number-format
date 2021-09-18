@@ -25,8 +25,14 @@ export default {
     handlerOwner.addEventListener('input', oninput, true)
 
     el.onblur = (e) => core.blurHandler(e)
+    el.onclick = ({ target }) => {
+      const { selectionStart, value } = target
+      if (config.suffix.length && (value.length - selectionStart) < config.suffix.length) core.updateCursor(el, el.value.length - config.suffix.length)
+      else if (config.prefix.length && selectionStart < config.prefix.length) core.updateCursor(el, config.prefix.length)
+    }
 
     // check decimal key and insert to current element
+    // updated cursor position after format the value
     el.onkeydown = (e) => {
       if (e.key === '.') {
         e.preventDefault()

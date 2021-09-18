@@ -75,7 +75,7 @@ export default {
         decimal: ',',
         separator: '.',
         prefix: '$',
-        suffix: '',
+        suffix: ' %',
         precision: 2,
         masked: false
       }
