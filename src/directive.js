@@ -32,7 +32,7 @@ export default {
         e.preventDefault()
         el.setRangeText(config.decimal)
         el.dispatchEvent(new Event('input'))
-        core.updateCursor(el, el.value.length - config.precision - config.suffix.length)
+        core.updateCursor(el, el.value.indexOf(config.decimal) + 1)
       }
     }
 
