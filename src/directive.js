@@ -4,9 +4,9 @@ import defaults from './options'
 const CONFIG_KEY = core.CONFIG_KEY
 
 export default {
-  bind: (el, { value }, vnode) => {
+  bind: (el, { value, modifiers }, vnode) => {
     el = core.getInputElement(el)
-    const config = core.normalizeConfig(defaults, value)
+    const config = core.normalizeConfig(defaults, Object.assign(value, modifiers))
     el[CONFIG_KEY] = { config }
     // set initial value
     core.updateValue(el, vnode, { force: config.prefill })
@@ -41,11 +41,11 @@ export default {
     option.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
   },
 
-  update: (el, { value, oldValue }, vnode) => {
+  update: (el, { value, oldValue, modifiers }, vnode) => {
     el = core.getInputElement(el)
     if (value !== oldValue) {
       const { config } = el[CONFIG_KEY]
-      el[CONFIG_KEY].config = core.normalizeConfig(config, value)
+      el[CONFIG_KEY].config = core.normalizeConfig(config, Object.assign(value, modifiers))
       core.updateValue(el, vnode, { force: true })
     } else {
       core.updateValue(el, vnode)

@@ -20,12 +20,13 @@ export function FacadeInputEvent() {
  * @param {object} config The format config object
  * @param {object} modifiers An object of modifier flags that can influence the formating process
  */
-export function normalizeConfig(config, modifiers) {
-  if (Array.isArray(config) || typeof config === 'string') {
-    config = { modifiers: config }
-  }
-
-  return Object.assign(config || {}, modifiers)
+export function normalizeConfig(defaults, extras) {
+  defaults = defaults || {}
+  extras = extras || {}
+  return Object.keys(defaults).concat(Object.keys(extras)).reduce((acc, val) => {
+    acc[val] = extras[val] === undefined ? defaults[val] : extras[val]
+    return acc
+  }, {})
 }
 
 /**
