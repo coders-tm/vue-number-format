@@ -5,7 +5,7 @@ export default {
   decimal: '.',
   precision: 2,
   prefill: true,
-  reverse: false,
+  reverseFill: false,
   min: false,
   max: false,
   null_value: ''
