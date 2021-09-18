@@ -6,7 +6,7 @@ const CONFIG_KEY = core.CONFIG_KEY
 export default {
   bind: (el, { value }, vnode) => {
     el = core.getInputElement(el)
-    const config = core.normalizeConfig(value, value)
+    const config = core.normalizeConfig(defaults, value)
     el[CONFIG_KEY] = { config }
     // set initial value
     core.updateValue(el, vnode, { force: config.prefill })
