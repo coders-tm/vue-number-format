@@ -2,6 +2,7 @@ import NumberFormat from './number-format'
 import options from './options'
 
 export const CONFIG_KEY = '__input-number-format__'
+
 /**
  * Creates a CustomEvent('input') with detail = { facade: true }
  * used as a way to identify our own input event
@@ -77,9 +78,14 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
   let unmasked = number.unformat(currentValue)
 
   // check value with in range max and min value
-  if ((config.max && unmasked > config.max) || (config.min && unmasked < config.min)) {
-    masked = number.format(oldValue)
-    unmasked = number.unformat(oldValue)
+  if (clean) {
+    if (config.max && unmasked > config.max) {
+      masked = number.format(config.max)
+      unmasked = number.unformat(config.max)
+    } else if (config.min && unmasked < config.min) {
+      masked = number.format(config.min)
+      unmasked = number.unformat(config.min)
+    }
   }
 
   if (force || oldValue !== currentValue) {
