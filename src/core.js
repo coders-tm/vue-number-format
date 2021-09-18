@@ -116,9 +116,11 @@ export function inputHandler(event) {
   positionFromEnd = target.value.length - positionFromEnd
   positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
   const decimalPosition = target.value.indexOf(config.decimal)
-  if (decimalPosition > 0 && (positionFromEnd - decimalPosition) <= config.precision) {
-    // eslint-disable-next-line no-plusplus
-    positionFromEnd++
+  const diff = positionFromEnd - decimalPosition
+  const maxLength = target.value.length - config.suffix.length
+  const positionAfterDecimal = positionFromEnd + 1
+  if (decimalPosition > 0 && diff > 0 && positionAfterDecimal <= maxLength) {
+    positionFromEnd = positionAfterDecimal
   }
   updateCursor(target, positionFromEnd)
 
