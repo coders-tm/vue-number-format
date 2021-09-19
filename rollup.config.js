@@ -19,25 +19,25 @@ const baseConfig = {
   plugins: {
     preVue: [
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production'),
+        'process.env.NODE_ENV': JSON.stringify('production')
       }),
-      commonjs(),
+      commonjs()
     ],
     vue: {
       css: true,
       template: {
-        isProduction: true,
-      },
+        isProduction: true
+      }
     },
     postVue: [
       buble({
         transforms: {
-          dangerousForOf: true,
-        },
+          dangerousForOf: true
+        }
       }),
-      filesize(),
-    ],
-  },
+      filesize()
+    ]
+  }
 };
 
 export default [
@@ -48,25 +48,25 @@ export default [
       format: 'esm',
       exports: 'named',
       sourcemap: true,
-      banner,
+      banner
     },
     plugins: [
       ...baseConfig.plugins.preVue,
       css({
-        output: pkg.style,
+        output: pkg.style
       }),
       vue({
         ...baseConfig.plugins.vue,
-        css: false,
+        css: false
       }),
       ...baseConfig.plugins.postVue,
       terser({
         output: {
-          ecma: 6,
-        },
+          ecma: 6
+        }
       }),
-      resolve(),
-    ],
+      resolve()
+    ]
   },
   {
     ...baseConfig,
@@ -77,24 +77,24 @@ export default [
       name: 'VueNumberFormat',
       exports: 'named',
       sourcemap: true,
-      banner,
+      banner
     },
     plugins: [
       ...baseConfig.plugins.preVue,
       css({
-        output: pkg.style,
+        output: pkg.style
       }),
       vue({
         ...baseConfig.plugins.vue,
         template: {
           ...baseConfig.plugins.vue.template,
-          optimizeSSR: true,
+          optimizeSSR: true
         },
-        css: false,
+        css: false
       }),
       ...baseConfig.plugins.postVue,
-      resolve(),
-    ],
+      resolve()
+    ]
   },
   {
     ...baseConfig,
@@ -105,7 +105,7 @@ export default [
       name: 'VueNumberFormat',
       exports: 'named',
       sourcemap: true,
-      banner,
+      banner
     },
     plugins: [
       ...baseConfig.plugins.preVue,
@@ -113,10 +113,10 @@ export default [
       ...baseConfig.plugins.postVue,
       terser({
         output: {
-          ecma: 5,
-        },
+          ecma: 5
+        }
       }),
-      resolve(),
-    ],
-  },
+      resolve()
+    ]
+  }
 ];

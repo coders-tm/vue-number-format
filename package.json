@@ -66,18 +66,15 @@
   "homepage": "https://vue-number-format.netlify.app",
   "keywords": [
     "vue",
-    "input",
-    "mask",
-    "directive",
-    "currency",
-    "money",
-    "vue",
-    "directive component",
-    "vue mask",
-    "vue number input",
-    "vue money input",
-    "vue currecny input",
-    "vue percentage input"
+    "currency directive",
+    "percentage input",
+    "v-money",
+    "v-currency",
+    "v-percentage",
+    "input mask",
+    "number format",
+    "currency input",
+    "money input"
   ],
   "license": "MIT",
   "repository": {
