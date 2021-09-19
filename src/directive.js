@@ -30,7 +30,7 @@ export default {
     // check decimal key and insert to current element
     // updated cursor position after format the value
     el.onkeydown = (e) => {
-      if (e.key === '.' || e.key === config.decimal) {
+      if ([110, 190].includes(e.keyCode) || e.key === config.decimal) {
         e.preventDefault()
         el.setRangeText(config.decimal)
         el.dispatchEvent(new Event('input'))

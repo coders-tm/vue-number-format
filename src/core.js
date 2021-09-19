@@ -53,11 +53,9 @@ export function getInputElement(el) {
  */
 export function updateCursor(el, position) {
   const setSelectionRange = () => { el.setSelectionRange(position, position) }
-  if (el === document.activeElement) {
-    setSelectionRange()
-    // Android Fix
-    setTimeout(setSelectionRange, 1)
-  }
+  setSelectionRange()
+  // Android Fix
+  setTimeout(setSelectionRange(), 0)
 }
 
 /**

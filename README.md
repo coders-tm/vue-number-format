@@ -6,7 +6,7 @@
 Vue Number Format is used to format a number using fixed-point notation. It can be used to format a number with a specific number of digits to the right of the decimal.
 ## Features
 
-- Lightweight < 2kb
+- Lightweight
 - Dependency free
 - Smooth migration
 - Component or Directive flavour
