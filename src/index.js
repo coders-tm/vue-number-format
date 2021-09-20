@@ -1,19 +1,19 @@
-import Number from './component.vue'
-import VNumber from './directive'
+import component from './component.vue'
+import directive from './directive'
 import options from './options'
 
 export {
-  Number,
-  VNumber,
+  component,
+  directive,
   options
 }
 
-function install(Vue, globalOptions) {
-  if (globalOptions) {
-    Object.assign(options, globalOptions)
+export default {
+  install(app, config) {
+    if (config) {
+      Object.assign(options, config)
+    }
+    app.directive('number', directive)
+    app.component('number', component)
   }
-  Vue.directive('number', VNumber)
-  Vue.component('number', Number)
 }
-
-export default install

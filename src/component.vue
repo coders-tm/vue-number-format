@@ -16,7 +16,7 @@ import options from './options'
 
 export default {
   props: {
-    value: {
+    modelValue: {
       required: true,
       type: [Number, String]
     },
@@ -58,7 +58,7 @@ export default {
   },
   data() {
     return {
-      maskedValue: this.value,
+      maskedValue: this.modelValue,
       unmaskedValue: null
     }
   },
@@ -71,10 +71,11 @@ export default {
     input({ target }) {
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
-      this.$emit('input', this.emittedValue)
+      this.$emit('update:modelValue', this.emittedValue)
     },
     change() {
-      this.$emit('change', this.emittedValue)
+      console.log('change', arguments);
+      this.$emit('update:modelValue', this.emittedValue)
     }
   },
   computed: {

@@ -6,6 +6,7 @@ import { terser } from 'rollup-plugin-terser'
 import resolve from 'rollup-plugin-node-resolve'
 import filesize from 'rollup-plugin-filesize'
 import css from 'rollup-plugin-css-only'
+import peerDepsExternal from "rollup-plugin-peer-deps-external";
 import pkg from './package.json'
 
 const banner = `/**
@@ -20,8 +21,7 @@ const baseConfig = {
     preVue: [
       replace({
         'process.env.NODE_ENV': JSON.stringify('production')
-      }),
-      commonjs()
+      })
     ],
     vue: {
       css: true,
@@ -34,6 +34,10 @@ const baseConfig = {
         transforms: {
           dangerousForOf: true
         }
+      }),
+      peerDepsExternal(),
+      commonjs({
+        extensions: [ '.js', '.vue' ]
       }),
       filesize()
     ]

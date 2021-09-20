@@ -14,20 +14,6 @@ export function FacadeInputEvent() {
     detail: { facade: true }
   })
 }
-/**
- * Transform an array or string config into an object
- *
- * @param {object} config The format config object
- * @param {object} modifiers An object of modifier flags that can influence the formating process
- */
-export function normalizeConfig(defaults, extras) {
-  defaults = defaults || {}
-  extras = extras || {}
-  return Object.keys(defaults).concat(Object.keys(extras)).reduce((acc, val) => {
-    acc[val] = extras[val] === undefined ? defaults[val] : extras[val]
-    return acc
-  }, {})
-}
 
 /**
  * ensure that the element we're attaching to is an input element
@@ -69,9 +55,8 @@ export function updateCursor(el, position) {
 export function updateValue(el, vnode, { emit = true, force = false, clean = false } = {}) {
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
-
-  let currentValue = vnode && vnode.data.model ? vnode.data.model.value : el.value
-
+  let currentValue = vnode && vnode.props ? vnode.props.value : el.value
+  
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 

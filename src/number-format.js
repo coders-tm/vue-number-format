@@ -4,8 +4,8 @@ import options from './options'
  * Number format function
  * @param {Object} options
  */
-export default function NumberFormat(opt = options) {
-  this.options = Object.assign(options, opt)
+export default function NumberFormat(config = options) {
+  this.options = Object.assign(options, config)
   this.input = ''
   this.number = ''
   this.isClean = false
