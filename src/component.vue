@@ -74,7 +74,6 @@ export default {
       this.$emit('update:modelValue', this.emittedValue)
     },
     change() {
-      console.log('change', arguments);
       this.$emit('update:modelValue', this.emittedValue)
     }
   },

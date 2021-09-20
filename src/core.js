@@ -1,5 +1,4 @@
 import NumberFormat from './number-format'
-// import options from './options'
 
 export const CONFIG_KEY = '__input-facade__'
 
