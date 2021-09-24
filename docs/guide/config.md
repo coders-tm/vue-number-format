@@ -36,3 +36,8 @@ The following options can be passed as an object literal to the NumberFormat fun
 - Type: `boolean`
 - Default: `false`
 - Required: `false`
+## reverseFill
+
+- Type: `boolean`
+- Default: `false`
+- Required: `false`

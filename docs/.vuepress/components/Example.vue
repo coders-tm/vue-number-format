@@ -68,7 +68,7 @@
         </div>
       </q-list>
     </div>
-    <div class="col-sm-4 col-sx-12">
+    <div class="col-sm-4 col-xs-12">
       <q-list :dark="false" class="q-gutter-y-sm">
         <q-input :dark="false" dense v-model="config.prefix" type="text" label="Prefix" />
         <q-input :dark="false" dense v-model="config.suffix" type="text" label="Suffix" />
@@ -76,6 +76,7 @@
         <q-input :dark="false" dense v-model="config.decimal" type="text" label="Decimal" />
         <q-input :dark="false" dense v-model="config.separator" type="text" label="Separator" />
         <q-checkbox :dark="false" dense v-model="config.masked" label="Masked" />
+        <q-checkbox :dark="false" dense v-model="config.reverseFill" label="Reverse Fill" />
       </q-list>
     </div>
   </div>
