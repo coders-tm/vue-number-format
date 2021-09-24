@@ -4,7 +4,6 @@
 [![License](https://badgen.net/github/license/coders-tm/vue-number-format?color=green)](https://github.com/coders-tm/vue-number-format/blob/master/LICENSE)
 # vue-number-format
 Vue Number Format is used to format a number using fixed-point notation. It can be used to format a number with a specific number of digits to the right of the decimal.
-[![License](https://badgen.net/github/license/coders-tm/vue-number-format?color=green)](https://github.com/coders-tm/vue-number-format/blob/master/LICENSE)
 ## Vue 3.0
 ```bash
 npm install @coders-tm/vue-number-format
