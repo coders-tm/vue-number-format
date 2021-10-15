@@ -17,8 +17,7 @@ import options from './options'
 export default {
   props: {
     modelValue: {
-      required: true,
-      type: [Number, String]
+      required: true
     },
     null_value: {
       type: [Number, String],
