@@ -55,6 +55,7 @@ export default {
   directives: {
     number: directive
   },
+  emits: ['update:modelValue'],
   data() {
     return {
       maskedValue: this.modelValue,
