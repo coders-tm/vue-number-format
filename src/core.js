@@ -77,7 +77,7 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
 
   const number = new NumberFormat(config).clean(clean)
   let masked = number.format(currentValue)
-  let unmasked = number.unformat(currentValue)
+  let unmasked = number.clean(true).unformat(currentValue)
 
   // check value with in range max and min value
   if (clean) {
@@ -128,13 +128,6 @@ export function inputHandler(event) {
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
   positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
-  const decimalPosition = target.value.indexOf(config.decimal)
-  const diff = positionFromEnd - decimalPosition
-  const maxLength = target.value.length - config.suffix.length
-  const positionAfterDecimal = positionFromEnd + 1
-  if (decimalPosition > 0 && diff > 0 && positionAfterDecimal <= maxLength) {
-    positionFromEnd = positionAfterDecimal
-  }
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {

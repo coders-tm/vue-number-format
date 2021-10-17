@@ -8,12 +8,16 @@
             :dark="false"
             dense
             outlined
+            v-model="price"
           >
-            <template v-slot:control>
+            <template v-slot:control="{ id, floatingLabel, value, emitValue }">
               <number
+                :id="id"
                 class="q-field__input"
-                v-model="price"
+                :value="value"
+                @input="emitValue"
                 v-bind="config"
+                v-show="floatingLabel"
               />
             </template>
           </q-field>
@@ -89,8 +93,8 @@ export default {
       priceDirective: null,
       priceUnmasked: 6789.10,
       config: {
-        decimal: ',',
-        separator: '.',
+        decimal: '.',
+        separator: ',',
         prefix: '$',
         suffix: ' %',
         precision: 2,
