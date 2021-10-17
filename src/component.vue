@@ -62,17 +62,6 @@ export default {
       unmaskedValue: null
     }
   },
-  watch: {
-    masked() {
-      this.$emit('update:modelValue', this.emittedValue)
-    },
-    modelValue: {
-      deep: true,
-      handler (val) {
-        this.maskedValue = val
-      }
-    }
-  },
   methods: {
     input({ target }) {
       this.maskedValue = target.value

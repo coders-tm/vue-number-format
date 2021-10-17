@@ -48,7 +48,7 @@ export default {
     if (value !== oldValue) {
       const { config } = el[CONFIG_KEY]
       el[CONFIG_KEY].config = Object.assign({}, config, value, modifiers)
-      core.updateValue(el, vnode, { force: true })
+      core.updateValue(el, vnode, { force: true, clean: true })
     } else {
       core.updateValue(el, vnode)
     }

@@ -40,7 +40,7 @@ export function updateCursor(el, position) {
   const setSelectionRange = () => { el.setSelectionRange(position, position) }
   setSelectionRange()
   // Android Fix
-  setTimeout(setSelectionRange(), 0)
+  setTimeout(setSelectionRange(), 1)
 }
 
 /**
@@ -55,7 +55,7 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
   let currentValue = vnode && vnode.props ? vnode.props.value : el.value
-  
+
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 
