@@ -58,7 +58,7 @@ export default {
   emits: ['update:modelValue'],
   data() {
     return {
-      maskedValue: null,
+      maskedValue: this.modelValue,
       unmaskedValue: null
     }
   },

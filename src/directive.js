@@ -9,7 +9,7 @@ export default {
     const config = Object.assign({}, defaults, value, modifiers)
     el[CONFIG_KEY] = { config }
     // set initial value
-    core.updateValue(el, vnode, { force: config.prefill })
+    core.updateValue(el, vnode, { force: config.prefill, clean: true })
   },
 
   mounted: (el) => {
@@ -30,11 +30,13 @@ export default {
     // check decimal key and insert to current element
     // updated cursor position after format the value
     el.onkeydown = (e) => {
-      if ([110, 190].includes(e.keyCode) || e.key === config.decimal) {
+      if (([110, 190].includes(e.keyCode) || e.key === config.decimal) && !el.value.includes(config.decimal)) {
         e.preventDefault()
         el.setRangeText(config.decimal)
         el.dispatchEvent(new Event('input'))
         core.updateCursor(el, el.value.indexOf(config.decimal) + 1)
+      } else if (([110, 190].includes(e.keyCode) || e.key === config.decimal) && el.value.includes(config.decimal)) {
+        e.preventDefault()
       }
     }
 

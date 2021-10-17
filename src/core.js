@@ -112,13 +112,6 @@ export function inputHandler(event) {
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
   positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
-  const decimalPosition = target.value.indexOf(config.decimal)
-  const diff = positionFromEnd - decimalPosition
-  const maxLength = target.value.length - config.suffix.length
-  const positionAfterDecimal = positionFromEnd + 1
-  if (decimalPosition > 0 && diff > 0 && positionAfterDecimal <= maxLength) {
-    positionFromEnd = positionAfterDecimal
-  }
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
