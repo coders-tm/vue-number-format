@@ -20,7 +20,6 @@ yarn add @coders-tm/vue-number-format@1.1.1
 
 - Lightweight
 - Dependency free
-- Smooth migration
 - Component or Directive flavour
 - Format as you type
 - Built-in validation
