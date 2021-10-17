@@ -29,12 +29,16 @@
             :dark="false"
             dense
             outlined
+            v-model="reverseFill"
           >
-            <template v-slot:control>
+            <template v-slot:control="{ id, floatingLabel, value, emitValue }">
               <number
+                :id="id"
                 class="q-field__input"
-                v-model="reverseFill"
+                :value="value"
+                @input="emitValue"
                 v-bind="configReverseFill"
+                v-show="floatingLabel"
               />
             </template>
           </q-field>
