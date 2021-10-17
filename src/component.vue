@@ -16,9 +16,8 @@ import options from './options'
 
 export default {
   props: {
-    value: {
-      required: true,
-      type: [Number, String]
+    modelValue: {
+      required: true
     },
     null_value: {
       type: [Number, String],
@@ -56,9 +55,10 @@ export default {
   directives: {
     number: directive
   },
+  emits: ['update:modelValue'],
   data() {
     return {
-      maskedValue: this.value,
+      maskedValue: this.modelValue,
       unmaskedValue: null
     }
   },
@@ -66,10 +66,10 @@ export default {
     input({ target }) {
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
-      this.$emit('input', this.emittedValue)
+      this.$emit('update:modelValue', this.emittedValue)
     },
     change() {
-      this.$emit('change', this.emittedValue)
+      this.$emit('update:modelValue', this.emittedValue)
     }
   },
   computed: {

@@ -37,19 +37,20 @@ module.exports = {
     docsDir: 'docs',
     editLinkText: '',
     lastUpdated: true,
-    sidebar: {
-      '/guide/': [
-        {
-          title: 'Guide',
-          collapsable: false,
-          children: [
-            '',
-            'config',
-            'example',
-          ]
-        }
-      ]
-    }
+    sidebar: [
+      {
+        text: 'Guide',
+        link: '/guide'
+      },
+      {
+        text: 'Config Reference',
+        link: '/config'
+      },
+      {
+        text: 'Examples',
+        link: '/examples'
+      }
+    ],
   },
 
   /**

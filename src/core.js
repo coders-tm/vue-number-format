@@ -1,5 +1,4 @@
 import NumberFormat from './number-format'
-// import options from './options'
 
 export const CONFIG_KEY = '__input-facade__'
 
@@ -13,20 +12,6 @@ export function FacadeInputEvent() {
     cancelable: true,
     detail: { facade: true }
   })
-}
-/**
- * Transform an array or string config into an object
- *
- * @param {object} config The format config object
- * @param {object} modifiers An object of modifier flags that can influence the formating process
- */
-export function normalizeConfig(defaults, extras) {
-  defaults = defaults || {}
-  extras = extras || {}
-  return Object.keys(defaults).concat(Object.keys(extras)).reduce((acc, val) => {
-    acc[val] = extras[val] === undefined ? defaults[val] : extras[val]
-    return acc
-  }, {})
 }
 
 /**
@@ -55,7 +40,7 @@ export function updateCursor(el, position) {
   const setSelectionRange = () => { el.setSelectionRange(position, position) }
   setSelectionRange()
   // Android Fix
-  setTimeout(setSelectionRange(), 0)
+  setTimeout(setSelectionRange(), 1)
 }
 
 /**
@@ -69,8 +54,7 @@ export function updateCursor(el, position) {
 export function updateValue(el, vnode, { emit = true, force = false, clean = false } = {}) {
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
-
-  let currentValue = vnode && vnode.data.model ? vnode.data.model.value : el.value
+  let currentValue = vnode && vnode.props ? vnode.props.value : el.value
 
   oldValue = oldValue || ''
   currentValue = currentValue || ''

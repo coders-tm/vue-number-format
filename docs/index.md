@@ -3,7 +3,7 @@ home: true
 heroImage: 
 tagline: Easy formatted numbers, currency and percentage with input/directive mask for Vue.js
 actionText: Quick Start →
-actionLink: /guide/
+actionLink: /guide
 features:
 - title: Lightweight
   details: Tiny bundle size. < 2kb
