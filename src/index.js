@@ -1,18 +1,18 @@
 import Number from './component.vue'
 import VNumber from './directive'
-import options from './options'
+import Options from './options'
 import NumberFormat from './number-format'
 
 export {
-  NumberFormat,
   Number,
   VNumber,
-  options
+  Options,
+  NumberFormat
 }
 
 function install(Vue, globalOptions) {
   if (globalOptions) {
-    Object.assign(options, globalOptions)
+    Object.assign(Options, globalOptions)
   }
   Vue.directive('number', VNumber)
   Vue.component('number', Number)

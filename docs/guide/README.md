@@ -1,7 +1,7 @@
 # Introduction
 Vue Number Format is used to format a number using fixed-point notation. It can be used to format a number with a specific number of digits to the right of the decimal.
 ## Installation
-Install the npm package: @coders-tm/vue-number-format@2.0.4 for Vue 2.0
+Install the npm package: @coders-tm/vue-number-format@2.0.7 for Vue 2.0
 
 ```bash
 npm install @coders-tm/vue-number-format
