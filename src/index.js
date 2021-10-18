@@ -1,21 +1,21 @@
-import Number from './component.vue'
-import VNumber from './directive'
-import Options from './options'
+import number from './component.vue'
+import vNumber from './directive'
+import options from './options'
 import NumberFormat from './number-format'
 
 export {
-  Number,
-  VNumber,
-  Options,
+  number,
+  vNumber,
+  options,
   NumberFormat
 }
 
 export default {
   install(app, config) {
     if (config) {
-      Object.assign(Options, config)
+      Object.assign(options, config)
     }
-    app.directive('number', VNumber)
-    app.component('number', Number)
+    app.directive('number', vNumber)
+    app.component('number', number)
   }
 }
