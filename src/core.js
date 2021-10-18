@@ -90,8 +90,6 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
     }
   }
 
-  console.log(unmasked, masked)
-
   if (force || oldValue !== currentValue) {
     el[CONFIG_KEY].oldValue = masked
     el.unmaskedValue = unmasked
