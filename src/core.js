@@ -59,9 +59,9 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 
-  const number = new NumberFormat(config).clean(clean)
+  const number = new NumberFormat(config).clean(clean && !config.reverseFill)
   let masked = number.format(currentValue)
-  let unmasked = number.clean(true).unformat(currentValue)
+  let unmasked = number.clean(!config.reverseFill).unformat(currentValue)
 
   // check value with in range max and min value
   if (clean) {

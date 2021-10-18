@@ -19,9 +19,9 @@ export default {
     modelValue: {
       required: true
     },
-    null_value: {
+    nullValue: {
       type: [Number, String],
-      default: () => options.null_value
+      default: () => options.nullValue
     },
     masked: {
       type: Boolean,

@@ -15,7 +15,7 @@ export default {
     if (config) {
       Object.assign(Options, config)
     }
-    app.directive('number', directive)
-    app.component('number', component)
+    app.directive('number', VNumber)
+    app.component('number', Number)
   }
 }
