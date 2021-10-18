@@ -103,7 +103,7 @@ export default {
         prefix: '$',
         suffix: ' %',
         precision: 2,
-        null_value: '',
+        nullValue: '',
         masked: false,
         reverseFill: false
       },
