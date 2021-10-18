@@ -1,17 +1,19 @@
-import component from './component.vue'
-import directive from './directive'
-import options from './options'
+import Number from './component.vue'
+import VNumber from './directive'
+import Options from './options'
+import NumberFormat from './number-format'
 
 export {
-  component,
-  directive,
-  options
+  Number,
+  VNumber,
+  Options,
+  NumberFormat
 }
 
 export default {
   install(app, config) {
     if (config) {
-      Object.assign(options, config)
+      Object.assign(Options, config)
     }
     app.directive('number', directive)
     app.component('number', component)
