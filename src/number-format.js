@@ -86,7 +86,7 @@ export default function NumberFormat(config = options) {
     parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
     if (this.isClean) {
       parts[1] = this.toNumber(`.${parts[1]}`).toString().replace('0.', '')
-      return parts[1] && parts[1] >= 0 ? parts.join(this.options.decimal) : parts[0]
+      return parts[1] && parts[1] > 0 ? parts.join(this.options.decimal) : parts[0]
     }
     return parts.join(this.options.decimal)
   }
