@@ -60,7 +60,13 @@ export default function NumberFormat(config = options) {
     return this.number
   }
 
-  this.realNumber = () => this.toNumber(this.numbers().toString().replace(this.options.decimal, '.'))
+  this.realNumber = () => {
+    const number = this.numbers().toString().replace(this.options.decimal, '.')
+    if (this.options.reverseFill) {
+      return number
+    }
+    return this.toNumber(number)
+  }
 
   this.parts = (number = '', decimal = this.options.decimal) => {
     var parts = number.toString().split(decimal)
@@ -91,9 +97,9 @@ export default function NumberFormat(config = options) {
    * @return {String}
    */
   this.format = (input) => {
-    if (input === '') return this.options.null_value
-    this.input = input || this.options.null_value
-    if (this.isNull()) return this.options.null_value
+    if (input === '') return this.options.nullValue
+    this.input = input || this.options.nullValue
+    if (this.isNull()) return this.options.nullValue
     return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
   }
 
@@ -103,9 +109,9 @@ export default function NumberFormat(config = options) {
    * @return {String}
    */
   this.unformat = (input) => {
-    if (input === '') return this.options.null_value
-    this.input = input || this.options.null_value
-    if (this.isNull()) return this.options.null_value
-    return this.toNumber(this.sign() + this.realNumber())
+    if (input === '') return this.options.nullValue
+    this.input = input || this.options.nullValue
+    if (this.isNull()) return this.options.nullValue
+    return this.sign() + this.realNumber()
   }
 }

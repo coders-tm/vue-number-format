@@ -20,9 +20,9 @@ export default {
       required: true,
       type: [Number, String]
     },
-    null_value: {
+    nullValue: {
       type: [Number, String],
-      default: () => options.null_value
+      default: () => options.nullValue
     },
     masked: {
       type: Boolean,
