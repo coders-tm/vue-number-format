@@ -1,11 +1,11 @@
-import Number from './component.vue'
-import VNumber from './directive'
+import number from './component.vue'
+import vNumber from './directive'
 import Options from './options'
 import NumberFormat from './number-format'
 
 export {
-  Number,
-  VNumber,
+  number,
+  vNumber,
   Options,
   NumberFormat
 }
@@ -14,8 +14,8 @@ function install(Vue, globalOptions) {
   if (globalOptions) {
     Object.assign(Options, globalOptions)
   }
-  Vue.directive('number', VNumber)
-  Vue.component('number', Number)
+  Vue.directive('number', vNumber)
+  Vue.component('number', number)
 }
 
 export default install
