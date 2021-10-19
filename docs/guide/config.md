@@ -26,7 +26,7 @@ The following options can be passed as an object literal to the NumberFormat fun
 - Type: `number`
 - Default: `2`
 - Required: `false`
-## null_value
+## nullValue
 
 - Type: `number`
 - Default: `0`
