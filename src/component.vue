@@ -35,6 +35,10 @@ export default {
       type: Number,
       default: () => options.precision
     },
+    minimumFractionDigits: {
+      type: [Number, Boolean],
+      default: () => options.minimumFractionDigits
+    },
     decimal: {
       type: String,
       default: () => options.decimal
@@ -66,7 +70,6 @@ export default {
     input({ target }) {
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
-      this.$emit('update:modelValue', this.emittedValue)
     },
     change() {
       this.$emit('update:modelValue', this.emittedValue)
@@ -79,6 +82,13 @@ export default {
     config() {
       return this.$props
     }
-  }
+  },
+  watch: {
+    modelValue (val) {
+      if (this.unmaskedValue !== val) {
+        this.maskedValue = val
+      }
+    }
+  },
 }
 </script>

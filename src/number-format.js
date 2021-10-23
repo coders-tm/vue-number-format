@@ -48,11 +48,7 @@ export default function NumberFormat(config = options) {
     if (this.options.reverseFill) {
       this.number = toFixed(this.numberOnly(this.input, /\D+/g), this.options.precision).replace('.', this.options.decimal)
     } else if (typeof this.input === 'number') {
-      if (this.isClean) {
-        this.number = this.toNumber(this.input.toFixed(this.options.precision)).toString().replace('-', '').replace('.', this.options.decimal)
-      } else {
-        this.number = this.toNumber(this.input).toString().replace('-', '').replace('.', this.options.decimal)
-      }
+      this.number = this.parts(this.input.toString().replace('-', ''), '.').join(this.options.decimal)
     } else {
       this.number = this.numberOnly(this.input, new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi'))
       this.number = this.parts(this.number).join(this.options.decimal)
@@ -71,23 +67,30 @@ export default function NumberFormat(config = options) {
   this.parts = (number = '', decimal = this.options.decimal) => {
     var parts = number.toString().split(decimal)
     parts[0] = this.toNumber(parts[0]) || 0
+
     if (parts.length > 1) {
       parts[1] = parts.slice(1, parts.length).join('')
       parts = parts.slice(0, 2)
-      if (this.isClean && parts[1].length) {
-        parts[1] = this.toNumber(`.${parts[1]}`).toFixed(this.options.precision).toString().replace('0.', '')
+    }
+
+    if (this.isClean) {
+      const newNumber = this.toNumber(parts.join('.')).toFixed(this.options.precision)
+      const cleanNumber = this.toNumber(newNumber)
+      const minimumDigits = cleanNumber.toFixed(this.options.minimumFractionDigits)
+
+      if (this.options.minimumFractionDigits && this.options.minimumFractionDigits >= 0 && cleanNumber.toString().length < minimumDigits.length) {
+        parts = minimumDigits.toString().split('.')
+      } else {
+        parts = cleanNumber.toString().split('.')
       }
     }
+
     return parts.slice(0, 2)
   }
 
   this.addSeparator = () => {
     var parts = this.numbers().split(this.options.decimal)
     parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
-    if (this.isClean) {
-      parts[1] = this.toNumber(`.${parts[1]}`).toString().replace('0.', '')
-      return parts[1] && parts[1] > 0 ? parts.join(this.options.decimal) : parts[0]
-    }
     return parts.join(this.options.decimal)
   }
 
