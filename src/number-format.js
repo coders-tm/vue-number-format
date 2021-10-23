@@ -57,11 +57,7 @@ export default function NumberFormat(config = options) {
   }
 
   this.realNumber = () => {
-    const number = this.numbers().toString().replace(this.options.decimal, '.')
-    if (this.options.reverseFill) {
-      return number
-    }
-    return this.toNumber(number)
+    return this.numbers().toString().replace(this.options.decimal, '.')
   }
 
   this.parts = (number = '', decimal = this.options.decimal) => {
