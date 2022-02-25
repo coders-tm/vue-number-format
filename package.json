@@ -15,8 +15,8 @@
   ],
   "scripts": {
     "build": "rollup --c rollup.config.js",
-    "docs:build": "vitepress build docs",
-    "docs:dev": "vitepress dev docs",
+    "docs:build": "vuepress build docs",
+    "docs:dev": "vuepress dev docs",
     "test": "jest tests/*",
     "lint": "eslint 'src/**/*.{js,vue}'",
     "push": "clear && git config core.ignorecase false && branch=\"$(git symbolic-ref -q HEAD)\" || \"dev\" && branch=${branch##refs/heads/} && branch=${branch:-HEAD} && echo Pushing to Branch \"$branch\" && echo Please type your commit message && read msg && clear && git add . && git commit -m \"$msg\" && git push origin \"$branch\""
@@ -48,11 +48,14 @@
   "devDependencies": {
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
+    "@quasar/extras": "^1.12.5",
     "@vue/cli": "^4.5.13",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-service": "^4.5.13",
     "@vue/compiler-sfc": "^3.0.0",
+    "@vuepress/plugin-google-analytics": "^2.0.0-beta.35",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.35",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^27.2.0",
     "core-js": "^3.6.5",
@@ -60,10 +63,11 @@
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-vue": "^7.18.0",
     "jest": "^27.2.0",
+    "quasar": "^2.5.5",
     "rollup": "^2.56.3",
     "rollup-plugin-filesize": "^9.1.1",
     "rollup-plugin-vue": "^6.0.0",
-    "vitepress": "^0.18.1",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vuepress": "^2.0.0-beta.35"
   }
 }
