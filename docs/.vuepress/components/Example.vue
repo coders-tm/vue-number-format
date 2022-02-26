@@ -1,90 +1,106 @@
 <template>
   <div class="row q-col-gutter-lg">
     <div class="col-sm-8 col-sx-12">
-      <q-list :dark="false" class="q-gutter-y-sm">
+      <q-list class="q-gutter-y-sm">
         <div class="column">
           <div class="text-h6">Component</div>
-          <q-field
-            :dark="false"
-            dense
-            outlined
-            v-model="price"
-          >
-            <template v-slot:control="{ id, floatingLabel, value, emitValue }">
+          <q-field dense outlined v-model="price">
+            <template
+              v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
+            >
               <number
                 :id="id"
                 class="q-field__input"
-                :value="value"
-                @input="emitValue"
+                :modelValue="modelValue"
+                @update:model-value="emitValue"
                 v-bind="config"
                 v-show="floatingLabel"
               />
             </template>
           </q-field>
-          <div>Model value: <span class="text-bold">{{price}}</span></div>
+          <div>
+            Model value: <span class="text-bold">{{ price }}</span>
+          </div>
         </div>
         <div class="column">
           <div class="text-h6">Reverse Fill</div>
-          <q-field
-            :dark="false"
-            dense
-            outlined
-            v-model="reverseFill"
-          >
-            <template v-slot:control="{ id, floatingLabel, value, emitValue }">
+          <q-field dense outlined v-model="reverseFill">
+            <template
+              v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
+            >
               <number
                 :id="id"
                 class="q-field__input"
-                :value="value"
-                @input="emitValue"
+                :modelValue="modelValue"
+                @update:model-value="emitValue"
                 v-bind="configReverseFill"
                 v-show="floatingLabel"
               />
             </template>
           </q-field>
-          <div>Model value: <span class="text-bold">{{reverseFill}}</span></div>
+          <div>
+            Model value: <span class="text-bold">{{ reverseFill }}</span>
+          </div>
         </div>
         <div class="column">
           <div class="text-h6">Directive</div>
-          <q-field
-            :dark="false"
-            dense
-            outlined
-            hint="masking doesn't work with directive"
-          >
+          <q-field dense outlined hint="masking doesn't work with directive">
             <template v-slot:control>
               <input
-                type="tel"
+                type="text"
                 class="q-field__input"
                 v-number="config"
-                v-model="priceDirective"
+                :value="priceDirective"
+                @change="({ target }) => (priceDirective = target.value)"
               />
             </template>
           </q-field>
-          <div>Model value: <span class="text-bold">{{priceDirective}}</span></div>
+          <div>
+            Model value: <span class="text-bold">{{ priceDirective }}</span>
+          </div>
         </div>
-        <div class="column">
-          <div class="text-h6">Directive on Custom Component of <a href="https://quasar.dev/vue-components/input" target="_blank">QInput</a></div>
+        <!-- <div class="column">
+          <div class="text-h6">
+            Directive on Custom Component of
+            <a href="https://quasar.dev/vue-components/input" target="_blank"
+              >QInput</a
+            >
+          </div>
           <q-input
-            :dark="false"
+            type="text"
             dense
             outlined
-            v-model="priceUnmasked"
-            v-number.lazy="config"
+            :model-value="priceUnmasked"
+            @update:model-value="onChange"
+            v-number="config"
           />
-          <div>Model value: <span class="text-bold">{{priceUnmasked}}</span></div>
-        </div>
+          <div>
+            Model value: <span class="text-bold">{{ priceUnmasked }}</span>
+          </div>
+        </div> -->
       </q-list>
     </div>
     <div class="col-sm-4 col-xs-12">
-      <q-list :dark="false" class="q-gutter-y-sm">
-        <q-input :dark="false" dense v-model="config.prefix" type="text" label="Prefix" />
-        <q-input :dark="false" dense v-model="config.suffix" type="text" label="Suffix" />
-        <q-input :dark="false" dense v-model.number="config.precision" type="number" min="0" max="5" label="Precision" />
-        <q-input :dark="false" dense v-model="config.decimal" type="text" label="Decimal" />
-        <q-input :dark="false" dense v-model="config.separator" type="text" label="Separator" />
-        <q-checkbox :dark="false" dense v-model="config.masked" label="Masked" />
-        <q-checkbox :dark="false" dense v-model="config.reverseFill" label="Reverse Fill" />
+      <q-list class="q-gutter-y-sm">
+        <q-input dense v-model="config.prefix" type="text" label="Prefix" />
+        <q-input dense v-model="config.suffix" type="text" label="Suffix" />
+        <q-input
+          dense
+          v-model.number="config.precision"
+          type="number"
+          min="0"
+          max="5"
+          label="Precision"
+        />
+        <q-input dense v-model="config.decimal" type="text" label="Decimal" />
+        <q-input
+          dense
+          v-model="config.separator"
+          type="text"
+          label="Separator"
+        />
+        <q-checkbox dense v-model="config.masked" label="Masked" />
+        <q-checkbox dense v-model="config.reverseFill" label="Reverse Fill" />
       </q-list>
     </div>
   </div>
@@ -92,34 +108,39 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       price: 154.52,
       priceDirective: null,
-      priceUnmasked: 6789.10,
+      priceUnmasked: 6789.1,
       config: {
-        decimal: '.',
-        separator: ',',
-        prefix: '$',
-        suffix: ' %',
+        decimal: ".",
+        separator: ",",
+        prefix: "$",
+        suffix: " %",
         precision: 2,
-        nullValue: '',
+        nullValue: "",
         masked: false,
         reverseFill: false
       },
-      reverseFill: 6789.10,
+      reverseFill: 6789.1,
       configReverseFill: {
         reverseFill: true,
-        suffix: '',
+        suffix: ""
       }
+    };
+  },
+  methods: {
+    onChange(args) {
+      console.log("args", args);
     }
   }
-}
+};
 </script>
 
 <style lang="css">
-    .container {
-        min-width: 800px;
-        max-width: 95vw;
-    }
+.container {
+  min-width: 800px;
+  max-width: 95vw;
+}
 </style>

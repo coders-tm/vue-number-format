@@ -64,7 +64,7 @@ module.exports = {
       ]
     }
   },
-
+  darkMode: false,
   /**
    * Apply plugins，ref：https://v2.vuepress.vuejs.org/reference/config.html#plugins
    */
