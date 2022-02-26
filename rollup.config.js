@@ -1,31 +1,28 @@
-import vue from 'rollup-plugin-vue'
-import filesize from 'rollup-plugin-filesize'
-import pkg from './package.json'
+import vue from "rollup-plugin-vue";
+import filesize from "rollup-plugin-filesize";
+import pkg from "./package.json";
 
 const banner = `/**
- * Vue Currency Input ${pkg.version}
- * (c) 2018-${new Date().getFullYear()} ${pkg.author}
+ * Vue Number Input ${pkg.version}
+ * (c) 2021-${new Date().getFullYear()} ${pkg.author}
  * @license ${pkg.license}
- */`
+ */`;
 
 export default {
-  input: 'src/index.js',
+  input: "src/index.js",
   output: [
     {
       file: pkg.main,
-      format: 'cjs',
-      exports: 'named',
-      banner
+      format: "cjs",
+      exports: "named",
+      banner,
     },
     {
       file: pkg.module,
-      format: 'es',
-      exports: 'named',
-      banner
-    }
+      format: "es",
+      exports: "named",
+      banner,
+    },
   ],
-  plugins: [
-    vue(),
-    filesize()
-  ]
-}
+  plugins: [vue(), filesize()],
+};

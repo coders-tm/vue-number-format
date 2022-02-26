@@ -15,8 +15,8 @@
   ],
   "scripts": {
     "build": "rollup --c rollup.config.js",
-    "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "test": "jest tests/*",
     "lint": "eslint 'src/**/*.{js,vue}'",
     "push": "clear && git config core.ignorecase false && branch=\"$(git symbolic-ref -q HEAD)\" || \"dev\" && branch=${branch##refs/heads/} && branch=${branch:-HEAD} && echo Pushing to Branch \"$branch\" && echo Please type your commit message && read msg && clear && git add . && git commit -m \"$msg\" && git push origin \"$branch\""
