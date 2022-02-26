@@ -1,0 +1,38 @@
+.home .hero img {
+  max-width: 450px !important;
+}
+
+h1 {
+  font-size: 2.2rem !important;
+}
+
+h2 {
+  font-size: 1.65rem !important;
+  padding-bottom: 0.3rem !important;
+  border-bottom: 1px solid var(--c-border);
+  transition: border-color var(--t-color);
+  -webkit-transition: border-color var(--t-color);
+  -moz-transition: border-color var(--t-color);
+  -ms-transition: border-color var(--t-color);
+  -o-transition: border-color var(--t-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+}
+
+.theme-default-content:not(.custom),
+.page-edit,
+.page-nav {
+  max-width: 840px !important;
+}
+
+.toggle-dark-button {
+  display: none;
+}

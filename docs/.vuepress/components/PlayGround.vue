@@ -1,10 +1,10 @@
 <template>
   <div class="row q-col-gutter-lg">
     <div class="col-sm-8 col-sx-12">
-      <q-list class="q-gutter-y-sm">
+      <q-list :dark="isDark" class="q-gutter-y-sm">
         <div class="column">
           <div class="text-h6">Component</div>
-          <q-field dense outlined v-model="price">
+          <q-field :dark="isDark" dense outlined v-model="price">
             <template
               v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
             >
@@ -24,7 +24,7 @@
         </div>
         <div class="column">
           <div class="text-h6">Reverse Fill</div>
-          <q-field dense outlined v-model="reverseFill">
+          <q-field :dark="isDark" dense outlined v-model="reverseFill">
             <template
               v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
             >
@@ -44,7 +44,12 @@
         </div>
         <div class="column">
           <div class="text-h6">Directive</div>
-          <q-field dense outlined hint="masking doesn't work with directive">
+          <q-field
+            :dark="isDark"
+            dense
+            outlined
+            hint="masking doesn't work with directive"
+          >
             <template v-slot:control>
               <input
                 type="tel"
@@ -62,10 +67,23 @@
       </q-list>
     </div>
     <div class="col-sm-4 col-xs-12">
-      <q-list class="q-gutter-y-sm">
-        <q-input dense v-model="config.prefix" type="text" label="Prefix" />
-        <q-input dense v-model="config.suffix" type="text" label="Suffix" />
+      <q-list :dark="isDark" class="q-gutter-y-sm">
         <q-input
+          :dark="isDark"
+          dense
+          v-model="config.prefix"
+          type="text"
+          label="Prefix"
+        />
+        <q-input
+          :dark="isDark"
+          dense
+          v-model="config.suffix"
+          type="text"
+          label="Suffix"
+        />
+        <q-input
+          :dark="isDark"
           dense
           v-model.number="config.precision"
           type="number"
@@ -73,15 +91,32 @@
           max="5"
           label="Precision"
         />
-        <q-input dense v-model="config.decimal" type="text" label="Decimal" />
         <q-input
+          :dark="isDark"
+          dense
+          v-model="config.decimal"
+          type="text"
+          label="Decimal"
+        />
+        <q-input
+          :dark="isDark"
           dense
           v-model="config.separator"
           type="text"
           label="Separator"
         />
-        <q-checkbox dense v-model="config.masked" label="Masked" />
-        <q-checkbox dense v-model="config.reverseFill" label="Reverse Fill" />
+        <q-checkbox
+          :dark="isDark"
+          dense
+          v-model="config.masked"
+          label="Masked"
+        />
+        <q-checkbox
+          :dark="isDark"
+          dense
+          v-model="config.reverseFill"
+          label="Reverse Fill"
+        />
       </q-list>
     </div>
   </div>
@@ -110,6 +145,16 @@ export default {
         suffix: "",
       },
     };
+  },
+  computed: {
+    isDark() {
+      return this.$theme.darkMode;
+    },
+  },
+  watch: {
+    isDark(value) {
+      console.log("isDark:watch", value);
+    },
   },
 };
 </script>
