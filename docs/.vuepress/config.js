@@ -2,7 +2,7 @@ const { description } = require("../../package");
 const { path } = require("@vuepress/utils");
 
 module.exports = {
-  port: 8081,
+  port: 8082,
   // site config
   lang: "en-US",
   title: "Vue Number Format",
@@ -46,6 +46,16 @@ module.exports = {
   },
   darkMode: false,
   plugins: [
+    [
+      "@vuepress/plugin-search",
+      {
+        locales: {
+          "/": {
+            placeholder: "Search",
+          },
+        },
+      },
+    ],
     [
       "@vuepress/register-components",
       {
