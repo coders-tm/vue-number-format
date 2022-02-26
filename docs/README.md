@@ -6,7 +6,7 @@ actions:
     link: /guide/
     type: primary
   - text: Play Ground
-    link: /guide/example
+    link: /guide/play-ground
     type: secondary
 features:
   - title: Lightweight
