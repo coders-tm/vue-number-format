@@ -1,123 +1,88 @@
 <template>
-  <div class="row q-col-gutter-lg">
-    <div class="col-sm-8 col-sx-12">
-      <q-list :dark="isDark" class="q-gutter-y-sm">
-        <div class="column">
-          <div class="text-h6">Component</div>
-          <q-field :dark="isDark" dense outlined v-model="price">
-            <template
-              v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
-            >
-              <number
-                :id="id"
-                class="q-field__input"
-                :modelValue="modelValue"
-                @update:model-value="emitValue"
-                v-bind="config"
-                v-show="floatingLabel"
-              />
-            </template>
-          </q-field>
-          <div>
-            Model value: <span class="text-bold">{{ price }}</span>
-          </div>
+  <div>
+    <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-10 items-center my-8">
+      <div>
+        <div class="font-medium mb-2">Component</div>
+        <BaseNumber
+          :modelValue="price"
+          @update:model-value="(val) => (price = val)"
+          v-bind="config"
+          class="block w-full transition-all rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+        />
+        <div class="mt-2">
+          Number value: <code class="ml-2">{{ price }}</code>
         </div>
-        <div class="column">
-          <div class="text-h6">Reverse Fill</div>
-          <q-field :dark="isDark" dense outlined v-model="reverseFill">
-            <template
-              v-slot:control="{ id, floatingLabel, modelValue, emitValue }"
-            >
-              <number
-                :id="id"
-                class="q-field__input"
-                :modelValue="modelValue"
-                @update:model-value="emitValue"
-                v-bind="configReverseFill"
-                v-show="floatingLabel"
-              />
-            </template>
-          </q-field>
-          <div>
-            Model value: <span class="text-bold">{{ reverseFill }}</span>
-          </div>
+      </div>
+      <div>
+        <div class="font-medium mb-2">Directive</div>
+        <BaseInput
+          :modelValue="priceDirective"
+          @update:model-value="(val) => (priceDirective = val)"
+          v-number="config"
+          class="block w-full transition-all rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+        />
+        <div class="mt-2">
+          Value: <code class="ml-2">{{ priceDirective }}</code>
         </div>
-        <div class="column">
-          <div class="text-h6">Directive</div>
-          <q-field
-            :dark="isDark"
-            dense
-            outlined
-            hint="masking doesn't work with directive"
-          >
-            <template v-slot:control>
-              <input
-                type="tel"
-                class="q-field__input"
-                v-number="config"
-                :value="priceDirective"
-                @change="({ target }) => (priceDirective = target.value)"
-              />
-            </template>
-          </q-field>
-          <div>
-            Model value: <span class="text-bold">{{ priceDirective }}</span>
-          </div>
-        </div>
-      </q-list>
+      </div>
     </div>
-    <div class="col-sm-4 col-xs-12">
-      <q-list :dark="isDark" class="q-gutter-y-sm">
-        <q-input
-          :dark="isDark"
-          dense
-          v-model="config.prefix"
-          type="text"
-          label="Prefix"
-        />
-        <q-input
-          :dark="isDark"
-          dense
-          v-model="config.suffix"
-          type="text"
-          label="Suffix"
-        />
-        <q-input
-          :dark="isDark"
-          dense
-          v-model.number="config.precision"
-          type="number"
-          min="0"
-          max="5"
-          label="Precision"
-        />
-        <q-input
-          :dark="isDark"
-          dense
-          v-model="config.decimal"
-          type="text"
-          label="Decimal"
-        />
-        <q-input
-          :dark="isDark"
-          dense
-          v-model="config.separator"
-          type="text"
-          label="Separator"
-        />
-        <q-checkbox
-          :dark="isDark"
-          dense
-          v-model="config.masked"
-          label="Masked"
-        />
-        <q-checkbox
-          :dark="isDark"
-          dense
-          v-model="config.reverseFill"
-          label="Reverse Fill"
-        />
-      </q-list>
+    <div class="flex items-center justify-between mb-2">
+      <span class="text-2xl font-bold">Options</span>
+      <div>
+        <button
+          class="transition-all bg-white hover:bg-gray-100 text-gray-800 font-semibold text-sm py-2 px-4 border border-gray-300 rounded shadow focus:outline-none focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+          @click="exportDialogVisible = true"
+        >
+          Export
+        </button>
+        <Dialog v-model="exportDialogVisible">
+          <pre class="white--text m-0" style="margin: 0">{{ config }}</pre>
+        </Dialog>
+      </div>
+    </div>
+    <hr class="mb-8" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-10">
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Separator</div>
+        <BaseInput type="text" v-model="config.separator" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Decimal</div>
+        <BaseInput type="text" v-model="config.decimal" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Prefix</div>
+        <BaseInput type="text" v-model="config.prefix" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Suffix</div>
+        <BaseInput type="text" v-model="config.suffix" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Precision</div>
+        <BaseInput type="number" v-model.number="config.precision" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Null value</div>
+        <BaseInput type="text" v-model="config.nullValue" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Minimum fraction digits</div>
+        <BaseInput type="text" v-model="config.minimumFractionDigits" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Minimum value</div>
+        <BaseInput type="text" v-model="config.min" />
+      </div>
+      <div class="mb-5 min-w-0">
+        <div class="mb-2 font-medium">Maximum value</div>
+        <BaseInput type="text" v-model="config.max" />
+      </div>
+    </div>
+    <div class="mb-8">
+      <Checkbox v-model="config.masked" label="Masked?" />
+      <Checkbox v-model="config.reverseFill" label="Reverse Fill?" />
+      <Checkbox v-model="config.prefill" label="Prefill?" />
     </div>
   </div>
 </template>
@@ -126,42 +91,20 @@
 export default {
   data() {
     return {
+      exportDialogVisible: false,
       price: 154.52,
-      priceDirective: 536.59,
-      priceUnmasked: 6789.1,
+      priceDirective: 154.52,
       config: {
         decimal: ".",
         separator: ",",
         prefix: "$",
-        suffix: " %",
+        suffix: "",
         precision: 2,
         nullValue: "",
         masked: false,
         reverseFill: false,
       },
-      reverseFill: 6789.1,
-      configReverseFill: {
-        reverseFill: true,
-        suffix: "",
-      },
     };
-  },
-  computed: {
-    isDark() {
-      return this.$theme.darkMode;
-    },
-  },
-  watch: {
-    isDark(value) {
-      console.log("isDark:watch", value);
-    },
   },
 };
 </script>
-
-<style lang="css">
-.container {
-  min-width: 800px;
-  max-width: 95vw;
-}
-</style>

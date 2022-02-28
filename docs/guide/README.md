@@ -52,7 +52,7 @@ Vue.use(number, { precision: 4 });
 
   export default {
     components: {
-      Number
+      Number,
     },
 
     data() {
@@ -64,10 +64,10 @@ Vue.use(number, { precision: 4 });
           prefix: "$ ",
           suffix: " #",
           precision: 2,
-          masked: false
-        }
+          masked: false,
+        },
       };
-    }
+    },
   };
 </script>
 ```
@@ -75,6 +75,10 @@ Vue.use(number, { precision: 4 });
 ### Use as directive
 
 Can be use `vmodel.lazy` to bind works properly.
+
+::: warning
+Masking doesn't work with directive
+:::
 
 ```html
 <template>
@@ -94,14 +98,14 @@ Can be use `vmodel.lazy` to bind works properly.
           prefix: "$ ",
           suffix: " #",
           precision: 2,
-          masked: false /* doesn't work with directive */
-        }
+          masked: false,
+        },
       };
     },
 
     directives: {
-      number: VNumber
-    }
+      number: VNumber,
+    },
   };
 </script>
 ```

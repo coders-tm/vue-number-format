@@ -1,8 +1,11 @@
 const { description } = require("../../package");
-const { path } = require("@vuepress/utils");
+const WindiCSS = require("vite-plugin-windicss").default;
+const { resolve } = require("path");
 
 module.exports = {
+  // dev server port
   port: 8082,
+
   // site config
   lang: "en-US",
   title: "Vue Number Format",
@@ -22,6 +25,29 @@ module.exports = {
       },
     ],
   ],
+
+  // bundler options
+  bundlerConfig: {
+    viteOptions: {
+      plugins: [
+        WindiCSS({
+          preflight: false,
+          scan: {
+            include: [resolve(__dirname, "./**/*.{vue,html,md}")],
+            exclude: ["node_modules/**/*", ".git/**/*"],
+          },
+          theme: {
+            extend: {
+              colors: {
+                primary: "#3eaf7c",
+              },
+            },
+          },
+          plugins: [require("windicss/plugin/forms")],
+        }),
+      ],
+    },
+  },
 
   // theme and its config
   theme: "@vuepress/theme-default",
@@ -59,7 +85,7 @@ module.exports = {
     [
       "@vuepress/register-components",
       {
-        componentsDir: path.resolve(__dirname, "./components"),
+        componentsDir: resolve(__dirname, "./components"),
       },
     ],
     [

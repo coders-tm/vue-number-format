@@ -36,6 +36,8 @@ Character used to separate the integer part from the fractional part of a number
 
 ## precision
 
+The precision property returns the number of bits of precision that can be represented.
+
 - Type: `string`
 - Default: `2`
 - Required: `false`
@@ -52,7 +54,7 @@ The minimum number of digits after the decimal separator.
 
 Set initial value before mount the component
 
-- Type: `string`
+- Type: `boolean`
 - Default: `true`
 - Required: `false`
 
@@ -60,7 +62,19 @@ Set initial value before mount the component
 
 Fills string from the right side of the mask
 
-- Type: `string`
+- Type: `boolean`
+- Default: `false`
+- Required: `false`
+
+## masked
+
+Model will be masked (with contain separation characters)
+
+::: warning
+Masking doesn't work with directive
+:::
+
+- Type: `boolean`
 - Default: `false`
 - Required: `false`
 
