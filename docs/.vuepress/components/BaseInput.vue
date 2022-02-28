@@ -2,7 +2,7 @@
   <input
     :value="modelValue"
     type="text"
-    class="block w-full transition-all rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
+    class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
     @input="$emit('update:modelValue', $event.target.value)"
   />
 </template>

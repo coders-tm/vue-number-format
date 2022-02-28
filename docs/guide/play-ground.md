@@ -1,4 +1,4 @@
-# Play Ground
+# Playground
 
 ::: warning
 Masking doesn't work with directive

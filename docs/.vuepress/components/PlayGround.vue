@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-10 items-center my-8">
-      <div>
+    <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-8 items-center my-8">
+      <div class="grid">
         <div class="font-medium mb-2">Component</div>
         <BaseNumber
           :modelValue="price"
           @update:model-value="(val) => (price = val)"
           v-bind="config"
-          class="block w-full transition-all rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
         />
         <div class="mt-2">
           Number value: <code class="ml-2">{{ price }}</code>
         </div>
       </div>
-      <div>
+      <div class="grid">
         <div class="font-medium mb-2">Directive</div>
         <BaseInput
           :modelValue="priceDirective"
           @update:model-value="(val) => (priceDirective = val)"
           v-number="config"
-          class="block w-full transition-all rounded-md shadow-sm focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
         />
         <div class="mt-2">
           Value: <code class="ml-2">{{ priceDirective }}</code>
@@ -41,40 +39,40 @@
       </div>
     </div>
     <hr class="mb-8" />
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-10">
-      <div class="mb-5 min-w-0">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Separator</div>
         <BaseInput type="text" v-model="config.separator" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Decimal</div>
         <BaseInput type="text" v-model="config.decimal" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Prefix</div>
         <BaseInput type="text" v-model="config.prefix" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Suffix</div>
         <BaseInput type="text" v-model="config.suffix" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Precision</div>
         <BaseInput type="number" v-model.number="config.precision" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Null value</div>
         <BaseInput type="text" v-model="config.nullValue" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum fraction digits</div>
         <BaseInput type="text" v-model="config.minimumFractionDigits" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum value</div>
         <BaseInput type="text" v-model="config.min" />
       </div>
-      <div class="mb-5 min-w-0">
+      <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Maximum value</div>
         <BaseInput type="text" v-model="config.max" />
       </div>

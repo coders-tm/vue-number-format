@@ -6,7 +6,7 @@
     @change="change"
     @input="input"
     v-number="config"
-    class="v-number"
+    class="v-number shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
   />
 </template>
 
