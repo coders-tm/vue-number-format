@@ -5,7 +5,7 @@ actions:
   - text: Quick Start →
     link: /guide/
     type: primary
-  - text: Play Ground
+  - text: Playground
     link: /guide/play-ground
     type: secondary
 features:
