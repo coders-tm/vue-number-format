@@ -43,7 +43,7 @@ Vue Number Format provide a ready-to-use component. But, it enables you to creat
 
 ```js
 import Vue from "vue";
-import number from "vue-number-format";
+import number from "@coders-tm/vue-number-format";
 
 // register directive v-number and component <number>
 Vue.use(number, { precision: 4 });
@@ -57,7 +57,7 @@ Vue.use(number, { precision: 4 });
 </template>
 
 <script>
-  import { Number } from "vue-number-format";
+  import { Number } from "@coders-tm/vue-number-format";
 
   export default {
     components: {
@@ -71,7 +71,6 @@ Vue.use(number, { precision: 4 });
           decimal: ".",
           separator: ",",
           prefix: "$ ",
-          suffix: " #",
           precision: 2,
           masked: false,
         },
@@ -95,7 +94,7 @@ Masking doesn't work with directive
 </template>
 
 <script>
-  import { VNumber } from "vue-number-format";
+  import { VNumber } from "@coders-tm/vue-number-format";
 
   export default {
     data() {
@@ -105,9 +104,7 @@ Masking doesn't work with directive
           decimal: ".",
           separator: ",",
           prefix: "$ ",
-          suffix: " #",
           precision: 2,
-          masked: false,
         },
       };
     },
