@@ -4,6 +4,8 @@
 Masking doesn't work with directive
 :::
 
+<PlayGround/>
+
 ::: tip SPONSOR
 [We Offer Web Hosting Fast, Secure & Easy To Manage](https://goazh.com/) <br>
 <small>
@@ -12,5 +14,3 @@ Get all the essentials features Starting at £0.99/mo<br>
 [https://goazh.com/](https://goazh.com/)
 </small>
 :::
-
-<PlayGround/>
