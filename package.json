@@ -35,7 +35,8 @@
     "input mask",
     "number format",
     "currency input",
-    "money input"
+    "money input",
+    "v-number"
   ],
   "license": "MIT",
   "repository": {
