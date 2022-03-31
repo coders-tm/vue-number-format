@@ -38,7 +38,7 @@ export default function NumberFormat(config = options) {
   function toFixed(numbers, precision) {
     // eslint-disable-next-line no-restricted-properties
     var exp = Math.pow(10, precision);
-    var float = parseFloat(numbers) / exp;
+    var float = parseFloat(numbers) / exp || 0;
     return float.toFixed(fixed(precision));
   }
 
