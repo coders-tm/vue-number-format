@@ -6,7 +6,7 @@
 
 # vue-number-format
 
-[![](docs/vue-number-format.gif)](https://vue-number-format.netlify.app)
+<a href="https://vue-number-format.netlify.app" rel="nofollow"><img src="docs/vue-number-format.gif" alt="" style="width: 100%;"></a>
 
 Vue Number Format is used to format a number using fixed-point notation. It can be used to format a number with a specific number of digits to the right of the decimal.
 
