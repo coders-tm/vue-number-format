@@ -11,7 +11,7 @@ export default function NumberFormat(config = options) {
   this.isClean = false;
 
   this.isNull = (input = this.input) =>
-    this.numberOnly(input, new RegExp("[^0-9]+", "gi")) === null;
+    !this.numberOnly(input, new RegExp("[^0-9]+", "gi"));
 
   this.clean = (clean = false) => {
     this.isClean = clean;
@@ -121,7 +121,8 @@ export default function NumberFormat(config = options) {
   this.format = (input) => {
     if (input === "") return this.options.nullValue;
     this.input = input || this.options.nullValue;
-    if (this.isNull()) return this.options.nullValue;
+    if (this.isNull() && !this.options.reverseFill)
+      return this.options.nullValue;
     return (
       this.sign() +
       this.options.prefix +
@@ -138,7 +139,8 @@ export default function NumberFormat(config = options) {
   this.unformat = (input) => {
     if (input === "") return this.options.nullValue;
     this.input = input || this.options.nullValue;
-    if (this.isNull()) return this.options.nullValue;
+    if (this.isNull() && !this.options.reverseFill)
+      return this.options.nullValue;
     return this.sign() + this.realNumber();
   };
 }

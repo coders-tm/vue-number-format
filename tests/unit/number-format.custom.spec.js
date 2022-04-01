@@ -20,26 +20,26 @@ describe("when the value is invalid with custom config", () => {
   });
   it("should return as follows", () => {
     expect(numberFormat.format("")).toEqual("");
-    expect(numberFormat.format("foo")).toEqual("$0");
-    expect(numberFormat.format("-foo")).toEqual("$0");
-    expect(numberFormat.format("-fo,o-")).toEqual("$0,");
-    expect(numberFormat.format("-fo.o-")).toEqual("$0");
-    expect(numberFormat.format("!@#$%^&*()")).toEqual("$0");
+    expect(numberFormat.format("foo")).toEqual("");
+    expect(numberFormat.format("-foo")).toEqual("");
+    expect(numberFormat.format("-fo,o-")).toEqual("");
+    expect(numberFormat.format("-fo.o-")).toEqual("");
+    expect(numberFormat.format("!@#$%^&*()")).toEqual("");
   });
   it("should return as follows", () => {
     expect(numberFormat.clean(true).format("")).toEqual("");
-    expect(numberFormat.clean(true).format("foo")).toEqual("$0");
-    expect(numberFormat.clean(true).format("-foo")).toEqual("$0");
-    expect(numberFormat.clean(true).format("-fo.o-")).toEqual("$0");
-    expect(numberFormat.clean(true).format("-fo,o-")).toEqual("$0");
-    expect(numberFormat.clean(true).format("!@#$%^&*()")).toEqual("$0");
+    expect(numberFormat.clean(true).format("foo")).toEqual("");
+    expect(numberFormat.clean(true).format("-foo")).toEqual("");
+    expect(numberFormat.clean(true).format("-fo.o-")).toEqual("");
+    expect(numberFormat.clean(true).format("-fo,o-")).toEqual("");
+    expect(numberFormat.clean(true).format("!@#$%^&*()")).toEqual("");
   });
   it("should return as follows", () => {
     expect(numberFormat.clean(true).unformat("")).toEqual("");
-    expect(numberFormat.clean(true).unformat("foo")).toEqual("0");
-    expect(numberFormat.clean(true).unformat("-foo")).toEqual("0");
-    expect(numberFormat.clean(true).unformat("-fo.o-")).toEqual("0");
-    expect(numberFormat.clean(true).unformat("!@#$%^&*()")).toEqual("0");
+    expect(numberFormat.clean(true).unformat("foo")).toEqual("");
+    expect(numberFormat.clean(true).unformat("-foo")).toEqual("");
+    expect(numberFormat.clean(true).unformat("-fo.o-")).toEqual("");
+    expect(numberFormat.clean(true).unformat("!@#$%^&*()")).toEqual("");
   });
 });
 describe("format when options are custom", () => {
@@ -64,11 +64,11 @@ describe("format when options are custom", () => {
     expect(numberFormat.format("-12.345,,54321-")).toEqual("-$12.345,54321");
   });
   it("format numerical value", () => {
-    expect(numberFormat.format(0)).toEqual("$0");
-    expect(numberFormat.format(0)).toEqual("$0");
-    expect(numberFormat.format(0.0)).toEqual("$0");
+    expect(numberFormat.format(0)).toEqual("");
+    expect(numberFormat.format(0)).toEqual("");
+    expect(numberFormat.format(0.0)).toEqual("");
     expect(numberFormat.format(-0.1)).toEqual("-$0,1");
-    expect(numberFormat.format(-0.0)).toEqual("$0");
+    expect(numberFormat.format(-0.0)).toEqual("");
     expect(numberFormat.format(0.1)).toEqual("$0,1");
     expect(numberFormat.format(12345.54921)).toEqual("$12.345,54921");
     expect(numberFormat.format(12345.12345)).toEqual("$12.345,12345");
@@ -76,11 +76,11 @@ describe("format when options are custom", () => {
     expect(numberFormat.format(12345.54321)).toEqual("$12.345,54321");
   });
   it("format and clean numerical value", () => {
-    expect(numberFormat.clean(true).format(0)).toEqual("$0");
-    expect(numberFormat.clean(true).format(0)).toEqual("$0");
-    expect(numberFormat.clean(true).format(0.0)).toEqual("$0");
+    expect(numberFormat.clean(true).format(0)).toEqual("");
+    expect(numberFormat.clean(true).format(0)).toEqual("");
+    expect(numberFormat.clean(true).format(0.0)).toEqual("");
     expect(numberFormat.clean(true).format(0.1)).toEqual("$0,1");
-    expect(numberFormat.clean(true).format(-0.0)).toEqual("$0");
+    expect(numberFormat.clean(true).format(-0.0)).toEqual("");
     expect(numberFormat.clean(true).format(-0.1)).toEqual("-$0,1");
     expect(numberFormat.clean(true).format(12345.54921)).toEqual("$12.345,55");
     expect(numberFormat.clean(true).format(12345.12345)).toEqual("$12.345,12");
@@ -116,11 +116,11 @@ describe("unformat when options are default", () => {
     );
   });
   it("unformat numerical value", () => {
-    expect(numberFormat.clean(true).unformat(0)).toEqual("0");
-    expect(numberFormat.clean(true).unformat(0)).toEqual("0");
-    expect(numberFormat.clean(true).unformat(0.0)).toEqual("0");
+    expect(numberFormat.clean(true).unformat(0)).toEqual("");
+    expect(numberFormat.clean(true).unformat(0)).toEqual("");
+    expect(numberFormat.clean(true).unformat(0.0)).toEqual("");
     expect(numberFormat.clean(true).unformat(-0.1)).toEqual("-0.1");
-    expect(numberFormat.clean(true).unformat(-0.0)).toEqual("0");
+    expect(numberFormat.clean(true).unformat(-0.0)).toEqual("");
     expect(numberFormat.clean(true).unformat(0.1)).toEqual("0.1");
     expect(numberFormat.clean(true).unformat(12345.54921)).toEqual("12345.55");
     expect(numberFormat.clean(true).unformat(12345.12345)).toEqual("12345.12");
