@@ -59,7 +59,7 @@ export default {
   directives: {
     number: directive
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue','input:modelValue'],
   data() {
     return {
       maskedValue: this.modelValue,
@@ -70,6 +70,7 @@ export default {
     input({ target }) {
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
+      this.$emit('input:modelValue', this.emittedValue)
     },
     change() {
       this.$emit('update:modelValue', this.emittedValue)
