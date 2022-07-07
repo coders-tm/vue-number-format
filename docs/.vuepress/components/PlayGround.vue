@@ -86,8 +86,6 @@
 </template>
 
 <script>
-let emitTimer;
-
 export default {
   data() {
     return {
