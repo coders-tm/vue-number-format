@@ -43,6 +43,14 @@ export default {
       type: String,
       default: () => options.decimal,
     },
+    min: {
+      type: [Number,Boolean],
+      default: () => options.min,
+    },
+    max: {
+      type: [Number,Boolean],
+      default: () => options.max,
+    },
     separator: {
       type: String,
       default: () => options.separator,
@@ -59,7 +67,7 @@ export default {
   directives: {
     number: directive,
   },
-  emits: ["update:modelValue"],
+  emits: ["update:model-value"],
   data() {
     return {
       maskedValue: this.modelValue,
@@ -72,7 +80,7 @@ export default {
       this.unmaskedValue = target.unmaskedValue;
     },
     change() {
-      this.$emit("update:modelValue", this.emittedValue);
+      this.$emit("update:model-value", this.emittedValue);
     },
   },
   computed: {
@@ -98,10 +106,7 @@ export default {
     config: {
       immediate: true,
       handler(val) {
-        this.$emit(
-          "update:modelValue",
-          this.emittedValue || this.unmaskedValue || this.maskedValue
-        );
+        this.$emit("update:model-value", this.emittedValue || this.modelValue);
       },
     },
   },

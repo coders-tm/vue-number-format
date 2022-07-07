@@ -15,6 +15,18 @@ export function FacadeInputEvent() {
 }
 
 /**
+ * Creates a CustomEvent('change') with detail = { facade: true }
+ * used as a way to identify our own change event
+ */
+export function FacadeChangeEvent() {
+  return new CustomEvent('change', {
+    bubbles: true,
+    cancelable: true,
+    detail: { facade: true }
+  })
+}
+
+/**
  * ensure that the element we're attaching to is an input element
  * if not try to find an input element in this elements childrens
  *
@@ -84,7 +96,7 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(FacadeInputEvent())
+    return emit && el.dispatchEvent(FacadeInputEvent()) && el.dispatchEvent(FacadeChangeEvent())
   }
 }
 

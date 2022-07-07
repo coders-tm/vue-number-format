@@ -4,8 +4,7 @@
       <div class="grid">
         <div class="font-medium mb-2">Component</div>
         <BaseNumber
-          :modelValue="price"
-          @update:model-value="(val) => (price = val)"
+          v-model="price"
           v-bind="config"
         />
         <div class="mt-2">
@@ -15,6 +14,7 @@
       <div class="grid">
         <div class="font-medium mb-2">Directive</div>
         <BaseInput
+          v-if="updated"
           :modelValue="priceDirective"
           @update:model-value="(val) => (priceDirective = val)"
           v-number="config"
@@ -70,11 +70,11 @@
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum value</div>
-        <BaseInput type="text" v-model="config.min" />
+        <BaseInput type="text" v-model.number="config.min" />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Maximum value</div>
-        <BaseInput type="text" v-model="config.max" />
+        <BaseInput type="text" v-model.number="config.max" />
       </div>
     </div>
     <div class="mb-8">
@@ -86,9 +86,12 @@
 </template>
 
 <script>
+let emitTimer;
+
 export default {
   data() {
     return {
+      updated: true,
       exportDialogVisible: false,
       price: 154.52,
       priceDirective: 154.52,
@@ -104,5 +107,19 @@ export default {
       },
     };
   },
+  watch: {
+    config: {
+      deep: true,
+      handler (val) {
+        clearTimeout(emitTimer);
+        emitTimer = setTimeout(() => {
+          this.updated = false
+          this.$nextTick(() => {
+            this.updated = true;
+          });
+        }, 1000);
+      }
+    }
+  }
 };
 </script>
