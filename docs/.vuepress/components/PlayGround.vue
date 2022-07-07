@@ -109,7 +109,7 @@ export default {
     config: {
       deep: true,
       handler (val) {
-      this.updated = false
+        this.updated = false
         this.$nextTick(() => {
           this.updated = true;
         });
