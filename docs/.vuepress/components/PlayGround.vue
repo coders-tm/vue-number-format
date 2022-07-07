@@ -111,13 +111,10 @@ export default {
     config: {
       deep: true,
       handler (val) {
-        clearTimeout(emitTimer);
-        emitTimer = setTimeout(() => {
-          this.updated = false
-          this.$nextTick(() => {
-            this.updated = true;
-          });
-        }, 1000);
+        this.updated = false
+        this.$nextTick(() => {
+          this.updated = true;
+        });
       }
     }
   }

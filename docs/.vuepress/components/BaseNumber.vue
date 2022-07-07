@@ -13,6 +13,7 @@
 <script>
 import directive from "../../../src/directive";
 import options from "../../../src/options";
+let emitTimer;
 
 export default {
   props: {
@@ -102,12 +103,6 @@ export default {
       if (this.unmaskedValue !== val) {
         this.maskedValue = val;
       }
-    },
-    config: {
-      immediate: true,
-      handler(val) {
-        this.$emit("update:model-value", this.emittedValue || this.modelValue);
-      },
     },
   },
 };
