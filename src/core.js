@@ -27,6 +27,18 @@ export function FacadeChangeEvent() {
 }
 
 /**
+ * Creates a CustomEvent('blur') with detail = { facade: true }
+ * used as a way to identify our own blur event
+ */
+export function FacadeBlurEvent() {
+  return new CustomEvent('blur', {
+    bubbles: true,
+    cancelable: true,
+    detail: { facade: true },
+  })
+}
+
+/**
  * ensure that the element we're attaching to is an input element
  * if not try to find an input element in this elements childrens
  *
@@ -159,6 +171,6 @@ export function blurHandler(event) {
   updateValue(target, null, { force: true, clean: true }, event)
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(FacadeInputEvent())
+    target.dispatchEvent(FacadeBlurEvent())
   }
 }

@@ -20,7 +20,7 @@ Get all the essentials features Starting at £0.99/mo<br>
 ## Installation
 
 ::: warning
-Install the npm package @coders-tm/vue-number-format@2.0.7 for Vue 2.0
+Install the npm package @coders-tm/vue-number-format@2.2.0 for Vue 2.0
 :::
 
 <CodeGroup>
@@ -48,11 +48,11 @@ Vue Number Format provide a ready-to-use component. But, it enables you to creat
 ### Globally
 
 ```js
-import Vue from "vue";
-import number from "@coders-tm/vue-number-format";
+import Vue from 'vue'
+import number from '@coders-tm/vue-number-format'
 
 // register directive v-number and component <number>
-Vue.use(number, { precision: 4 });
+Vue.use(number, { precision: 4 })
 ```
 
 ### Use as component
@@ -63,7 +63,7 @@ Vue.use(number, { precision: 4 });
 </template>
 
 <script>
-  import { Number } from "@coders-tm/vue-number-format";
+  import { Number } from '@coders-tm/vue-number-format'
 
   export default {
     components: {
@@ -74,15 +74,15 @@ Vue.use(number, { precision: 4 });
       return {
         price: 123.45,
         number: {
-          decimal: ".",
-          separator: ",",
-          prefix: "$ ",
+          decimal: '.',
+          separator: ',',
+          prefix: '$ ',
           precision: 2,
           masked: false,
         },
-      };
+      }
     },
-  };
+  }
 </script>
 ```
 
@@ -100,24 +100,24 @@ Masking doesn't work with directive
 </template>
 
 <script>
-  import { VNumber } from "@coders-tm/vue-number-format";
+  import { VNumber } from '@coders-tm/vue-number-format'
 
   export default {
     data() {
       return {
         price: 123.45,
         number: {
-          decimal: ".",
-          separator: ",",
-          prefix: "$ ",
+          decimal: '.',
+          separator: ',',
+          prefix: '$ ',
           precision: 2,
         },
-      };
+      }
     },
 
     directives: {
       number: VNumber,
     },
-  };
+  }
 </script>
 ```
