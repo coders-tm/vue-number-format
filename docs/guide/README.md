@@ -63,11 +63,11 @@ Vue.use(number, { precision: 4 })
 </template>
 
 <script>
-  import { Number } from '@coders-tm/vue-number-format'
+  import { number } from '@coders-tm/vue-number-format'
 
   export default {
     components: {
-      Number,
+      number,
     },
 
     data() {
