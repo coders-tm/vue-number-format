@@ -14,6 +14,19 @@ export function FacadeInputEvent() {
     detail: { facade: true }
   })
 }
+
+/**
+ * Creates a CustomEvent('blur') with detail = { facade: true }
+ * used as a way to identify our own blur event
+ */
+export function FacadeBlurEvent() {
+  return new CustomEvent('blur', {
+    bubbles: true,
+    cancelable: true,
+    detail: { facade: true }
+  })
+}
+
 /**
  * Transform an array or string config into an object
  *
@@ -81,10 +94,10 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
 
   // check value with in range max and min value
   if (clean) {
-    if (config.max && unmasked > config.max) {
+    if (Number(config.max) && unmasked > Number(config.max)) {
       masked = number.format(config.max)
       unmasked = number.unformat(config.max)
-    } else if (config.min && unmasked < config.min) {
+    } else if (Number(config.min) && unmasked < Number(config.min)) {
       masked = number.format(config.min)
       unmasked = number.unformat(config.min)
     }
@@ -152,6 +165,6 @@ export function blurHandler(event) {
   updateValue(target, null, { force: true, clean: true }, event)
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(FacadeInputEvent())
+    target.dispatchEvent(FacadeBlurEvent())
   }
 }

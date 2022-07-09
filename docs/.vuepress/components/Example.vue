@@ -15,7 +15,10 @@
                 :id="id"
                 class="q-field__input"
                 :value="value"
-                @input="emitValue"
+                @change="emitValue"
+                @blur="onBlur"
+                @input="onInput"
+                @focus="onFocus"
                 v-bind="config"
                 v-show="floatingLabel"
               />
@@ -94,9 +97,9 @@
 export default {
   data () {
     return {
-      price: 154.52,
+      price: 1234.56,
       priceDirective: null,
-      priceUnmasked: 6789.10,
+      priceUnmasked: 1234.56,
       config: {
         decimal: '.',
         separator: ',',
@@ -107,13 +110,24 @@ export default {
         masked: false,
         reverseFill: false
       },
-      reverseFill: 6789.10,
+      reverseFill: 1234.56,
       configReverseFill: {
         reverseFill: true,
         suffix: '',
       }
     }
-  }
+  },
+  methods: {
+    onInput (val){
+      console.log('onInput', arguments, val);
+    },
+    onBlur ({target}){
+      console.log('onBlur', arguments, target.unmaskedValue);
+    },
+    onFocus ({target}){
+      console.log('onFocus', arguments, target.unmaskedValue);
+    },
+  },
 }
 </script>
 

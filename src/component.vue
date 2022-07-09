@@ -5,6 +5,8 @@
     :value="maskedValue"
     @change="change"
     @input="input"
+    @blur="(evt) => $emit('blur', evt)"
+    @focus="(evt) => $emit('focus', evt)"
     v-number="config"
     class="v-number"
   />
@@ -32,13 +34,29 @@ export default {
       type: Boolean,
       default: options.reverseFill
     },
+    prefill: {
+      type: Boolean,
+      default: options.prefill
+    },
     precision: {
       type: Number,
       default: () => options.precision
     },
+    minimumFractionDigits: {
+      type: [Number, Boolean],
+      default: () => options.minimumFractionDigits
+    },
     decimal: {
       type: String,
       default: () => options.decimal
+    },
+    min: {
+      type: [Number, Boolean],
+      default: () => options.min
+    },
+    max: {
+      type: [Number, Boolean],
+      default: () => options.max
     },
     separator: {
       type: String,
@@ -77,7 +95,20 @@ export default {
       return this.masked ? this.maskedValue : this.unmaskedValue
     },
     config() {
-      return this.$props
+      const config = {}
+      Object.keys(this.$props)
+        .filter((item) => item !== 'value')
+        .forEach((item) => {
+          config[item] = this.$props[item]
+        })
+      return config
+    }
+  },
+  watch: {
+    value(val) {
+      if (this.unmaskedValue !== val) {
+        this.maskedValue = val
+      }
     }
   }
 }
