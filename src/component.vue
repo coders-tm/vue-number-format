@@ -17,53 +17,55 @@ import options from './options'
 export default {
   props: {
     modelValue: {
-      required: true
+      required: true,
     },
     nullValue: {
       type: [Number, String],
-      default: () => options.nullValue
+      default: () => options.nullValue,
     },
     masked: {
       type: Boolean,
-      default: false
+      default: false,
     },
     reverseFill: {
       type: Boolean,
-      default: options.reverseFill
+      default: options.reverseFill,
     },
     precision: {
       type: Number,
-      default: () => options.precision
+      default: () => options.precision,
     },
     minimumFractionDigits: {
       type: [Number, Boolean],
-      default: () => options.minimumFractionDigits
+      default: () => options.minimumFractionDigits,
     },
+    max: [Number, Boolean, String],
+    min: [Number, Boolean, String],
     decimal: {
       type: String,
-      default: () => options.decimal
+      default: () => options.decimal,
     },
     separator: {
       type: String,
-      default: () => options.separator
+      default: () => options.separator,
     },
     prefix: {
       type: String,
-      default: () => options.prefix
+      default: () => options.prefix,
     },
     suffix: {
       type: String,
-      default: () => options.suffix
-    }
+      default: () => options.suffix,
+    },
   },
   directives: {
-    number: directive
+    number: directive,
   },
-  emits: ['update:modelValue','input:modelValue'],
+  emits: ['update:modelValue', 'input:modelValue'],
   data() {
     return {
       maskedValue: this.modelValue,
-      unmaskedValue: null
+      unmaskedValue: null,
     }
   },
   methods: {
@@ -74,7 +76,7 @@ export default {
     },
     change() {
       this.$emit('update:modelValue', this.emittedValue)
-    }
+    },
   },
   computed: {
     emittedValue() {
@@ -82,14 +84,14 @@ export default {
     },
     config() {
       return this.$props
-    }
+    },
   },
   watch: {
-    modelValue (val) {
+    modelValue(val) {
       if (this.unmaskedValue !== val) {
         this.maskedValue = val
       }
-    }
+    },
   },
 }
 </script>
