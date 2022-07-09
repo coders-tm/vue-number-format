@@ -10,7 +10,7 @@ export function FacadeInputEvent() {
   return new CustomEvent('input', {
     bubbles: true,
     cancelable: true,
-    detail: { facade: true }
+    detail: { facade: true },
   })
 }
 
@@ -22,7 +22,7 @@ export function FacadeChangeEvent() {
   return new CustomEvent('change', {
     bubbles: true,
     cancelable: true,
-    detail: { facade: true }
+    detail: { facade: true },
   })
 }
 
@@ -33,7 +33,8 @@ export function FacadeChangeEvent() {
  * @param {HTMLInputElement} el
  */
 export function getInputElement(el) {
-  const inputElement = el instanceof HTMLInputElement ? el : el.querySelector('input')
+  const inputElement =
+    el instanceof HTMLInputElement ? el : el.querySelector('input')
 
   /* istanbul ignore next */
   if (!inputElement) {
@@ -49,7 +50,9 @@ export function getInputElement(el) {
  * @param {Number} position
  */
 export function updateCursor(el, position) {
-  const setSelectionRange = () => { el.setSelectionRange(position, position) }
+  const setSelectionRange = () => {
+    el.setSelectionRange(position, position)
+  }
   setSelectionRange()
   // Android Fix
   setTimeout(setSelectionRange(), 1)
@@ -63,7 +66,11 @@ export function updateCursor(el, position) {
  * @param {Boolean} options.emit Wether to dispatch a new InputEvent or not
  * @param {Boolean} options.force Forces the update even if the old value and the new value are the same
  */
-export function updateValue(el, vnode, { emit = true, force = false, clean = false } = {}) {
+export function updateValue(
+  el,
+  vnode,
+  { emit = true, force = false, clean = false } = {}
+) {
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
   let currentValue = vnode && vnode.props ? vnode.props.value : el.value
@@ -77,10 +84,10 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
 
   // check value with in range max and min value
   if (clean) {
-    if (config.max && unmasked > config.max) {
+    if (Number(config.max) && unmasked > Number(config.max)) {
       masked = number.format(config.max)
       unmasked = number.unformat(config.max)
-    } else if (config.min && unmasked < config.min) {
+    } else if (Number(config.min) && unmasked < Number(config.min)) {
       masked = number.format(config.min)
       unmasked = number.unformat(config.min)
     }
@@ -96,7 +103,11 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(FacadeInputEvent()) && el.dispatchEvent(FacadeChangeEvent())
+    return (
+      emit &&
+      el.dispatchEvent(FacadeInputEvent()) &&
+      el.dispatchEvent(FacadeChangeEvent())
+    )
   }
 }
 

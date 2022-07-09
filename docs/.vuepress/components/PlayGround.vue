@@ -3,9 +3,10 @@
     <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-8 items-center my-8">
       <div class="grid">
         <div class="font-medium mb-2">Component</div>
-        <BaseNumber
+        <number
           v-model="price"
           v-bind="config"
+          class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
         />
         <div class="mt-2">
           Number value: <code class="ml-2">{{ price }}</code>
@@ -91,30 +92,30 @@ export default {
     return {
       updated: true,
       exportDialogVisible: false,
-      price: 154.52,
-      priceDirective: 154.52,
+      price: 1234.567,
+      priceDirective: 1234.567,
       config: {
-        decimal: ".",
-        separator: ",",
-        prefix: "$",
-        suffix: "",
+        decimal: '.',
+        separator: ',',
+        prefix: '$',
+        suffix: '',
         precision: 2,
-        nullValue: "",
+        nullValue: '',
         masked: false,
         reverseFill: false,
       },
-    };
+    }
   },
   watch: {
     config: {
       deep: true,
-      handler (val) {
+      handler(val) {
         this.updated = false
         this.$nextTick(() => {
-          this.updated = true;
-        });
-      }
-    }
-  }
-};
+          this.updated = true
+        })
+      },
+    },
+  },
+}
 </script>

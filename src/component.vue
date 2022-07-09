@@ -31,6 +31,10 @@ export default {
       type: Boolean,
       default: options.reverseFill,
     },
+    prefill: {
+      type: Boolean,
+      default: options.prefill,
+    },
     precision: {
       type: Number,
       default: () => options.precision,
@@ -39,11 +43,17 @@ export default {
       type: [Number, Boolean],
       default: () => options.minimumFractionDigits,
     },
-    max: [Number, Boolean, String],
-    min: [Number, Boolean, String],
     decimal: {
       type: String,
       default: () => options.decimal,
+    },
+    min: {
+      type: [Number, Boolean],
+      default: () => options.min,
+    },
+    max: {
+      type: [Number, Boolean],
+      default: () => options.max,
     },
     separator: {
       type: String,
@@ -61,7 +71,7 @@ export default {
   directives: {
     number: directive,
   },
-  emits: ['update:modelValue', 'input:modelValue'],
+  emits: ['update:model-value'],
   data() {
     return {
       maskedValue: this.modelValue,
@@ -72,10 +82,9 @@ export default {
     input({ target }) {
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
-      this.$emit('input:modelValue', this.emittedValue)
     },
     change() {
-      this.$emit('update:modelValue', this.emittedValue)
+      this.$emit('update:model-value', this.emittedValue)
     },
   },
   computed: {
@@ -83,7 +92,13 @@ export default {
       return this.masked ? this.maskedValue : this.unmaskedValue
     },
     config() {
-      return this.$props
+      const config = {}
+      Object.keys(this.$props)
+        .filter((item) => item !== 'modelValue')
+        .forEach((item) => {
+          config[item] = this.$props[item]
+        })
+      return config
     },
   },
   watch: {
