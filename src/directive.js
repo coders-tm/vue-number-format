@@ -22,7 +22,12 @@ export default {
     const handlerOwner = el.parentElement || el
 
     // use anonymous event handler to avoid inadvertently removing masking for all inputs within a container
-    const oninput = (e) => core.inputHandler(e)
+    const oninput = (e) => {
+      if (e.target !== el) {
+        return
+      }
+      core.inputHandler(e, el)
+    }
 
     handlerOwner.addEventListener('input', oninput, true)
 
@@ -31,17 +36,24 @@ export default {
     // check decimal key and insert to current element
     // updated cursor position after format the value
     el.onkeydown = (e) => {
-      if (([110, 190].includes(e.keyCode) || e.key === config.decimal) && !el.value.includes(config.decimal)) {
+      if (
+        ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
+        !el.value.includes(config.decimal)
+      ) {
         e.preventDefault()
         el.setRangeText(config.decimal)
         el.dispatchEvent(new Event('input'))
         core.updateCursor(el, el.value.indexOf(config.decimal) + 1)
-      } else if (([110, 190].includes(e.keyCode) || e.key === config.decimal) && el.value.includes(config.decimal)) {
+      } else if (
+        ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
+        el.value.includes(config.decimal)
+      ) {
         e.preventDefault()
       }
     }
 
-    option.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
+    option.cleanup = () =>
+      handlerOwner.removeEventListener('input', oninput, true)
   },
 
   updated: (el, { value, oldValue, modifiers }, vnode) => {
@@ -57,5 +69,5 @@ export default {
 
   unmounted: (el) => {
     core.getInputElement(el)[CONFIG_KEY].cleanup()
-  }
+  },
 }

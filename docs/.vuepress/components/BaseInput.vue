@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "BaseInput",
+  name: 'BaseInput',
   props: {
     modelValue: {
       default: undefined,
@@ -19,8 +19,8 @@ export default {
       required: false,
     },
   },
-  emits: ["update:modelValue"],
-};
+  emits: ['update:modelValue'],
+}
 </script>
 
 <style scoped></style>

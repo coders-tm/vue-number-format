@@ -7,6 +7,10 @@
           v-model="price"
           v-bind="config"
           class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
+          @update:model-value="onChange"
+          @input="onInput"
+          @focus="onFocus"
+          @blur="onBlur"
         />
         <div class="mt-2">
           Number value: <code class="ml-2">{{ price }}</code>
@@ -16,9 +20,12 @@
         <div class="font-medium mb-2">Directive</div>
         <BaseInput
           v-if="updated"
-          :modelValue="priceDirective"
-          @update:model-value="(val) => (priceDirective = val)"
+          v-model="priceDirective"
           v-number="config"
+          @update:model-value="onChange"
+          @input="onInput"
+          @focus="onFocus"
+          @blur="onBlur"
         />
         <div class="mt-2">
           Value: <code class="ml-2">{{ priceDirective }}</code>
@@ -35,7 +42,7 @@
           Export
         </button>
         <Dialog v-model="exportDialogVisible">
-          <pre class="white--text m-0" style="margin: 0">{{ config }}</pre>
+          <pre class="m-0" style="margin: 0">{{ config }}</pre>
         </Dialog>
       </div>
     </div>
@@ -115,6 +122,20 @@ export default {
           this.updated = true
         })
       },
+    },
+  },
+  methods: {
+    onChange() {
+      console.log('onChange', arguments)
+    },
+    onInput() {
+      console.log('onInput', arguments)
+    },
+    onFocus() {
+      console.log('onFocus', arguments)
+    },
+    onBlur() {
+      console.log('onBlur', arguments)
     },
   },
 }

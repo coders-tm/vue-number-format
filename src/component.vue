@@ -15,6 +15,7 @@ import directive from './directive'
 import options from './options'
 
 export default {
+  name: 'Number',
   props: {
     modelValue: {
       required: true,

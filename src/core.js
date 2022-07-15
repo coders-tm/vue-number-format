@@ -27,18 +27,6 @@ export function FacadeChangeEvent() {
 }
 
 /**
- * Creates a CustomEvent('blur') with detail = { facade: true }
- * used as a way to identify our own blur event
- */
-export function FacadeBlurEvent() {
-  return new CustomEvent('blur', {
-    bubbles: true,
-    cancelable: true,
-    detail: { facade: true },
-  })
-}
-
-/**
  * ensure that the element we're attaching to is an input element
  * if not try to find an input element in this elements childrens
  *
@@ -90,24 +78,25 @@ export function updateValue(
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 
-  const number = new NumberFormat(config).clean(clean && !config.reverseFill)
-  let masked = number.format(currentValue)
-  let unmasked = number.clean(!config.reverseFill).unformat(currentValue)
-
-  // check value with in range max and min value
-  if (clean) {
-    if (Number(config.max) && unmasked > Number(config.max)) {
-      masked = number.format(config.max)
-      unmasked = number.unformat(config.max)
-    } else if (Number(config.min) && unmasked < Number(config.min)) {
-      masked = number.format(config.min)
-      unmasked = number.unformat(config.min)
-    }
-  }
-
   if (force || oldValue !== currentValue) {
+    const number = new NumberFormat(config).clean(clean && !config.reverseFill)
+    let masked = number.format(currentValue)
+    let unmasked = number.clean(!config.reverseFill).unformat(currentValue)
+
+    // check value with in range max and min value
+    if (clean) {
+      if (Number(config.max) && unmasked > Number(config.max)) {
+        masked = number.format(config.max)
+        unmasked = number.unformat(config.max)
+      } else if (Number(config.min) && unmasked < Number(config.min)) {
+        masked = number.format(config.min)
+        unmasked = number.unformat(config.min)
+      }
+    }
+
     el[CONFIG_KEY].oldValue = masked
     el.unmaskedValue = unmasked
+
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
     if (el.value !== masked) {
       el.value = masked
@@ -115,11 +104,7 @@ export function updateValue(
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return (
-      emit &&
-      el.dispatchEvent(FacadeInputEvent()) &&
-      el.dispatchEvent(FacadeChangeEvent())
-    )
+    return emit && el.dispatchEvent(FacadeInputEvent())
   }
 }
 
@@ -130,8 +115,9 @@ export function updateValue(
  */
 export function inputHandler(event) {
   const { target, detail } = event
+
   // We dont need to run this method on the event we emit (prevent event loop)
-  if (detail && detail.facade) {
+  if (detail?.facade) {
     return false
   }
 
@@ -143,6 +129,7 @@ export function inputHandler(event) {
   const { oldValue, config } = target[CONFIG_KEY]
 
   updateValue(target, null, { emit: false }, event)
+
   // updated cursor position
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
@@ -161,16 +148,17 @@ export function inputHandler(event) {
  */
 export function blurHandler(event) {
   const { target, detail } = event
+
   // We dont need to run this method on the event we emit (prevent event loop)
-  if (detail && detail.facade) {
+  if (detail?.facade) {
     return false
   }
 
   const { oldValue } = target[CONFIG_KEY]
 
-  updateValue(target, null, { force: true, clean: true }, event)
+  updateValue(target, null, { force: true, emit: false, clean: true }, event)
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(FacadeBlurEvent())
+    target.dispatchEvent(FacadeChangeEvent())
   }
 }
