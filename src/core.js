@@ -133,7 +133,7 @@ export function inputHandler(event) {
   // updated cursor position
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
-  positionFromEnd = Math.max(positionFromEnd, config.prefix.length + 1)
+  positionFromEnd = Math.max(positionFromEnd, config.prefix.length)
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {

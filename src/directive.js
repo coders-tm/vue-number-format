@@ -49,6 +49,24 @@ export default {
         el.value.includes(config.decimal)
       ) {
         e.preventDefault()
+      } else if ([8].includes(e.keyCode)) {
+        // check current cursor position is after separator when backspace key down
+        const character = el.value.slice(el.selectionEnd - 1, el.selectionEnd)
+        const replace = el.value.slice(el.selectionEnd - 2, el.selectionEnd)
+        if (character === config.separator) {
+          e.preventDefault()
+
+          let positionFromEnd = el.value.length - el.selectionEnd
+          // remove separator and before character
+          el.value = el.value.replace(replace, '')
+          // updated cursor position
+          positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
+          positionFromEnd = el.value.length - positionFromEnd
+          positionFromEnd = Math.max(positionFromEnd, config.prefix.length)
+          core.updateCursor(el, positionFromEnd)
+          // trigger input event
+          el.dispatchEvent(new Event('input'))
+        }
       }
     }
 
