@@ -14,7 +14,7 @@
 
 <script>
 import directive from './directive'
-import { cloneDeep } from "./core";
+import { cloneDeep } from './core';
 import defaultOptions from './options'
 
 const options = cloneDeep(defaultOptions)

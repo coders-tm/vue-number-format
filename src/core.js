@@ -6,7 +6,7 @@ export const CONFIG_KEY = '__input-facade__'
 /**
  * Creates a fuction to clone the objcet
  */
- export function cloneDeep(data) {
+export function cloneDeep(data) {
   return JSON.parse(JSON.stringify(data))
 }
 
@@ -143,7 +143,7 @@ export function inputHandler(event) {
   let positionFromEnd = target.value.length - target.selectionEnd
   const { oldValue, config } = target[CONFIG_KEY]
 
-  updateValue(target, null, { emit: false }, event)
+  updateValue(target, null, { emit: false })
   // updated cursor position
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
@@ -169,7 +169,7 @@ export function blurHandler(event) {
 
   const { oldValue } = target[CONFIG_KEY]
 
-  updateValue(target, null, { force: true, clean: true }, event)
+  updateValue(target, null, { force: true, clean: true })
 
   if (oldValue !== target.value) {
     target.dispatchEvent(FacadeBlurEvent())
