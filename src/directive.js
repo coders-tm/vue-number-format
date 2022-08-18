@@ -7,7 +7,7 @@ const CONFIG_KEY = core.CONFIG_KEY
 export default {
   beforeMount: (el, { value, modifiers }, vnode) => {
     el = core.getInputElement(el)
-    const config = Object.assign({}, defaults, value, modifiers)
+    const config = Object.assign({}, core.cloneDeep(defaults), value, modifiers)
     el[CONFIG_KEY] = { config }
     // set initial value
     core.updateValue(el, vnode, { force: config.prefill, clean: true })

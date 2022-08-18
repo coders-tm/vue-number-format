@@ -3,6 +3,13 @@ import NumberFormat from './number-format'
 export const CONFIG_KEY = '__input-facade__'
 
 /**
+ * Creates a fuction to clone the objcet
+ */
+export function cloneDeep(data) {
+  return JSON.parse(JSON.stringify(data))
+}
+
+/**
  * Creates a CustomEvent('input') with detail = { facade: true }
  * used as a way to identify our own input event
  */
