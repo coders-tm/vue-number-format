@@ -14,7 +14,10 @@
 
 <script>
 import directive from './directive'
-import options from './options'
+import { cloneDeep } from "./core";
+import defaultOptions from './options'
+
+const options = cloneDeep(defaultOptions)
 
 export default {
   props: {
