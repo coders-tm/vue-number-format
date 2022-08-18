@@ -42,7 +42,7 @@ export default {
       ) {
         e.preventDefault()
         el.setRangeText(config.decimal)
-        el.dispatchEvent(new Event('input'))
+        core.updateValue(el, null, { emit: true }, e)
         core.updateCursor(el, el.value.indexOf(config.decimal) + 1)
       } else if (
         ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
