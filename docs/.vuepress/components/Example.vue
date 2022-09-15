@@ -101,8 +101,8 @@ export default {
       priceDirective: null,
       priceUnmasked: 1234.56,
       config: {
-        decimal: '.',
-        separator: ',',
+        decimal: ',',
+        separator: '.',
         prefix: '$',
         suffix: ' %',
         precision: 2,
