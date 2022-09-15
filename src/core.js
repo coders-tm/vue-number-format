@@ -35,21 +35,6 @@ export function FacadeBlurEvent() {
 }
 
 /**
- * Transform an array or string config into an object
- *
- * @param {object} config The format config object
- * @param {object} modifiers An object of modifier flags that can influence the formating process
- */
-export function normalizeConfig(defaults, extras) {
-  defaults = defaults || {}
-  extras = extras || {}
-  return Object.keys(defaults).concat(Object.keys(extras)).reduce((acc, val) => {
-    acc[val] = extras[val] === undefined ? defaults[val] : extras[val]
-    return acc
-  }, {})
-}
-
-/**
  * ensure that the element we're attaching to is an input element
  * if not try to find an input element in this elements childrens
  *
@@ -75,7 +60,7 @@ export function updateCursor(el, position) {
   const setSelectionRange = () => { el.setSelectionRange(position, position) }
   setSelectionRange()
   // Android Fix
-  setTimeout(setSelectionRange(), 0)
+  setTimeout(setSelectionRange(), 1)
 }
 
 /**
@@ -95,22 +80,22 @@ export function updateValue(el, vnode, { emit = true, force = false, clean = fal
   oldValue = oldValue || ''
   currentValue = currentValue || ''
 
-  const number = new NumberFormat(config).clean(clean && !config.reverseFill)
-  let masked = number.format(currentValue)
-  let unmasked = number.clean(!config.reverseFill).unformat(currentValue)
-
-  // check value with in range max and min value
-  if (clean) {
-    if (Number(config.max) && unmasked > Number(config.max)) {
-      masked = number.format(config.max)
-      unmasked = number.unformat(config.max)
-    } else if (Number(config.min) && unmasked < Number(config.min)) {
-      masked = number.format(config.min)
-      unmasked = number.unformat(config.min)
-    }
-  }
-
   if (force || oldValue !== currentValue) {
+    const number = new NumberFormat(config).clean(clean && !config.reverseFill)
+    let masked = number.format(currentValue)
+    let unmasked = number.clean(!config.reverseFill).unformat(currentValue)
+
+    // check value with in range max and min value
+    if (clean) {
+      if (Number(config.max) && unmasked > Number(config.max)) {
+        masked = number.format(config.max)
+        unmasked = number.unformat(config.max)
+      } else if (Number(config.min) && unmasked < Number(config.min)) {
+        masked = number.format(config.min)
+        unmasked = number.unformat(config.min)
+      }
+    }
+
     el[CONFIG_KEY].oldValue = masked
     el.unmaskedValue = unmasked
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -143,7 +128,8 @@ export function inputHandler(event) {
   let positionFromEnd = target.value.length - target.selectionEnd
   const { oldValue, config } = target[CONFIG_KEY]
 
-  updateValue(target, null, { emit: false })
+  updateValue(target, null, { emit: false }, event)
+
   // updated cursor position
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
   positionFromEnd = target.value.length - positionFromEnd
@@ -169,7 +155,7 @@ export function blurHandler(event) {
 
   const { oldValue } = target[CONFIG_KEY]
 
-  updateValue(target, null, { force: true, clean: true })
+  updateValue(target, null, { force: true, clean: true }, event)
 
   if (oldValue !== target.value) {
     target.dispatchEvent(FacadeBlurEvent())

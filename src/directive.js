@@ -7,7 +7,7 @@ const CONFIG_KEY = core.CONFIG_KEY
 export default {
   bind: (el, { value, modifiers }, vnode) => {
     el = core.getInputElement(el)
-    const config = Object.assign({}, defaults, value, modifiers)
+    const config = Object.assign({}, core.cloneDeep(defaults), value, modifiers)
     el[CONFIG_KEY] = { config }
     // set initial value
     core.updateValue(el, vnode, { force: config.prefill, clean: true })
@@ -22,7 +22,12 @@ export default {
     const handlerOwner = el.parentElement || el
 
     // use anonymous event handler to avoid inadvertently removing masking for all inputs within a container
-    const oninput = (e) => core.inputHandler(e)
+    const oninput = (e) => {
+      if (e.target !== el) {
+        return
+      }
+      core.inputHandler(e)
+    }
 
     handlerOwner.addEventListener('input', oninput, true)
 
@@ -34,7 +39,7 @@ export default {
       if (([110, 190].includes(e.keyCode) || e.key === config.decimal) && !el.value.includes(config.decimal)) {
         e.preventDefault()
         el.setRangeText(config.decimal)
-        core.updateValue(el, null, { emit: true })
+        core.updateValue(el, null, { emit: true }, e)
         core.updateCursor(el, el.value.indexOf(config.decimal) + 1)
       } else if (
         ([110, 190].includes(e.keyCode) || e.key === config.decimal) && el.value.includes(config.decimal)
