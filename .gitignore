@@ -13,3 +13,4 @@ pnpm-debug.log*
 node_modules
 .temp
 .cache
+vue-v3
