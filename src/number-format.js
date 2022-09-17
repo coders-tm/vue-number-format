@@ -10,7 +10,8 @@ export default function NumberFormat(config = options) {
   this.number = ''
   this.isClean = false
 
-  this.isNull = (input = this.input) => !this.numberOnly(input, new RegExp('[^0-9]+', 'gi'))
+  this.isNull = (input = this.input) =>
+    !this.numberOnly(input, new RegExp('[^0-9]+', 'gi'))
 
   this.clean = (clean = false) => {
     this.isClean = clean
@@ -18,7 +19,10 @@ export default function NumberFormat(config = options) {
   }
 
   this.sign = () => {
-    const sign = (this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0) ? '-' : ''
+    const sign =
+      this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0
+        ? '-'
+        : ''
     return sign
   }
 
@@ -34,7 +38,7 @@ export default function NumberFormat(config = options) {
   function toFixed(numbers, precision) {
     // eslint-disable-next-line no-restricted-properties
     var exp = Math.pow(10, precision)
-    var float = parseFloat(numbers) / exp
+    var float = parseFloat(numbers) / exp || 0
     return float.toFixed(fixed(precision))
   }
 
@@ -46,48 +50,66 @@ export default function NumberFormat(config = options) {
 
   this.numbers = () => {
     if (this.options.reverseFill) {
-      this.number = toFixed(this.numberOnly(this.input, /\D+/g), this.options.precision).replace('.', this.options.decimal)
+      this.number = toFixed(
+        this.numberOnly(this.input, /\D+/g),
+        this.options.precision
+      ).replace('.', this.options.decimal)
     } else if (typeof this.input === 'number') {
-      if (this.isClean) {
-        this.number = this.toNumber(this.input.toFixed(this.options.precision)).toString().replace('-', '').replace('.', this.options.decimal)
-      } else {
-        this.number = this.toNumber(this.input).toString().replace('-', '').replace('.', this.options.decimal)
-      }
+      this.number = this.parts(
+        this.input.toString().replace('-', ''),
+        '.'
+      ).join(this.options.decimal)
     } else {
-      this.number = this.numberOnly(this.input, new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi'))
+      this.number = this.numberOnly(
+        this.input,
+        new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
+      )
       this.number = this.parts(this.number).join(this.options.decimal)
     }
     return this.number
   }
 
   this.realNumber = () => {
-    const number = this.numbers().toString().replace(this.options.decimal, '.')
-    if (this.options.reverseFill) {
-      return number
-    }
-    return this.toNumber(number)
+    return this.numbers().toString().replace(this.options.decimal, '.')
   }
 
   this.parts = (number = '', decimal = this.options.decimal) => {
     var parts = number.toString().split(decimal)
     parts[0] = this.toNumber(parts[0]) || 0
+
     if (parts.length > 1) {
       parts[1] = parts.slice(1, parts.length).join('')
       parts = parts.slice(0, 2)
-      if (this.isClean && parts[1].length > this.options.precision) {
-        parts[1] = this.toNumber(`.${parts[1]}`).toFixed(this.options.precision).toString().replace('0.', '')
+    }
+
+    if (this.isClean) {
+      const newNumber = this.toNumber(parts.join('.')).toFixed(
+        this.options.precision
+      )
+      const cleanNumber = this.toNumber(newNumber)
+      const minimumDigits = cleanNumber.toFixed(
+        this.options.minimumFractionDigits
+      )
+
+      if (
+        this.options.minimumFractionDigits &&
+        this.options.minimumFractionDigits >= 0 &&
+        cleanNumber.toString().length < minimumDigits.length
+      ) {
+        parts = minimumDigits.toString().split('.')
+      } else {
+        parts = cleanNumber.toString().split('.')
       }
     }
+
     return parts.slice(0, 2)
   }
 
   this.addSeparator = () => {
     var parts = this.numbers().split(this.options.decimal)
-    parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
-    if (this.isClean) {
-      parts[1] = this.toNumber(`.${parts[1]}`).toString().replace('0.', '')
-      return parts[1] && parts[1] > 0 ? parts.join(this.options.decimal) : parts[0]
-    }
+    parts[0] = parts[0]
+      .toString()
+      .replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
     return parts.join(this.options.decimal)
   }
 
@@ -96,11 +118,16 @@ export default function NumberFormat(config = options) {
    * @param {Number, String} input
    * @return {String}
    */
-  this.format = (input) => {
-    if (input === '') return this.options.nullValue
-    this.input = input || this.options.nullValue
-    if (this.isNull()) return this.options.nullValue
-    return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
+  this.format = (input = '') => {
+    this.input = input
+    if (this.isNull() && !this.options.reverseFill)
+      return this.options.nullValue
+    return (
+      this.sign() +
+      this.options.prefix +
+      this.addSeparator() +
+      this.options.suffix
+    )
   }
 
   /**
@@ -108,10 +135,10 @@ export default function NumberFormat(config = options) {
    * @param {Number, String} input
    * @return {String}
    */
-  this.unformat = (input) => {
-    if (input === '') return this.options.nullValue
-    this.input = input || this.options.nullValue
-    if (this.isNull()) return this.options.nullValue
+  this.unformat = (input = '') => {
+    this.input = input
+    if (this.isNull() && !this.options.reverseFill)
+      return this.options.nullValue
     return this.sign() + this.realNumber()
   }
 }

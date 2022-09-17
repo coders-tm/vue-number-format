@@ -74,11 +74,7 @@ export function updateCursor(el, position) {
 export function updateValue(el, vnode, { emit = true, force = false, clean = false } = {}) {
   const { config } = el[CONFIG_KEY]
   let { oldValue } = el[CONFIG_KEY]
-
   let currentValue = vnode && vnode.data.model ? vnode.data.model.value : el.value
-
-  oldValue = oldValue || ''
-  currentValue = currentValue || ''
 
   if (force || oldValue !== currentValue) {
     const number = new NumberFormat(config).clean(clean && !config.reverseFill)
