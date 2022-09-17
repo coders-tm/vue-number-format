@@ -82,9 +82,6 @@ export function updateValue(
   let { oldValue } = el[CONFIG_KEY]
   let currentValue = vnode && vnode.props ? vnode.props.value : el.value
 
-  oldValue = oldValue || ''
-  currentValue = currentValue || ''
-
   if (force || oldValue !== currentValue) {
     const number = new NumberFormat(config).clean(clean && !config.reverseFill)
     let masked = number.format(currentValue)
