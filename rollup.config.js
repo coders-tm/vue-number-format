@@ -10,6 +10,7 @@ const banner = `/**
 
 export default {
   input: 'src/index.js',
+  external: ['vue'],
   output: [
     {
       file: pkg.main,
