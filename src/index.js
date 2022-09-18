@@ -5,7 +5,7 @@ import NumberFormat from './number-format'
 
 export { number, vNumber, options, NumberFormat }
 
-export default {
+const VueNumberFormat = {
   install(app, config = {}) {
     if (config) {
       Object.assign(options, config)
@@ -13,4 +13,10 @@ export default {
     app.directive('number', vNumber)
     app.component('number', number)
   },
+}
+
+export default VueNumberFormat
+
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(VueNumberFormat)
 }
