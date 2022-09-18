@@ -20,9 +20,17 @@ export default {
     },
     {
       file: pkg.module,
-      format: 'es',
+      format: 'esm',
       exports: 'named',
       banner,
+    },
+    {
+      file: pkg.browser,
+      name: 'VueNumberFormat',
+      format: 'iife',
+      exports: 'named',
+      banner,
+      globals: { vue: 'Vue' },
     },
   ],
   plugins: [vue(), filesize()],
