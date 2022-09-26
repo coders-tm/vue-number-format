@@ -44,7 +44,7 @@ export default function NumberFormat(config = options) {
 
   this.toNumber = (string) => Number(string)
 
-  this.numberOnly = (string, regExp) => string.toString().replace(regExp, '')
+  this.numberOnly = (string, regExp) => string?.toString().replace(regExp, '')
 
   this.isNegative = this.sign() === '-'
 
