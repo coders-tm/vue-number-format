@@ -160,7 +160,7 @@ export function blurHandler(event) {
 
   const { oldValue } = target[CONFIG_KEY]
 
-  updateValue(target, null, { force: true, emit: false, clean: true }, event)
+  updateValue(target, null, { force: true, emit: true, clean: true }, event)
 
   if (oldValue !== target.value) {
     target.dispatchEvent(FacadeChangeEvent())
