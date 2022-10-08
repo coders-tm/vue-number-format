@@ -58,6 +58,10 @@ export default {
           core.updateCursor(el, positionFromEnd)
           // trigger input event
           el.dispatchEvent(new Event('input'))
+        } else if ([config.prefix, '-'].includes(character)) {
+          e.preventDefault()
+          el.value = ''
+          el.dispatchEvent(new Event('input'))
         }
       }
     }

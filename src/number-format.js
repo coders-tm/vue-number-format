@@ -8,10 +8,14 @@ export default function NumberFormat(config = options) {
   this.options = Object.assign(options, config)
   this.input = ''
   this.number = ''
-  this.isClean = false
+  this.isClean = true
 
-  this.isNull = (input = this.input) =>
-    !this.numberOnly(input, new RegExp('[^0-9]+', 'gi'))
+  this.isNull = (input = this.input) => {
+    if (this.isClean) {
+      return !this.numberOnly(input, new RegExp('[^0-9]+', 'gi'))
+    }
+    return !this.numberOnly(input, new RegExp('[^0-9\\-]+', 'gi'))
+  }
 
   this.clean = (clean = false) => {
     this.isClean = clean
@@ -19,11 +23,12 @@ export default function NumberFormat(config = options) {
   }
 
   this.sign = () => {
-    const sign =
-      this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0
+    if (this.isClean) {
+      return this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0
         ? '-'
         : ''
-    return sign
+    }
+    return this.input.toString().indexOf('-') >= 0 ? '-' : ''
   }
 
   function between(min, n, max) {
@@ -75,9 +80,9 @@ export default function NumberFormat(config = options) {
 
   this.parts = (number = '', decimal = this.options.decimal) => {
     var parts = number.toString().split(decimal)
-    parts[0] = this.toNumber(parts[0]) || 0
 
     if (parts.length > 1) {
+      parts[0] = this.toNumber(parts[0]) || 0
       parts[1] = parts.slice(1, parts.length).join('')
       parts = parts.slice(0, 2)
     }
