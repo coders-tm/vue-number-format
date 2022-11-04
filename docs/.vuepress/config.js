@@ -64,6 +64,7 @@ module.exports = {
           children: [
             "/guide/README.md",
             "/guide/config.md",
+            "/guide/example.md",
             "/guide/play-ground.md",
           ],
         },
