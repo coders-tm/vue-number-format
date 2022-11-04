@@ -78,9 +78,8 @@ export function updateValue(
   vnode,
   { emit = true, force = false, clean = false } = {}
 ) {
-  const { config } = el[CONFIG_KEY]
-  let { oldValue } = el[CONFIG_KEY]
-  let currentValue = vnode && vnode.props ? vnode.props.value : el.value
+  let { config, oldValue } = el[CONFIG_KEY]
+  let currentValue = vnode?.props?.value || el.value
 
   if (force || oldValue !== currentValue) {
     const number = new NumberFormat(config).clean(clean && !config.reverseFill)
@@ -98,7 +97,7 @@ export function updateValue(
       }
     }
 
-    el[CONFIG_KEY].oldValue = masked
+    el[CONFIG_KEY].masked = masked
     el.unmaskedValue = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -130,9 +129,9 @@ export function inputHandler(event) {
   event.stopPropagation()
 
   let positionFromEnd = target.value.length - target.selectionEnd
-  const { oldValue, config } = target[CONFIG_KEY]
+  const { oldValue, config, masked } = target[CONFIG_KEY]
 
-  updateValue(target, null, { emit: false }, event)
+  updateValue(target, null, { emit: false })
 
   // updated cursor position
   positionFromEnd = Math.max(positionFromEnd, config.suffix.length)
@@ -141,6 +140,7 @@ export function inputHandler(event) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
+    target[CONFIG_KEY].oldValue = masked
     target.dispatchEvent(FacadeInputEvent())
   }
 }
@@ -157,12 +157,12 @@ export function blurHandler(event) {
   if (detail?.facade) {
     return false
   }
+  const { oldValue, masked } = target[CONFIG_KEY]
 
-  const { oldValue } = target[CONFIG_KEY]
-
-  updateValue(target, null, { force: true, emit: true, clean: true }, event)
+  updateValue(target, null, { force: true, emit: true, clean: true })
 
   if (oldValue !== target.value) {
+    target[CONFIG_KEY].oldValue = masked
     target.dispatchEvent(FacadeChangeEvent())
   }
 }
