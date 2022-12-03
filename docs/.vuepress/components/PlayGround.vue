@@ -4,6 +4,7 @@
       <div class="grid">
         <div class="font-medium mb-2">Component</div>
         <number
+          v-if="updated"
           v-model="price"
           v-bind="config"
           class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"

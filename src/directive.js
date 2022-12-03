@@ -17,6 +17,7 @@ export default {
     el = core.getInputElement(el)
     const option = el[CONFIG_KEY]
     const { config } = option
+
     // prefer adding event listener to parent element to avoid Firefox bug which does not
     // execute `useCapture: true` event handlers before non-capturing event handlers
     const handlerOwner = el.parentElement || el
@@ -36,9 +37,12 @@ export default {
     // check decimal key and insert to current element
     // updated cursor position after format the value
     el.onkeydown = (e) => {
+      const { target } = e
+      const regExp = new RegExp(`${config.prefix}|${config.suffix}`, 'g')
+      let newValue = target.value.replace(regExp, '')
       if (
         ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
-        el.value.includes(config.decimal)
+        newValue.includes(config.decimal)
       ) {
         e.preventDefault()
       } else if ([8].includes(e.keyCode)) {
@@ -72,9 +76,9 @@ export default {
 
   updated: (el, { value, oldValue, modifiers }, vnode) => {
     el = core.getInputElement(el)
+    const { config } = el[CONFIG_KEY]
+    el[CONFIG_KEY].config = Object.assign({}, config, value, modifiers)
     if (value !== oldValue) {
-      const { config } = el[CONFIG_KEY]
-      el[CONFIG_KEY].config = Object.assign({}, config, value, modifiers)
       core.updateValue(el, vnode, { force: true, clean: true })
     } else {
       core.updateValue(el, vnode)

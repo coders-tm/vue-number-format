@@ -10,11 +10,18 @@ export default function NumberFormat(config = options) {
   this.number = ''
   this.isClean = true
 
+  const { prefix, suffix, decimal } = options
+
+  this.preSurRegExp = new RegExp(`${prefix}|${suffix}`, 'g')
+  this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
+  this.cleanRegExp = new RegExp('[^0-9]+', 'gi')
+  this.negativeRegExp = new RegExp('[^0-9\\-]+', 'gi')
+
   this.isNull = (input = this.input) => {
     if (this.isClean) {
-      return !this.numberOnly(input, new RegExp('[^0-9]+', 'gi'))
+      return !this.numberOnly(input, this.cleanRegExp)
     }
-    return !this.numberOnly(input, new RegExp('[^0-9\\-]+', 'gi'))
+    return !this.numberOnly(input, this.negativeRegExp)
   }
 
   this.clean = (clean = false) => {
@@ -65,10 +72,8 @@ export default function NumberFormat(config = options) {
         '.'
       ).join(this.options.decimal)
     } else {
-      this.number = this.numberOnly(
-        this.input,
-        new RegExp(`[^0-9\\${this.options.decimal}]+`, 'gi')
-      )
+      const input = this.input.replace(this.preSurRegExp, '')
+      this.number = this.numberOnly(input, this.numberRegExp)
       this.number = this.parts(this.number).join(this.options.decimal)
     }
     return this.number
