@@ -136,7 +136,7 @@ export default function NumberFormat(config = options) {
       this.options.prefix,
       this.addSeparator(),
       this.options.suffix,
-    ].join
+    ].join('')
   }
 
   /**
