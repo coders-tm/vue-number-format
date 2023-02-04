@@ -40,7 +40,7 @@ export default {
       const { target } = e
       const regExp = new RegExp(`${config.prefix}|${config.suffix}`, 'g')
       let newValue = target.value.replace(regExp, '')
-      const canNegativeInput = !config.min || config.min < 0
+      const canNegativeInput = config.min < 0
       if (
         ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
         newValue.includes(config.decimal)
