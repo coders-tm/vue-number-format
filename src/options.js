@@ -9,5 +9,5 @@ export default {
   reverseFill: false,
   min: false,
   max: false,
-  nullValue: ''
+  nullValue: '',
 }

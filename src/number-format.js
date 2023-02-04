@@ -30,12 +30,11 @@ export default function NumberFormat(config = options) {
   }
 
   this.sign = () => {
+    const hasMinus = this.input.toString().indexOf('-') >= 0
     if (this.isClean) {
-      return this.input.toString().indexOf('-') >= 0 && this.realNumber() > 0
-        ? '-'
-        : ''
+      return hasMinus && this.realNumber() > 0 ? '-' : ''
     }
-    return this.input.toString().indexOf('-') >= 0 ? '-' : ''
+    return hasMinus ? '-' : ''
   }
 
   function between(min, n, max) {
@@ -132,12 +131,12 @@ export default function NumberFormat(config = options) {
     this.input = input
     if (this.isNull() && !this.options.reverseFill)
       return this.options.nullValue
-    return (
-      this.sign() +
-      this.options.prefix +
-      this.addSeparator() +
-      this.options.suffix
-    )
+    return [
+      this.sign(),
+      this.options.prefix,
+      this.addSeparator(),
+      this.options.suffix,
+    ].join
   }
 
   /**

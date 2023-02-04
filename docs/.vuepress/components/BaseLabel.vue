@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "BaseLabel",
+  name: 'BaseLabel',
   props: {
     label: {
       type: String,
@@ -21,7 +21,7 @@ export default {
       default: undefined,
     },
   },
-};
+}
 </script>
 
 <style scoped></style>

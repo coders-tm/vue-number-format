@@ -1,5 +1,11 @@
 <template>
-  <label class="flex items-center" :class="{ 'text-gray-300 cursor-not-allowed': disabled, 'cursor-pointer': !disabled }">
+  <label
+    class="flex items-center"
+    :class="{
+      'text-gray-300 cursor-not-allowed': disabled,
+      'cursor-pointer': !disabled,
+    }"
+  >
     <input
       :checked="modelValue"
       :disabled="disabled"
@@ -18,14 +24,14 @@ export default {
     modelValue: Boolean,
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     label: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  emits: ['update:modelValue']
+  emits: ['update:modelValue'],
 }
 </script>
 

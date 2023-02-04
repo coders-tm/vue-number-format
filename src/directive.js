@@ -40,10 +40,13 @@ export default {
       const { target } = e
       const regExp = new RegExp(`${config.prefix}|${config.suffix}`, 'g')
       let newValue = target.value.replace(regExp, '')
+      const canNegativeInput = config.min && config.min < 0
       if (
         ([110, 190].includes(e.keyCode) || e.key === config.decimal) &&
         newValue.includes(config.decimal)
       ) {
+        e.preventDefault()
+      } else if ([109].includes(e.keyCode) && !canNegativeInput) {
         e.preventDefault()
       } else if ([8].includes(e.keyCode)) {
         // check current cursor position is after separator when backspace key down
@@ -51,7 +54,6 @@ export default {
         const replace = el.value.slice(el.selectionEnd - 2, el.selectionEnd)
         if (character === config.separator) {
           e.preventDefault()
-
           let positionFromEnd = el.value.length - el.selectionEnd
           // remove separator and before character
           el.value = el.value.replace(replace, '')
