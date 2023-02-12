@@ -3,7 +3,7 @@
     <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-8 items-center my-8">
       <div class="grid">
         <div class="font-medium mb-2">Component</div>
-        <number
+        <Number
           v-if="updated"
           v-model="price"
           v-bind="config"
@@ -43,7 +43,11 @@
           Export
         </button>
         <Dialog v-model="exportDialogVisible">
-          <pre class="m-0" style="margin: 0">{{ config }}</pre>
+          <pre
+            class="m-0"
+            style="margin: 0"
+            >{{ config }}</pre
+          >
         </Dialog>
       </div>
     </div>
@@ -51,45 +55,81 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8">
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Separator</div>
-        <BaseInput type="text" v-model="config.separator" />
+        <BaseInput
+          type="text"
+          v-model="config.separator"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Decimal</div>
-        <BaseInput type="text" v-model="config.decimal" />
+        <BaseInput
+          type="text"
+          v-model="config.decimal"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Prefix</div>
-        <BaseInput type="text" v-model="config.prefix" />
+        <BaseInput
+          type="text"
+          v-model="config.prefix"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Suffix</div>
-        <BaseInput type="text" v-model="config.suffix" />
+        <BaseInput
+          type="text"
+          v-model="config.suffix"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Precision</div>
-        <BaseInput type="number" v-model.number="config.precision" />
+        <BaseInput
+          type="number"
+          v-model.number="config.precision"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Null value</div>
-        <BaseInput type="text" v-model="config.nullValue" />
+        <BaseInput
+          type="text"
+          v-model="config.nullValue"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum fraction digits</div>
-        <BaseInput type="text" v-model="config.minimumFractionDigits" />
+        <BaseInput
+          type="text"
+          v-model="config.minimumFractionDigits"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum value</div>
-        <BaseInput type="text" v-model.number="config.min" />
+        <BaseInput
+          type="text"
+          v-model.number="config.min"
+        />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Maximum value</div>
-        <BaseInput type="text" v-model.number="config.max" />
+        <BaseInput
+          type="text"
+          v-model.number="config.max"
+        />
       </div>
     </div>
     <div class="mb-8">
-      <Checkbox v-model="config.masked" label="Masked?" />
-      <Checkbox v-model="config.reverseFill" label="Reverse Fill?" />
-      <Checkbox v-model="config.prefill" label="Prefill?" />
+      <Checkbox
+        v-model="config.masked"
+        label="Masked?"
+      />
+      <Checkbox
+        v-model="config.reverseFill"
+        label="Reverse Fill?"
+      />
+      <Checkbox
+        v-model="config.prefill"
+        label="Prefill?"
+      />
     </div>
   </div>
 </template>
@@ -110,8 +150,8 @@ export default {
         precision: 2,
         nullValue: '',
         masked: false,
-        reverseFill: false,
-      },
+        reverseFill: false
+      }
     }
   },
   watch: {
@@ -122,8 +162,8 @@ export default {
         this.$nextTick(() => {
           this.updated = true
         })
-      },
-    },
+      }
+    }
   },
   methods: {
     onChange() {
@@ -137,7 +177,7 @@ export default {
     },
     onBlur() {
       console.log('onBlur', arguments)
-    },
-  },
+    }
+  }
 }
 </script>

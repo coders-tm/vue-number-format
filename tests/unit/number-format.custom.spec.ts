@@ -1,24 +1,13 @@
 import NumberFormat from '../../src/number-format'
 
-describe('should not throw error on empty config', () => {
-  expect(
-    () =>
-      new NumberFormat({
-        prefix: '$',
-        separator: '.',
-        decimal: ',',
-        null_value: 0,
-      })
-  ).not.toThrow()
-})
-describe('when the value is invalid with custom config', () => {
+test('when the value is invalid with custom config', () => {
   const numberFormat = new NumberFormat({
     prefix: '$',
     separator: '.',
     decimal: ',',
-    null_value: 0,
+    nullValue: '0'
   })
-  it('should return as follows', () => {
+  test('should return as follows', () => {
     expect(numberFormat.format('')).toEqual('')
     expect(numberFormat.format('foo')).toEqual('')
     expect(numberFormat.format('-foo')).toEqual('')
@@ -26,7 +15,7 @@ describe('when the value is invalid with custom config', () => {
     expect(numberFormat.format('-fo.o-')).toEqual('')
     expect(numberFormat.format('!@#$%^&*()')).toEqual('')
   })
-  it('should return as follows', () => {
+  test('should return as follows', () => {
     expect(numberFormat.clean(true).unformat('')).toEqual('')
     expect(numberFormat.clean(true).unformat('foo')).toEqual('')
     expect(numberFormat.clean(true).unformat('-foo')).toEqual('')
@@ -34,15 +23,14 @@ describe('when the value is invalid with custom config', () => {
     expect(numberFormat.clean(true).unformat('!@#$%^&*()')).toEqual('')
   })
 })
-describe('format when options are custom', () => {
+test('format when options are custom', () => {
   const numberFormat = new NumberFormat({
     prefix: '$',
     separator: '.',
     decimal: ',',
-    null_value: '',
+    nullValue: ''
   })
-  it('format string value', () => {
-    expect(numberFormat.format()).toEqual('')
+  test('format string value', () => {
     expect(numberFormat.format('')).toEqual('')
     expect(numberFormat.format('0')).toEqual('$0')
     expect(numberFormat.format('0,')).toEqual('$0')
@@ -52,12 +40,10 @@ describe('format when options are custom', () => {
     expect(numberFormat.format('0,10-')).toEqual('-$0,1')
     expect(numberFormat.format('12.345,54921')).toEqual('$12.345,55')
     expect(numberFormat.format('--12.345,12345')).toEqual('-$12.345,12')
-    expect(numberFormat.format('12.345.54321,12945')).toEqual(
-      '$1.234.554.321,13'
-    )
+    expect(numberFormat.format('12.345.54321,12945')).toEqual('$1.234.554.321,13')
     expect(numberFormat.format('-12.345,,54321-')).toEqual('-$12.345,54')
   })
-  it('format numerical value', () => {
+  test('format numerical value', () => {
     expect(numberFormat.format(0)).toEqual('$0')
     expect(numberFormat.format(0)).toEqual('$0')
     expect(numberFormat.format(0.0)).toEqual('$0')

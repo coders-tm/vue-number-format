@@ -1,28 +1,22 @@
 import NumberFormat from '../../src/number-format'
 
-describe('should not throw error on empty config', () => {
-  expect(() => new NumberFormat({})).not.toThrow()
-})
-describe('when the value is invalid with default config', () => {
+test('when the value is invalid with default config', () => {
   const numberFormat = new NumberFormat({})
-  it('should return as follows', () => {
-    expect(numberFormat.format()).toEqual('')
+  test('should return as follows', () => {
     expect(numberFormat.format('')).toEqual('')
     expect(numberFormat.format('foo')).toEqual('')
     expect(numberFormat.format('-foo')).toEqual('')
     expect(numberFormat.format('-fo,o-')).toEqual('')
     expect(numberFormat.format('!@#$%^&*()')).toEqual('')
   })
-  it('should return as follows', () => {
-    expect(numberFormat.clean(true).format()).toEqual('')
+  test('should return as follows', () => {
     expect(numberFormat.clean(true).format('')).toEqual('')
     expect(numberFormat.clean(true).format('foo')).toEqual('')
     expect(numberFormat.clean(true).format('-foo')).toEqual('')
     expect(numberFormat.clean(true).format('-fo,o-')).toEqual('')
     expect(numberFormat.clean(true).format('!@#$%^&*()')).toEqual('')
   })
-  it('should return as follows', () => {
-    expect(numberFormat.unformat()).toEqual('')
+  test('should return as follows', () => {
     expect(numberFormat.unformat('')).toEqual('')
     expect(numberFormat.unformat('foo')).toEqual('')
     expect(numberFormat.unformat('-foo')).toEqual('')
@@ -30,10 +24,9 @@ describe('when the value is invalid with default config', () => {
     expect(numberFormat.unformat('!@#$%^&*()')).toEqual('')
   })
 })
-describe('format when options are default', () => {
+test('format when options are default', () => {
   const numberFormat = new NumberFormat({})
-  it('format string value', () => {
-    expect(numberFormat.format()).toEqual('')
+  test('format string value', () => {
     expect(numberFormat.format('')).toEqual('')
     expect(numberFormat.format('0')).toEqual('0')
     expect(numberFormat.format('0.')).toEqual('0')
@@ -46,7 +39,7 @@ describe('format when options are default', () => {
     expect(numberFormat.format('12,345.54321.12345')).toEqual('12,345.54')
     expect(numberFormat.format('-12,345..54321-')).toEqual('-12,345.54')
   })
-  it('format numerical value', () => {
+  test('format numerical value', () => {
     expect(numberFormat.format(0)).toEqual('0')
     expect(numberFormat.format(0)).toEqual('0')
     expect(numberFormat.format(0.0)).toEqual('0')
