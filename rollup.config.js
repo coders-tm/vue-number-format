@@ -1,3 +1,4 @@
+import vue from 'rollup-plugin-vue'
 import typescript from 'rollup-plugin-typescript2'
 import commonjs from 'rollup-plugin-commonjs'
 import resolve from 'rollup-plugin-node-resolve'
@@ -40,6 +41,7 @@ export default [
       }),
       resolve(),
       commonjs(),
+      vue(),
       filesize()
     ],
     external: ['vue']
