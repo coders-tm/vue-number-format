@@ -4,44 +4,14 @@ module.exports = {
     node: true
   },
   extends: [
-    'plugin:vue/essential',
     'eslint:recommended',
-    'airbnb-base',
+    'plugin:vue/recommended',
+    '@vue/typescript/recommended'
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parserOptions: {
-    ecmaVersion: 2020
+    parser: '@typescript-eslint/parser'
   },
-  ignorePatterns: ['**/tests/unit/*.spec.js'],
   rules: {
-    'semi': 'off',
-    'comma-dangle': ["error", "never"],
-    'prefer-arrow-callback': 0,
-    'consistent-return': 0,
-    'prefer-destructuring': 0,
-    'no-param-reassign': 0,
-    'max-len': 0,
-    'no-var': 0
-  },
-  overrides: [
-    {
-      files: ['**/tests/unit/*.spec.js'],
-      env: {
-        jest: true
-      }
-    },
-    {
-      files: ['**/*.vue'],
-      extends: [
-        'plugin:vue/essential',
-        'eslint:recommended',
-      ],
-      plugins: [
-        'vue'
-      ]
-    }
-  ]
+    // Customize your rules here
+  }
 };

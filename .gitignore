@@ -13,3 +13,5 @@ pnpm-debug.log*
 .temp
 .cache
 vue-v3
+*.bak
+examples
