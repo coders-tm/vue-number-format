@@ -5798,25 +5798,15 @@ vue@^3.0.0, vue@^3.2.20, vue@^3.2.33, vue@^3.2.37:
     "@vue/server-renderer" "3.2.47"
     "@vue/shared" "3.2.47"
 
-vuepress-vite@2.0.0-beta.50-pre.1:
-  version "2.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/vuepress-vite/-/vuepress-vite-2.0.0-beta.27.tgz#1445efa30aee2d2fcce8a0882ba4fcec1c8e99d0"
-  integrity sha512-E09Rbc0RaSlcEbeo3yayctDheb3dQmD28YgRCPwJCa8gpmAyEglE3kEboJYnyufEMpvbNl2nqcubV09ZpX96+Q==
-  dependencies:
-    "@vuepress/bundler-vite" "2.0.0-beta.27"
-    "@vuepress/cli" "2.0.0-beta.27"
-    "@vuepress/core" "2.0.0-beta.27"
-    "@vuepress/theme-default" "2.0.0-beta.27"
-
 vuepress-vite@^2.0.0-beta.27:
-  version "2.0.0-beta.45"
-  resolved "https://registry.yarnpkg.com/vuepress-vite/-/vuepress-vite-2.0.0-beta.45.tgz#199229c87ebda9a227a3ada5ba9325ca7bd54bf5"
-  integrity sha512-1yARk4FLwaQIAqp3trRb4rhAT5blkBfVUaNtTiYwC3/TwUyFWhBBaIP8sugxUMXhAalvkpMEHFxaLm4BkLfWhw==
+  version "2.0.0-beta.35"
+  resolved "https://registry.yarnpkg.com/vuepress-vite/-/vuepress-vite-2.0.0-beta.35.tgz#22c031289df0a48fea6e41e0be9ecd3fc859401d"
+  integrity sha512-gN7DbhZLdoFxK2Yv9ao+51IfcmjuIEGigwrT8gfdOMBGTRCTkxYgiSQsS5IbwN+aXxA2VJLBAcCdrgk1miAMRQ==
   dependencies:
-    "@vuepress/bundler-vite" "2.0.0-beta.45"
-    "@vuepress/cli" "2.0.0-beta.45"
-    "@vuepress/core" "2.0.0-beta.45"
-    "@vuepress/theme-default" "2.0.0-beta.45"
+    "@vuepress/bundler-vite" "2.0.0-beta.35"
+    "@vuepress/cli" "2.0.0-beta.35"
+    "@vuepress/core" "2.0.0-beta.35"
+    "@vuepress/theme-default" "2.0.0-beta.35"
 
 vuepress@^2.0.0-beta.27:
   version "2.0.0-beta.50-pre.1"
