@@ -53,6 +53,9 @@
   "publishConfig": {
     "@coders-tm:registry": "https://npm.pkg.github.com"
   },
+  "peerDependencies": {
+    "vue": "^2.7 || ^3.0.0"
+  },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@testing-library/dom": "^8.18.1",
