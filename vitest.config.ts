@@ -1,9 +1,10 @@
 /// <reference types="vitest" />
-import { defineConfig } from 'vite'
-import { createVuePlugin as Vue2 } from 'vite-plugin-vue2'
+
+import { defineConfig } from 'vitest/config'
+// import Vue from '@vitejs/plugin-vue'
 
 export default defineConfig({
-  plugins: [Vue2()],
+  // plugins: [Vue()],
   test: {
     globals: true,
     environment: 'jsdom'

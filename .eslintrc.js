@@ -6,8 +6,5 @@ module.exports = {
   env: {
     node: true
   },
-  extends: ['plugin:vue/recommended', 'eslint:recommended', '@vue/eslint-config-typescript/recommended', '@vue/eslint-config-prettier'],
-  rules: {
-    // Customize your rules here
-  }
+  extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', '@vue/eslint-config-typescript/recommended', '@vue/eslint-config-prettier']
 }

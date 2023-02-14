@@ -111,7 +111,7 @@ export function updateCursor(el: HTMLInputElement, position: number) {
  */
 export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit = true, force = false, clean = false } = {}) {
   const { options, oldValue } = el
-  const currentValue = vnode && vnode.data && vnode.data.domProps ? vnode.data.domProps.value : el.value
+  const currentValue = vnode?.props?.value || el.value
 
   if (force || oldValue !== currentValue) {
     const number = new NumberFormat(options).clean(clean && !options.reverseFill)
@@ -152,7 +152,7 @@ export function inputHandler(event: CustomInputEvent, el?: CustomInputElement) {
   const { target, detail } = event
 
   // We dont need to run this method on the event we emit (prevent event loop)
-  if (detail && detail.facade) {
+  if (detail?.facade) {
     return false
   }
 
@@ -191,7 +191,7 @@ export function blurHandler(event: Event, el?: CustomInputElement) {
   const { target, detail } = event as CustomInputEvent
 
   // We dont need to run this method on the event we emit (prevent event loop)
-  if (detail && detail.facade) {
+  if (detail?.facade) {
     return false
   }
 

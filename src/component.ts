@@ -1,18 +1,19 @@
-import Vue from 'vue'
-import directive from './directive'
+import { defineComponent } from 'vue'
 import { cloneDeep, CustomInputEvent, Input } from './core'
+import directive from './directive'
 import defaultOptions from './options'
-
-Vue.directive('number', directive)
 
 const options = cloneDeep(defaultOptions)
 
-export default Vue.extend({
+export default defineComponent({
   name: 'VueNumber',
+  directives: {
+    number: directive
+  },
   props: {
-    value: {
-      required: true,
-      type: [Number, String]
+    modelValue: {
+      type: [String, Number],
+      required: true
     },
     nullValue: {
       type: [Number, String],
@@ -35,7 +36,7 @@ export default Vue.extend({
       default: () => options.precision
     },
     minimumFractionDigits: {
-      type: Number,
+      type: [Number, Boolean],
       default: () => options.minimumFractionDigits
     },
     decimal: {
@@ -43,11 +44,11 @@ export default Vue.extend({
       default: () => options.decimal
     },
     min: {
-      type: Number,
+      type: [Number, Boolean],
       default: () => options.min
     },
     max: {
-      type: Number,
+      type: [Number, Boolean],
       default: () => options.max
     },
     separator: {
@@ -63,9 +64,10 @@ export default Vue.extend({
       default: () => options.suffix
     }
   },
+  emits: ['update:model-value', 'input:model-value'],
   data() {
     return {
-      maskedValue: this.value,
+      maskedValue: this.modelValue,
       unmaskedValue: '' as Input | undefined
     }
   },
@@ -90,22 +92,15 @@ export default Vue.extend({
       }
     }
   },
-  watch: {
-    value(val) {
-      if (this.unmaskedValue !== val) {
-        this.maskedValue = val
-      }
-    }
-  },
   methods: {
     input(event: CustomInputEvent) {
       const { target } = event
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
-      this.$emit('input', this.emittedValue)
+      this.$emit('input:model-value', this.emittedValue)
     },
     change() {
-      this.$emit('change', this.emittedValue)
+      this.$emit('update:model-value', this.emittedValue)
     }
   },
   template: `<input
@@ -113,10 +108,8 @@ export default Vue.extend({
     type="text"
     autocomplete="off"
     :value="maskedValue"
-    class="v-number"
+    class="v-number vue-number-format"
     @change="change"
     @input="input"
-    @blur="(evt) => $emit('blur', evt)"
-    @focus="(evt) => $emit('focus', evt)"
-  >`
+  />`
 })

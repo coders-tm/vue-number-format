@@ -50,7 +50,6 @@ The precision property returns the number of bits of precision that can be repre
 - Type: `string`
 - Default: `2`
 - Required: `false`
-## nullValue
 
 ## minimumFractionDigits
 
