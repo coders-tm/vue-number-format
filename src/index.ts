@@ -6,11 +6,11 @@ import NumberFormat from './number-format'
 export { component, directive, options, NumberFormat }
 
 export default {
-  install(app: any, config?: Config) {
+  install(Vue: any, config?: Config) {
     if (config) {
       Object.assign(options, config)
     }
-    app.directive('number', directive)
-    app.component('VueNumber', component)
+    Vue.directive('number', directive)
+    Vue.component('VueNumber', component)
   }
 }
