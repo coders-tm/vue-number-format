@@ -1,7 +1,7 @@
-import typescript from 'rollup-plugin-typescript2';
-import filesize from 'rollup-plugin-filesize';
-import resolve from '@rollup/plugin-node-resolve';
-import dts from 'rollup-plugin-dts';
+import typescript from 'rollup-plugin-typescript2'
+import filesize from 'rollup-plugin-filesize'
+import resolve from '@rollup/plugin-node-resolve'
+import dts from 'rollup-plugin-dts'
 import pkg from './package.json'
 
 const banner = `/**
@@ -9,7 +9,6 @@ const banner = `/**
  * (c) 2021-${new Date().getFullYear()} ${pkg.author}
  * @license ${pkg.license}
  */`
-
 
 export default [
   {
@@ -46,4 +45,4 @@ export default [
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()]
   }
-];
+]

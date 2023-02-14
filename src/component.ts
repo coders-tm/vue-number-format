@@ -1,5 +1,4 @@
-
-import Vue from 'vue';
+import Vue from 'vue'
 import directive from './directive'
 import { cloneDeep, CustomInputEvent, Input } from './core'
 import defaultOptions from './options'

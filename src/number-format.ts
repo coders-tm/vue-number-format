@@ -72,6 +72,9 @@ export default class NumberFormat {
   }
 
   sign() {
+    if (this.input === null || this.input === undefined) {
+      return ''
+    }
     const hasMinus = this.input.toString().indexOf('-') >= 0
     if (this.isClean) {
       return hasMinus && this.realNumber() > 0 ? '-' : ''
@@ -150,7 +153,7 @@ export default class NumberFormat {
     if (this.isNull() && !this.options.reverseFill) {
       return this.options.nullValue
     }
-    return [this.sign(), this.options.prefix, this.addSeparator(), this.options.suffix].join('')
+    return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
   }
 
   /**
