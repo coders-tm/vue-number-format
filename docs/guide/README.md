@@ -59,15 +59,15 @@ Vue.use(number, { precision: 4 })
 
 ```html
 <template>
-  <div><number v-model="price" v-bind="number"></number> {{price}}</div>
+  <div><vue-number v-model="price" v-bind="number"></vue-number> {{price}}</div>
 </template>
 
 <script>
-  import { number } from '@coders-tm/vue-number-format'
+  import { component } from '@coders-tm/vue-number-format'
 
   export default {
     components: {
-      number,
+      component,
     },
 
     data() {
@@ -100,7 +100,7 @@ Masking doesn't work with directive
 </template>
 
 <script>
-  import { vNumber } from '@coders-tm/vue-number-format'
+  import { directive } from '@coders-tm/vue-number-format'
 
   export default {
     data() {
@@ -116,7 +116,7 @@ Masking doesn't work with directive
     },
 
     directives: {
-      number: vNumber,
+      number: directive,
     },
   }
 </script>
