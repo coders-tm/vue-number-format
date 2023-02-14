@@ -1,9 +1,10 @@
-import { DirectiveBinding, VNode } from 'vue'
+import { VNode } from 'vue'
+import { DirectiveBinding } from 'vue/types/options'
 import * as core from './core'
 import defaultOptions from './options'
 
 export default {
-  beforeMount: (el: core.CustomInputElement, { value, modifiers }: DirectiveBinding, vnode: VNode) => {
+  bind: (el: core.CustomInputElement, { value, modifiers }: DirectiveBinding, vnode: VNode) => {
     el = core.getInputElement(el)
     const options = Object.assign(core.cloneDeep(defaultOptions), value, modifiers)
     el.options = options
@@ -11,7 +12,7 @@ export default {
     core.updateValue(el, vnode, { force: options.prefill, clean: true })
   },
 
-  mounted: (el: core.CustomInputElement) => {
+  inserted: (el: core.CustomInputElement) => {
     el = core.getInputElement(el)
 
     // prefer adding event listener to parent element to avoid Firefox bug which does not
@@ -37,7 +38,7 @@ export default {
     el.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
   },
 
-  updated: (el: core.CustomInputElement, { value, oldValue, modifiers }: DirectiveBinding, vnode: VNode) => {
+  update: (el: core.CustomInputElement, { value, oldValue, modifiers }: DirectiveBinding, vnode: VNode) => {
     el = core.getInputElement(el)
     const options = el.options
     el.options = Object.assign(options, value, modifiers)
@@ -48,7 +49,7 @@ export default {
     }
   },
 
-  unmounted: (el: core.CustomInputElement) => {
+  unbind: (el: core.CustomInputElement) => {
     core.getInputElement(el).cleanup()
   }
 }

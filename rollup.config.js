@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript2'
-import dts from 'rollup-plugin-dts'
-import cleanup from 'rollup-plugin-cleanup'
 import filesize from 'rollup-plugin-filesize'
+import resolve from '@rollup/plugin-node-resolve'
+import dts from 'rollup-plugin-dts'
 import pkg from './package.json'
 
 const banner = `/**
@@ -12,7 +12,7 @@ const banner = `/**
 
 export default [
   {
-    input: `src/index.ts`,
+    input: 'src/index.ts',
     output: [
       {
         file: pkg.main,
@@ -35,7 +35,7 @@ export default [
           }
         }
       }),
-      cleanup({ extensions: ['js', 'ts'] }),
+      resolve(),
       filesize()
     ],
     external: ['vue']

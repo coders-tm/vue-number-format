@@ -5,14 +5,12 @@ import NumberFormat from './number-format'
 
 export { component, directive, options, NumberFormat }
 
-const VueNumberFormat = {
-  install(app: any, config?: Config) {
+export default {
+  install(Vue: any, config?: Config) {
     if (config) {
       Object.assign(options, config)
     }
-    app.directive('number', directive)
-    app.component('VueNumber', component)
+    Vue.directive('number', directive)
+    Vue.component('VueNumber', component)
   }
 }
-
-export default VueNumberFormat
