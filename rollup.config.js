@@ -1,9 +1,7 @@
-import vue from 'rollup-plugin-vue'
-import typescript from 'rollup-plugin-typescript2'
-import commonjs from 'rollup-plugin-commonjs'
-import resolve from 'rollup-plugin-node-resolve'
-import dts from 'rollup-plugin-dts'
-import filesize from 'rollup-plugin-filesize'
+import typescript from 'rollup-plugin-typescript2';
+import filesize from 'rollup-plugin-filesize';
+import resolve from '@rollup/plugin-node-resolve';
+import dts from 'rollup-plugin-dts';
 import pkg from './package.json'
 
 const banner = `/**
@@ -12,21 +10,20 @@ const banner = `/**
  * @license ${pkg.license}
  */`
 
+
 export default [
   {
     input: 'src/index.ts',
     output: [
       {
-        compact: true,
         file: pkg.main,
         format: 'cjs',
         exports: 'named',
-        name: 'VueNumberFormat',
         banner
       },
       {
         file: pkg.module,
-        format: 'esm',
+        format: 'es',
         exports: 'named',
         banner
       }
@@ -40,15 +37,13 @@ export default [
         }
       }),
       resolve(),
-      commonjs(),
-      vue(),
       filesize()
     ],
     external: ['vue']
   },
   {
-    input: './.temp/types/index.d.ts',
+    input: './.temp/types/src/index.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'es' }],
     plugins: [dts()]
   }
-]
+];

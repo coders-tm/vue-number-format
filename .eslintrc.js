@@ -5,12 +5,8 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
-    'plugin:vue/recommended',
-    '@vue/typescript/recommended'
+    'plugin:vue/recommended', // Use recommended rules from the plugin
   ],
-  parserOptions: {
-    parser: '@typescript-eslint/parser'
-  },
   rules: {
     // Customize your rules here
   }

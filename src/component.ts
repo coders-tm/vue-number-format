@@ -1,18 +1,4 @@
-<template>
-  <input
-    v-number="config"
-    type="text"
-    autocomplete="off"
-    :value="maskedValue"
-    class="v-number"
-    @change="change"
-    @input="input"
-    @blur="(evt) => $emit('blur', evt)"
-    @focus="(evt) => $emit('focus', evt)"
-  >
-</template>
 
-<script lang="ts">
 import Vue from 'vue';
 import directive from './directive'
 import { cloneDeep, CustomInputEvent, Input } from './core'
@@ -122,6 +108,16 @@ export default Vue.extend({
     change() {
       this.$emit('change', this.emittedValue)
     }
-  }
-});
-</script>
+  },
+  template: `<input
+    v-number="config"
+    type="text"
+    autocomplete="off"
+    :value="maskedValue"
+    class="v-number"
+    @change="change"
+    @input="input"
+    @blur="(evt) => $emit('blur', evt)"
+    @focus="(evt) => $emit('focus', evt)"
+  >`
+})
