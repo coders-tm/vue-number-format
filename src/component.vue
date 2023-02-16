@@ -1,3 +1,16 @@
+<template>
+  <input
+    v-number="config"
+    type="text"
+    autocomplete="off"
+    :value="maskedValue"
+    class="v-number vue-number-format"
+    @change="change"
+    @input="input"
+  />
+</template>
+
+<script lang="ts">
 import { defineComponent } from 'vue'
 import { cloneDeep, CustomInputEvent, Input } from './core'
 import directive from './directive'
@@ -93,8 +106,8 @@ export default defineComponent({
     }
   },
   methods: {
-    input(event: CustomInputEvent) {
-      const { target } = event
+    input(event: Event) {
+      const { target } = event as CustomInputEvent
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
       this.$emit('input:model-value', this.emittedValue)
@@ -102,14 +115,6 @@ export default defineComponent({
     change() {
       this.$emit('update:model-value', this.emittedValue)
     }
-  },
-  template: `<input
-    v-number="config"
-    type="text"
-    autocomplete="off"
-    :value="maskedValue"
-    class="v-number vue-number-format"
-    @change="change"
-    @input="input"
-  />`
+  }
 })
+</script>

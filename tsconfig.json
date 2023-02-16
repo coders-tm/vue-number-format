@@ -12,6 +12,18 @@
     "rootDir": ".",
     "skipLibCheck": true,
     "noUnusedLocals": true,
-    "baseUrl": "."
-  }
+    "declaration": true,
+    "declarationDir": "./.temp/types",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+  ],
 }

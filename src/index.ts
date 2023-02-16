@@ -1,4 +1,4 @@
-import component from './component'
+import component from './component.vue'
 import directive from './directive'
 import options, { Options as Config } from './options'
 import NumberFormat from './number-format'
