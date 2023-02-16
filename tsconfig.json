@@ -12,8 +12,6 @@
     "rootDir": ".",
     "skipLibCheck": true,
     "noUnusedLocals": true,
-    "declaration": true,
-    "declarationDir": "./.temp/types",
     "baseUrl": ".",
     "paths": {
       "@/*": [
