@@ -1,3 +1,18 @@
+<template>
+  <input
+    v-number="config"
+    type="text"
+    autocomplete="off"
+    :value="maskedValue"
+    class="v-number"
+    @change="change"
+    @input="input"
+    @blur="(evt) => $emit('blur', evt)"
+    @focus="(evt) => $emit('focus', evt)"
+  />
+</template>
+
+<script lang="ts">
 import Vue from 'vue'
 import directive from './directive'
 import { cloneDeep, CustomInputEvent, Input } from './core'
@@ -16,7 +31,7 @@ export default Vue.extend({
     },
     nullValue: {
       type: [Number, String],
-      default: () => options.nullValue
+      default: options.nullValue
     },
     masked: {
       type: Boolean,
@@ -32,35 +47,35 @@ export default Vue.extend({
     },
     precision: {
       type: Number,
-      default: () => options.precision
+      default: options.precision
     },
     minimumFractionDigits: {
       type: Number,
-      default: () => options.minimumFractionDigits
+      default: options.minimumFractionDigits
     },
     decimal: {
       type: String,
-      default: () => options.decimal
+      default: options.decimal
     },
     min: {
       type: Number,
-      default: () => options.min
+      default: options.min
     },
     max: {
       type: Number,
-      default: () => options.max
+      default: options.max
     },
     separator: {
       type: String,
-      default: () => options.separator
+      default: options.separator
     },
     prefix: {
       type: String,
-      default: () => options.prefix
+      default: options.prefix
     },
     suffix: {
       type: String,
-      default: () => options.suffix
+      default: options.suffix
     }
   },
   data() {
@@ -98,8 +113,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    input(event: CustomInputEvent) {
-      const { target } = event
+    input(event: Event) {
+      const { target } = event as CustomInputEvent
       this.maskedValue = target.value
       this.unmaskedValue = target.unmaskedValue
       this.$emit('input', this.emittedValue)
@@ -107,16 +122,6 @@ export default Vue.extend({
     change() {
       this.$emit('change', this.emittedValue)
     }
-  },
-  template: `<input
-    v-number="config"
-    type="text"
-    autocomplete="off"
-    :value="maskedValue"
-    class="v-number"
-    @change="change"
-    @input="input"
-    @blur="(evt) => $emit('blur', evt)"
-    @focus="(evt) => $emit('focus', evt)"
-  >`
+  }
 })
+</script>

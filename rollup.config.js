@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2'
+import vue from 'rollup-plugin-vue'
 import filesize from 'rollup-plugin-filesize'
 import resolve from '@rollup/plugin-node-resolve'
 import dts from 'rollup-plugin-dts'
@@ -31,18 +32,19 @@ export default [
       typescript({
         tsconfigOverride: {
           compilerOptions: {
-            declaration: false
+            declaration: true
           }
         }
       }),
+      vue(),
       resolve(),
       filesize()
     ],
     external: ['vue']
   },
   {
-    input: './.temp/types/src/index.d.ts',
-    output: [{ file: 'dist/index.d.ts', format: 'es' }],
+    input: 'dist/src/index.d.ts',
+    output: [{ file: pkg.types, format: 'es' }],
     plugins: [dts()]
   }
 ]

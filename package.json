@@ -20,7 +20,8 @@
   },
   "sideeffects": false,
   "scripts": {
-    "build": "tsc --emitDeclarationOnly --skipLibCheck --declaration --outDir .temp/types && rollup --c rollup.config.js",
+    "prebuild": "rimraf dist",
+    "build": "rollup --c rollup.config.js && rimraf dist/src",
     "docs:build": "vuepress build docs",
     "docs:dev": "vuepress dev docs",
     "test": "vitest",
@@ -44,17 +45,19 @@
     "jsdom": "latest",
     "lint-staged": "^13.1.2",
     "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
+    "rimraf": "^4.1.2",
     "rollup": "^2.6.1",
     "rollup-plugin-dts": "^4.2.2",
     "rollup-plugin-filesize": "^9.1.2",
     "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-vue": "^5.1.6",
+    "vue-jest": "^3.0.5",
     "typescript": "^4.9.5",
     "vite": "^4.1.1",
     "vite-plugin-vue2": "^1.9.3",
     "vitest": "^0.28.5",
-    "vue": "^2.6.0",
-    "vue-template-compiler": "^2.6.0"
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   },
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"
