@@ -1,4 +1,5 @@
 {
+  "license": "MIT",
   "scripts": {
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
@@ -9,9 +10,7 @@
     "@vuepress/plugin-register-components": "^2.0.0-beta.27",
     "@vuepress/plugin-search": "^2.0.0-beta.27",
     "vite-plugin-windicss": "^1.8.1",
-    "vue": "^3.0.0",
     "vuepress-vite": "^2.0.0-beta.27",
     "windicss": "^3.5.0"
-  },
-  "prettier": "prettier-config-vuepress"
+  }
 }
