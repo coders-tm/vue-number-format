@@ -20,7 +20,7 @@ Get all the essentials features Starting at £0.99/mo<br>
 ## Installation
 
 ::: warning
-Install the npm package @coders-tm/vue-number-format@^2.5.0 for Vue 2.0
+Install the npm package @coders-tm/vue-number-format@^2.6.0 for Vue 2.0
 :::
 
 <CodeGroup>
