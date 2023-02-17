@@ -9,9 +9,8 @@
     @input="input"
   />
 </template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import { cloneDeep, CustomInputEvent, Input } from './core'
 import directive from './directive'
 import defaultOptions from './options'
@@ -30,7 +29,8 @@ export default defineComponent({
     },
     nullValue: {
       type: [Number, String],
-      default: () => options.nullValue
+      required: false,
+      default: options.nullValue
     },
     masked: {
       type: Boolean,
@@ -78,42 +78,31 @@ export default defineComponent({
     }
   },
   emits: ['update:model-value', 'input:model-value'],
-  data() {
-    return {
-      maskedValue: this.modelValue,
-      unmaskedValue: '' as Input | undefined
-    }
-  },
-  computed: {
-    emittedValue() {
-      return this.masked ? this.maskedValue : this.unmaskedValue
-    },
-    config() {
-      return {
-        nullValue: this.nullValue,
-        masked: this.masked,
-        reverseFill: this.reverseFill,
-        prefill: this.prefill,
-        precision: this.precision,
-        minimumFractionDigits: this.minimumFractionDigits,
-        decimal: this.decimal,
-        min: this.min,
-        max: this.max,
-        separator: this.separator,
-        prefix: this.prefix,
-        suffix: this.suffix
-      }
-    }
-  },
-  methods: {
-    input(event: Event) {
+  setup(props, { emit }) {
+    const maskedValue = ref(props.modelValue)
+    const unmaskedValue = ref('' as Input | undefined)
+    const config = computed(() => ({ ...props }))
+
+    const emittedValue = computed(() => {
+      return props.masked ? maskedValue.value : unmaskedValue.value
+    })
+
+    const input = (event: Event) => {
       const { target } = event as CustomInputEvent
-      this.maskedValue = target.value
-      this.unmaskedValue = target.unmaskedValue
-      this.$emit('input:model-value', this.emittedValue)
-    },
-    change() {
-      this.$emit('update:model-value', this.emittedValue)
+      maskedValue.value = target.value
+      unmaskedValue.value = target.unmaskedValue
+      emit('input:model-value', emittedValue)
+    }
+
+    const change = () => {
+      emit('update:model-value', emittedValue)
+    }
+
+    return {
+      config,
+      maskedValue,
+      input,
+      change
     }
   }
 })

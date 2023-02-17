@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
+    "target": "ESNext",
     "module": "ESNext",
     "lib": ["ESNext", "DOM"],
     "moduleResolution": "Node",
@@ -12,6 +12,8 @@
     "rootDir": ".",
     "skipLibCheck": true,
     "noUnusedLocals": true,
+    "declaration": true,
+    "declarationDir": "dist/types",
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -23,5 +25,5 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
-  ],
+  ]
 }
