@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Component from '../src/component'
+import Component from '../src/component.vue'
 
 test('test component', async () => {
   expect(Component).toBeTruthy()
