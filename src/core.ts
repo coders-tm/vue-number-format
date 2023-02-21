@@ -212,7 +212,7 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { options } = el
   const regExp = new RegExp(`${options.prefix}|${options.suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
-  const canNegativeInput = options.min < 0 || !options.min
+  const canNegativeInput = options.min < 0
   if (([110, 190].includes(event.keyCode) || event.key === options.decimal) && newValue.includes(options.decimal)) {
     event.preventDefault()
   } else if ([109].includes(event.keyCode) && !canNegativeInput) {
