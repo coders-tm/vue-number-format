@@ -24,8 +24,8 @@ export default {
     precision: Number,
     minimumFractionDigits: Number,
     decimal: String,
-    min: Number,
-    max: Number,
+    min: [Number, String],
+    max: [Number, String],
     separator: String,
     prefix: String,
     suffix: String

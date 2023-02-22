@@ -49,7 +49,7 @@ export default defineComponent({
       default: () => options.precision
     },
     minimumFractionDigits: {
-      type: [Number, Boolean],
+      type: Number,
       default: () => options.minimumFractionDigits
     },
     decimal: {
@@ -57,11 +57,11 @@ export default defineComponent({
       default: () => options.decimal
     },
     min: {
-      type: [Number, Boolean],
+      type: Number,
       default: () => options.min
     },
     max: {
-      type: [Number, Boolean],
+      type: Number,
       default: () => options.max
     },
     separator: {

@@ -1,6 +1,8 @@
 import { VNode } from 'vue'
 import NumberFormat from './number-format'
 
+export const MINUS = '-'
+
 export type Input = number | string
 
 export interface Options {
@@ -12,8 +14,8 @@ export interface Options {
   minimumFractionDigits: number
   prefill: boolean
   reverseFill: boolean
-  min: number
-  max: number
+  min?: number
+  max?: number
   nullValue: string
 }
 
@@ -42,32 +44,12 @@ export function cloneDeep(data: object) {
   return JSON.parse(JSON.stringify(data))
 }
 
-export function getConfig(el: HTMLInputElement) {
-  return JSON.parse(el.dataset.config as string) as Config
-}
-
-export function setConfig(el: HTMLInputElement, config: any) {
-  el.dataset.config = JSON.stringify(config)
-}
-
 /**
- * Creates a CustomEvent('input') with detail = { facade: true }
- * used as a way to identify our own input event
+ * Creates a CustomEvent with detail = { facade: true }
+ * used as a way to identify our own event
  */
-export function FacadeInputEvent() {
-  return new CustomEvent('input', {
-    bubbles: true,
-    cancelable: true,
-    detail: { facade: true }
-  })
-}
-
-/**
- * Creates a CustomEvent('change') with detail = { facade: true }
- * used as a way to identify our own change event
- */
-export function FacadeChangeEvent() {
-  return new CustomEvent('change', {
+export function FacadeEvent(event: string) {
+  return new CustomEvent(event, {
     bubbles: true,
     cancelable: true,
     detail: { facade: true }
@@ -139,7 +121,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(FacadeInputEvent())
+    return emit && el.dispatchEvent(FacadeEvent('input'))
   }
 }
 
@@ -148,7 +130,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
  *
  * @param {CustomInputEvent} event The event object
  */
-export function inputHandler(event: CustomInputEvent, el?: CustomInputElement) {
+export function inputHandler(event: CustomInputEvent) {
   const { target, detail } = event
 
   // We dont need to run this method on the event we emit (prevent event loop)
@@ -180,14 +162,14 @@ export function inputHandler(event: CustomInputEvent, el?: CustomInputElement) {
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(FacadeInputEvent())
+    target.dispatchEvent(FacadeEvent('input'))
   }
 }
 
 /**
  * Blur event handler
  */
-export function blurHandler(event: Event, el?: CustomInputElement) {
+export function blurHandler(event: Event) {
   const { target, detail } = event as CustomInputEvent
 
   // We dont need to run this method on the event we emit (prevent event loop)
@@ -201,7 +183,7 @@ export function blurHandler(event: Event, el?: CustomInputElement) {
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(FacadeChangeEvent())
+    target.dispatchEvent(FacadeEvent('change'))
   }
 }
 
@@ -210,37 +192,33 @@ export function blurHandler(event: Event, el?: CustomInputElement) {
  */
 export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { options } = el
-  const regExp = new RegExp(`${options.prefix}|${options.suffix}`, 'g')
+  const { prefix, suffix, decimal, min, separator } = options as Options
+  const { key } = event
+  const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
-  const canNegativeInput = options.min < 0
-  if (([110, 190].includes(event.keyCode) || event.key === options.decimal) && newValue.includes(options.decimal)) {
+  const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
+  if (key === decimal && newValue.includes(decimal)) {
     event.preventDefault()
-  } else if ([109].includes(event.keyCode) && !canNegativeInput) {
+  } else if (key === MINUS && !canNegativeInput) {
     event.preventDefault()
-  } else if ([8].includes(event.keyCode)) {
+  } else if (key === 'Backspace') {
     // check current cursor position is after separator when backspace key down
     const selectionEnd = el.selectionEnd || 0
     const character = el.value.slice(selectionEnd - 1, selectionEnd)
     const replace = el.value.slice(selectionEnd - 2, selectionEnd)
-    if (character === options.separator) {
+    let positionFromEnd = el.value.length - selectionEnd
+    if ([prefix, MINUS, separator].includes(character)) {
       event.preventDefault()
-      let positionFromEnd = el.value.length - selectionEnd
-      // remove separator and before character
-      el.value = el.value.replace(replace, '')
-      // updated cursor position
-      if (options.suffix) {
-        positionFromEnd = Math.max(positionFromEnd, options.suffix.length)
+      if (character === separator) {
+        el.value = el.value.replace(replace, '')
+      } else {
+        el.value = el.value.replace(RegExp(`${prefix}|${MINUS}`, 'g'), '')
       }
+      positionFromEnd = Math.max(positionFromEnd, suffix.length)
       positionFromEnd = el.value.length - positionFromEnd
-      if (options.prefix) {
-        positionFromEnd = Math.max(positionFromEnd, options.prefix.length)
-      }
+      positionFromEnd = Math.max(positionFromEnd, prefix.length)
       updateCursor(el, positionFromEnd)
       // trigger input event
-      el.dispatchEvent(new Event('input'))
-    } else if ([options.prefix, '-'].includes(character)) {
-      event.preventDefault()
-      el.value = ''
       el.dispatchEvent(new Event('input'))
     }
   }

@@ -18,10 +18,10 @@ export default {
   separator: ',',
   decimal: '.',
   precision: 2,
-  minimumFractionDigits: null,
+  minimumFractionDigits: undefined,
   prefill: true,
   reverseFill: false,
-  min: null,
-  max: null,
+  min: undefined,
+  max: undefined,
   nullValue: ''
 }

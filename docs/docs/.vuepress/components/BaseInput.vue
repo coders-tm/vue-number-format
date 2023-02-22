@@ -1,7 +1,7 @@
 <template>
   <input
     :value="modelValue"
-    type="text"
+    :type="type"
     class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
     @change="$emit('update:modelValue', $event.target.value)"
   />
@@ -12,14 +12,18 @@ export default {
   name: 'BaseInput',
   props: {
     modelValue: {
-      default: undefined,
+      default: undefined
+    },
+    type: {
+      type: String,
+      default: 'input'
     },
     label: {
       type: String,
-      required: false,
-    },
+      required: false
+    }
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue']
 }
 </script>
 

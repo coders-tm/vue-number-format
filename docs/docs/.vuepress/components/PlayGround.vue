@@ -98,21 +98,21 @@
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum fraction digits</div>
         <BaseInput
-          type="text"
-          v-model="config.minimumFractionDigits"
+          type="number"
+          v-model.number="config.minimumFractionDigits"
         />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Minimum value</div>
         <BaseInput
-          type="text"
+          type="number"
           v-model.number="config.min"
         />
       </div>
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Maximum value</div>
         <BaseInput
-          type="text"
+          type="number"
           v-model.number="config.max"
         />
       </div>
