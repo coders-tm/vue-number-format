@@ -102,10 +102,10 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
 
     // check value with in range max and min value
     if (clean) {
-      if (options.max && Number(unmasked) > options.max) {
+      if (Number(options.max) === options.max && Number(unmasked) > options.max) {
         masked = number.format(options.max)
         unmasked = number.unformat(options.max)
-      } else if (options.min && Number(unmasked) < options.min) {
+      } else if (Number(options.min) === options.min && Number(unmasked) < options.min) {
         masked = number.format(options.min)
         unmasked = number.unformat(options.min)
       }
