@@ -232,7 +232,7 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
       if (character === separator) {
         el.value = el.value.replace(replace, '')
       } else {
-        el.value = el.value.replace(RegExp(`${prefix}|${MINUS}`, 'g'), '')
+        el.value = el.value.replace(new RegExp(`[${prefix}${MINUS}]`, 'g'), '')
       }
       positionFromEnd = Math.max(positionFromEnd, suffix.length)
       positionFromEnd = el.value.length - positionFromEnd
