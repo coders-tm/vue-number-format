@@ -16,7 +16,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'input'
+      default: 'text'
     },
     label: {
       type: String,
