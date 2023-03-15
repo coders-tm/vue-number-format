@@ -83,15 +83,19 @@ export default defineComponent({
     const unmaskedValue = ref('' as Input | undefined)
     const config = computed(() => ({ ...props }))
 
+    const emittedValue = computed(() => {
+      return props.masked ? maskedValue.value : unmaskedValue.value
+    })
+
     const input = (event: Event) => {
       const { target } = event as CustomInputEvent
       maskedValue.value = target.value
       unmaskedValue.value = target.unmaskedValue
-      emit('input:model-value', props.masked ? maskedValue.value : unmaskedValue.value)
+      emit('input:model-value', emittedValue.value)
     }
 
     const change = () => {
-      emit('update:model-value', props.masked ? maskedValue.value : unmaskedValue.value)
+      emit('update:model-value', emittedValue.value)
     }
 
     watch(
