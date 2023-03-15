@@ -91,11 +91,11 @@ export default defineComponent({
       const { target } = event as CustomInputEvent
       maskedValue.value = target.value
       unmaskedValue.value = target.unmaskedValue
-      emit('input:model-value', emittedValue)
+      emit('input:model-value', emittedValue.value)
     }
 
     const change = () => {
-      emit('update:model-value', emittedValue)
+      emit('update:model-value', emittedValue.value)
     }
 
     return {

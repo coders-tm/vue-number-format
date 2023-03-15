@@ -3,7 +3,7 @@
     <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-8 items-center my-8">
       <div class="grid">
         <div class="font-medium mb-2">Component</div>
-        <Number
+        <VueNumber
           v-if="updated"
           v-model="price"
           v-bind="config"

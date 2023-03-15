@@ -111,6 +111,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
       }
     }
 
+    el.oldValue = masked
     el.masked = masked
     el.unmaskedValue = unmasked
 
@@ -143,6 +144,7 @@ export function inputHandler(event: CustomInputEvent) {
   // since we will be emitting our own custom input event
   // we can stop propagation of this native event
   event.stopPropagation()
+
   let positionFromEnd = target.value.length
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
@@ -179,7 +181,7 @@ export function blurHandler(event: Event) {
 
   const { oldValue, masked } = target
 
-  updateValue(target, null, { force: true, emit: true, clean: true })
+  updateValue(target, null, { force: true, clean: true })
 
   if (oldValue !== target.value) {
     target.oldValue = masked
