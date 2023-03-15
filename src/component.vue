@@ -10,7 +10,7 @@
   />
 </template>
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue'
+import { defineComponent, ref, computed, watch } from 'vue'
 import { cloneDeep, CustomInputEvent, Input } from './core'
 import directive from './directive'
 import defaultOptions from './options'
@@ -97,6 +97,15 @@ export default defineComponent({
     const change = () => {
       emit('update:model-value', emittedValue.value)
     }
+
+    watch(
+      () => props.modelValue,
+      (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          maskedValue.value = newValue
+        }
+      }
+    )
 
     return {
       config,

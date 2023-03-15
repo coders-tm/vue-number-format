@@ -168,6 +168,10 @@ export default {
   methods: {
     onChange() {
       console.log('onChange', arguments)
+      // setTimeout(() => {
+      //   this.price = 1500.629
+      //   this.priceDirective = 1500.629
+      // }, 3000)
     },
     onInput() {
       console.log('onInput', arguments)
