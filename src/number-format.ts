@@ -166,7 +166,7 @@ export default class NumberFormat {
     if (this.isNull()) {
       return this.options.nullValue
     }
-    if (this.options.reverseFill && this.realNumber() <= 0) {
+    if (this.options.reverseFill && this.realNumber() === 0) {
       return this.options.nullValue
     }
     return this.sign() + this.realNumber()
