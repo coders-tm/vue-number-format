@@ -1,5 +1,8 @@
 <template>
-  <vue-number v-bind="config" v-model="price" />
+  <div>
+    <vue-number v-bind="config" v-model="price" />
+    {{ price }}
+  </div>
 </template>
 
 <script>
@@ -10,6 +13,7 @@ export default {
       config: {
         prefix: '$',
         // min: 0,
+        reverseFill: true
       }
     }
   },

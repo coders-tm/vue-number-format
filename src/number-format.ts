@@ -163,7 +163,10 @@ export default class NumberFormat {
    */
   unformat(input: Input): string {
     this.input = input
-    if (this.isNull() && !this.options.reverseFill) {
+    if (this.isNull()) {
+      return this.options.nullValue
+    }
+    if (this.options.reverseFill && this.realNumber() <= 0) {
       return this.options.nullValue
     }
     return this.sign() + this.realNumber()
