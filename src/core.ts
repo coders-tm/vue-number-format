@@ -56,20 +56,8 @@ export function setConfig(el: HTMLInputElement, config: any) {
  * Creates a CustomEvent('input') with detail = { facade: true }
  * used as a way to identify our own input event
  */
-export function FacadeInputEvent() {
-  return new CustomEvent('input', {
-    bubbles: true,
-    cancelable: true,
-    detail: { facade: true }
-  })
-}
-
-/**
- * Creates a CustomEvent('change') with detail = { facade: true }
- * used as a way to identify our own change event
- */
-export function FacadeChangeEvent() {
-  return new CustomEvent('change', {
+export function InputEvent(type: string) {
+  return new CustomEvent(type, {
     bubbles: true,
     cancelable: true,
     detail: { facade: true }
@@ -141,7 +129,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(FacadeInputEvent())
+    return emit && el.dispatchEvent(InputEvent('input'))
   }
 }
 
@@ -182,7 +170,7 @@ export function inputHandler(event: CustomInputEvent) {
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(FacadeInputEvent())
+    target.dispatchEvent(InputEvent('input'))
   }
 }
 
@@ -199,11 +187,11 @@ export function blurHandler(event: Event) {
 
   const { oldValue, masked } = target
 
-  updateValue(target, null, { force: true, emit: true, clean: true })
+  updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(FacadeChangeEvent())
+    target.dispatchEvent(InputEvent('change'))
   }
 }
 

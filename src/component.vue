@@ -33,10 +33,7 @@ export default Vue.extend({
       type: [Number, String],
       default: options.nullValue
     },
-    masked: {
-      type: Boolean,
-      default: false
-    },
+    masked: Boolean,
     reverseFill: {
       type: Boolean,
       default: options.reverseFill
