@@ -12,9 +12,9 @@ yarn add @coders-tm/vue-number-format
 ```
 ## Vue 2.0
 ```bash
-npm install @coders-tm/vue-number-format@^2.12.0
+npm install @coders-tm/vue-number-format@^2.13.0
 or
-yarn add @coders-tm/vue-number-format@^2.12.0
+yarn add @coders-tm/vue-number-format@^2.13.0
 ```
 ## Features
 
