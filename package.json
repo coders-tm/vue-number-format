@@ -22,8 +22,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup -c rollup.config.js && rimraf dist/src",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "docs:dev": "cd docs && vuepress dev docs",
+    "docs:build": "cd docs && vuepress build docs",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint --no-fix --max-warnings 0 {**/*,*}.{js,ts,vue}",

@@ -181,7 +181,7 @@ export function blurHandler(event: Event) {
 
   const { oldValue, masked } = target
 
-  updateValue(target, null, { force: true, clean: true })
+  updateValue(target, null, { emit: false, force: true, clean: true })
 
   if (oldValue !== target.value) {
     target.oldValue = masked
