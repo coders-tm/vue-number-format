@@ -22,10 +22,10 @@
         <input
           v-if="updated"
           class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
-          v-model="priceDirective"
+          :value="priceDirective"
           v-number="config"
           type="text"
-          @change="onChange"
+          @change="({target})=>priceDirective=target.value"
           @input="onInput"
           @focus="onFocus"
           @blur="onBlur"
