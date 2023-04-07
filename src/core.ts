@@ -146,11 +146,11 @@ export function inputHandler(event: CustomInputEvent) {
     return false
   }
 
-  const { oldValue, options, masked } = target
-
   // since we will be emitting our own custom input event
   // we can stop propagation of this native event
   event.stopPropagation()
+
+  const { oldValue, options } = target
   let positionFromEnd = target.value.length
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
@@ -169,7 +169,7 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
-    target.oldValue = masked
+    // target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
@@ -191,7 +191,7 @@ export function blurHandler(event: Event) {
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(InputEvent('change'))
+    target.dispatchEvent(InputEvent('input'))
   }
 }
 
