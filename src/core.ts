@@ -44,14 +44,6 @@ export function cloneDeep(data: object) {
   return JSON.parse(JSON.stringify(data))
 }
 
-export function getConfig(el: HTMLInputElement) {
-  return JSON.parse(el.dataset.config as string) as Config
-}
-
-export function setConfig(el: HTMLInputElement, config: any) {
-  el.dataset.config = JSON.stringify(config)
-}
-
 /**
  * Creates a CustomEvent('input') with detail = { facade: true }
  * used as a way to identify our own input event
