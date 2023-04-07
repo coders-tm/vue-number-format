@@ -198,8 +198,14 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
   const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
-  if (key === decimal && newValue.includes(decimal)) {
-    event.preventDefault()
+  if (key === decimal) {
+    if (newValue.includes(decimal)) {
+      event.preventDefault()
+    } else if (!newValue) {
+      el.value = '0' + decimal
+      // trigger input event
+      el.dispatchEvent(new Event('input'))
+    }
   } else if (key === MINUS && !canNegativeInput) {
     event.preventDefault()
   } else if (key === 'Backspace') {
