@@ -48,7 +48,7 @@ export function cloneDeep(data: object) {
  * Creates a CustomEvent with detail = { facade: true }
  * used as a way to identify our own event
  */
-export function FacadeEvent(event: string) {
+export function InputEvent(event: string) {
   return new CustomEvent(event, {
     bubbles: true,
     cancelable: true,
@@ -111,7 +111,6 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
       }
     }
 
-    el.oldValue = masked
     el.masked = masked
     el.unmaskedValue = unmasked
 
@@ -122,7 +121,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
 
     // this part needs to be outside the above IF statement for vuetify in firefox
     // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(FacadeEvent('input'))
+    return emit && el.dispatchEvent(InputEvent('input'))
   }
 }
 
@@ -139,12 +138,11 @@ export function inputHandler(event: CustomInputEvent) {
     return false
   }
 
-  const { oldValue, options, masked } = target
-
   // since we will be emitting our own custom input event
   // we can stop propagation of this native event
   event.stopPropagation()
 
+  const { oldValue, options } = target
   let positionFromEnd = target.value.length
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
@@ -163,8 +161,7 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
-    target.oldValue = masked
-    target.dispatchEvent(FacadeEvent('input'))
+    target.dispatchEvent(InputEvent('input'))
   }
 }
 
@@ -181,11 +178,11 @@ export function blurHandler(event: Event) {
 
   const { oldValue, masked } = target
 
-  updateValue(target, null, { emit: false, force: true, clean: true })
+  updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
     target.oldValue = masked
-    target.dispatchEvent(FacadeEvent('change'))
+    target.dispatchEvent(InputEvent('change'))
   }
 }
 
