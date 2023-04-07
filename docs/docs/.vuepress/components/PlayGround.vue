@@ -19,11 +19,13 @@
       </div>
       <div class="grid">
         <div class="font-medium mb-2">Directive</div>
-        <BaseInput
+        <input
           v-if="updated"
+          class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
           v-model="priceDirective"
           v-number="config"
-          @update:model-value="onChange"
+          type="text"
+          @change="onChange"
           @input="onInput"
           @focus="onFocus"
           @blur="onBlur"
