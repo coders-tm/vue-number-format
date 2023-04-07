@@ -111,6 +111,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
       }
     }
 
+    el.oldValue = masked
     el.masked = masked
     el.unmaskedValue = unmasked
 
@@ -142,7 +143,7 @@ export function inputHandler(event: CustomInputEvent) {
   // we can stop propagation of this native event
   event.stopPropagation()
 
-  const { oldValue, options } = target
+  const { oldValue, options, masked } = target
   let positionFromEnd = target.value.length
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
@@ -161,6 +162,7 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
+    target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
