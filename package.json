@@ -22,7 +22,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup --c rollup.config.js && rimraf dist/src",
-    "docs:build": "cd demo && yarn && yarn serve",
+    "demo": "cd demo && yarn && yarn serve",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint 'src/**/*.{js,vue}'",

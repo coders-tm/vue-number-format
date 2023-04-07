@@ -44,6 +44,14 @@ export function cloneDeep(data: object) {
   return JSON.parse(JSON.stringify(data))
 }
 
+export function getConfig(el: HTMLInputElement) {
+  return JSON.parse(el.dataset.config as string) as Config
+}
+
+export function setConfig(el: HTMLInputElement, config: any) {
+  el.dataset.config = JSON.stringify(config)
+}
+
 /**
  * Creates a CustomEvent('input') with detail = { facade: true }
  * used as a way to identify our own input event
@@ -161,7 +169,6 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
-    // target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
@@ -197,8 +204,14 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
   const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
-  if (key === decimal && newValue.includes(decimal)) {
-    event.preventDefault()
+  if (key === decimal) {
+    if (newValue.includes(decimal)) {
+      event.preventDefault()
+    } else if (!newValue) {
+      el.value = '0' + decimal
+      // trigger input event
+      el.dispatchEvent(new Event('input'))
+    }
   } else if (key === MINUS && !canNegativeInput) {
     event.preventDefault()
   } else if (key === 'Backspace') {

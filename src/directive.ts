@@ -9,7 +9,7 @@ export default {
     const options = Object.assign(core.cloneDeep(defaultOptions), value, modifiers)
     el.options = options
     // set initial value
-    core.updateValue(el, vnode, { force: options.prefill, clean: true })
+    core.updateValue(el, vnode, { force: options.prefill, clean: true, emit: false })
   },
 
   inserted: (el: core.CustomInputElement) => {
