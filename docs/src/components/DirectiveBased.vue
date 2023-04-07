@@ -1,14 +1,17 @@
 <template>
   <div class="directive-based">
     <div class="title">Directive</div>
-    <input v-number="config" v-model="price" />
+    <input @input="onInput" @change="onChange" @blur="onBlur" v-number="config" v-model="price" />
     <div>Price: {{ price }}</div>
     <div>Calculated: {{ calculated }}</div>
   </div>
 </template>
 
 <script>
+import { InputMixin } from '../mixins'
+
 export default {
+  mixins:[InputMixin],
   data() {
     return {
       price: 123456.86,
