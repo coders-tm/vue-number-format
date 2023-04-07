@@ -7,7 +7,7 @@
     <div
       class="max-w-md md:relative m-auto p-8 bg-white rounded w-full h-auto shadow"
     >
-      <slot />
+      <slot></slot>
     </div>
   </div>
 </template>
