@@ -161,6 +161,7 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
+    // target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
