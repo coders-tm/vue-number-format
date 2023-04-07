@@ -57,7 +57,8 @@
     "vitest": "^0.28.5",
     "vue": "^2.6.11",
     "vue-jest": "^3.0.5",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.9.9"
   },
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"
