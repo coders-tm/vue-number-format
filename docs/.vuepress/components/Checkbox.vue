@@ -7,11 +7,11 @@
     }"
   >
     <input
-      :checked="modelValue"
+      :checked="value"
       :disabled="disabled"
       type="checkbox"
       class="w-5 h-5 mr-2 rounded rounded border-gray-300 shadow-sm disabled:(text-gray-300 cursor-not-allowed) not-disabled:(text-primary cursor-pointer) focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
-      @input="$emit('update:modelValue', $event.target.checked)"
+      @input="$emit('input', $event.target.checked)"
     />
     <span>{{ label }}</span>
   </label>
@@ -21,7 +21,7 @@
 export default {
   name: 'Checkbox',
   props: {
-    modelValue: Boolean,
+    value: Boolean,
     disabled: {
       type: Boolean,
       default: false,
@@ -31,7 +31,6 @@ export default {
       required: true,
     },
   },
-  emits: ['update:modelValue'],
 }
 </script>
 
