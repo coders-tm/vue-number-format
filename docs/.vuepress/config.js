@@ -1,4 +1,6 @@
 const { description } = require('../../package')
+const { resolve } = require('path')
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
 
 module.exports = {
   // dev server port
@@ -68,6 +70,23 @@ module.exports = {
           ]
         }
       ]
-    }
+    },
+    plugins: [
+      new WindiCSSWebpackPlugin({
+        preflight: false,
+        scan: {
+          include: [resolve(__dirname, './**/*.{vue,html,md}')],
+          exclude: ['node_modules/**/*', '.git/**/*']
+        },
+        theme: {
+          extend: {
+            colors: {
+              primary: '#3eaf7c'
+            }
+          }
+        },
+        plugins: [require('windicss/plugin/forms')]
+      })
+    ]
   }
 }

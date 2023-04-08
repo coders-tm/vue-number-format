@@ -44,7 +44,7 @@
         </button>
         <Dialog v-model="exportDialogVisible">
           <pre
-            class="m-0"
+            class="m-0 !bg-white text-black"
             style="margin: 0"
             >{{ config }}</pre
           >

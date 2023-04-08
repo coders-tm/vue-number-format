@@ -1,6 +1,6 @@
 import VueNumber from '../../src'
 
-import 'tailwindcss/dist/tailwind.css'
+import 'windi.css'
 
 export default ({
   Vue, // the version of Vue being used in the VuePress app
