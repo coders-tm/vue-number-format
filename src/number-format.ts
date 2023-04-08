@@ -24,12 +24,6 @@ function fixed(precision: number) {
   return between(0, precision, 20)
 }
 
-function toFixed(numbers: string, precision: number) {
-  const exp = Math.pow(10, precision)
-  const float = parseFloat(numbers) / exp || 0
-  return float.toFixed(fixed(precision))
-}
-
 /**
  * Number format class
  * @param {Options} config
@@ -82,12 +76,26 @@ export default class NumberFormat {
     return hasMinus ? '-' : ''
   }
 
+  toFixed() {
+    const padEnd = (num: string) => {
+      const parts = num.split(this.options.decimal)
+      parts[1] = parts[1].padEnd(this.options.precision, '0')
+      return parts.join('')
+    }
+    const exp = Math.pow(10, this.options.precision)
+    const float = parseFloat(padEnd(this.numberOnly())) / exp || 0
+    return float.toFixed(fixed(this.options.precision))
+  }
+
   toNumber(str: Input) {
     return Number(str)
   }
 
-  numberOnly(str: Input, regExp: RegExp) {
-    return str?.toString().replace(regExp, '')
+  numberOnly(str?: Input, regExp?: RegExp) {
+    return (str || this.input)
+      ?.toString()
+      .replace(this.preSurRegExp, '')
+      .replace(regExp || this.numberRegExp, '')
   }
 
   isNegative() {
@@ -96,13 +104,11 @@ export default class NumberFormat {
 
   numbers() {
     if (this.options.reverseFill) {
-      this.number = toFixed(this.numberOnly(this.input, /\D+/g), this.options.precision).replace('.', this.options.decimal)
+      this.number = this.toFixed().replace('.', this.options.decimal)
     } else if (typeof this.input === 'number') {
       this.number = this.parts(this.input.toString().replace('-', ''), '.').join(this.options.decimal)
     } else {
-      const input = this.input.replace(this.preSurRegExp, '')
-      this.number = this.numberOnly(input, this.numberRegExp)
-      this.number = this.parts(this.number).join(this.options.decimal)
+      this.number = this.parts(this.numberOnly()).join(this.options.decimal)
     }
     return this.number
   }
