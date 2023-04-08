@@ -54,10 +54,7 @@ export default class NumberFormat {
   }
 
   isNull() {
-    if (this.isClean) {
-      return !this.numberOnly(this.input, this.cleanRegExp)
-    }
-    return !this.numberOnly(this.input, this.negativeRegExp)
+    return !this.numberOnly((this.isClean ? this.cleanRegExp : this.negativeRegExp)
   }
 
   clean(clean = false) {
@@ -77,13 +74,8 @@ export default class NumberFormat {
   }
 
   toFixed() {
-    const padEnd = (num: string) => {
-      const parts = num.split(this.options.decimal)
-      parts[1] = parts[1].padEnd(this.options.precision, '0')
-      return parts.join('')
-    }
     const exp = Math.pow(10, this.options.precision)
-    const float = parseFloat(padEnd(this.numberOnly())) / exp || 0
+    const float = parseFloat(this.numberOnly()) / exp || 0
     return float.toFixed(fixed(this.options.precision))
   }
 
@@ -91,8 +83,8 @@ export default class NumberFormat {
     return Number(str)
   }
 
-  numberOnly(str?: Input, regExp?: RegExp) {
-    return (str || this.input)
+  numberOnly(regExp?: RegExp) {
+    return this.input
       ?.toString()
       .replace(this.preSurRegExp, '')
       .replace(regExp || this.numberRegExp, '')
