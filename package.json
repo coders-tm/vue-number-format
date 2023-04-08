@@ -22,7 +22,8 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "rollup --c rollup.config.js && rimraf dist/src",
-    "demo": "cd demo && yarn && yarn serve",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "lint": "eslint 'src/**/*.{js,vue}'",
@@ -58,8 +59,9 @@
     "vue": "^2.6.11",
     "vue-jest": "^3.0.5",
     "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.9.9",
-    "windicss": "^3.5.6"
+    "@vue/babel-preset-jsx": "^1.0.0",
+    "ts-loader": "^6.0.0",
+    "vuepress": "1.9.9"
   },
   "bugs": {
     "url": "https://github.com/coders-tm/vue-number-format/issues"

@@ -14,4 +14,3 @@ pnpm-debug.log*
 .cache
 *.bak
 example*
-docs
