@@ -49,10 +49,10 @@ Vue Number Format provide a ready-to-use component. But, it enables you to creat
 
 ```js
 import Vue from 'vue'
-import number from '@coders-tm/vue-number-format'
+import VueNumberFormat from '@coders-tm/vue-number-format'
 
 // register directive v-number and component <number>
-Vue.use(number, { precision: 4 })
+Vue.use(VueNumberFormat, { precision: 4 })
 ```
 
 ### Use as component
@@ -63,11 +63,11 @@ Vue.use(number, { precision: 4 })
 </template>
 
 <script>
-  import { component } from '@coders-tm/vue-number-format'
+  import { component as VueNumber } from '@coders-tm/vue-number-format'
 
   export default {
     components: {
-      component,
+      VueNumber,
     },
 
     data() {
@@ -100,7 +100,7 @@ Masking doesn't work with directive
 </template>
 
 <script>
-  import { directive } from '@coders-tm/vue-number-format'
+  import { directive as VNumber } from '@coders-tm/vue-number-format'
 
   export default {
     data() {
@@ -116,7 +116,7 @@ Masking doesn't work with directive
     },
 
     directives: {
-      number: directive,
+      number: VNumber,
     },
   }
 </script>
