@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import VueNumber from '../src/component.vue'
+import VueNumber from '../../src/component.vue'
 
 describe('VueNumber', () => {
   test('should emit input event with the new value on input', async () => {
@@ -14,7 +14,6 @@ describe('VueNumber', () => {
     })
 
     const input = wrapper.find('input')
-    // input.element.value = '200'
 
     await input.trigger('input')
 

@@ -16,11 +16,11 @@ test('when the value is invalid with custom config', () => {
     expect(numberFormat.format('!@#$%^&*()')).toEqual('')
   })
   test('should return as follows', () => {
-    expect(numberFormat.clean(true).unformat('')).toEqual('')
-    expect(numberFormat.clean(true).unformat('foo')).toEqual('')
-    expect(numberFormat.clean(true).unformat('-foo')).toEqual('')
-    expect(numberFormat.clean(true).unformat('-fo.o-')).toEqual('')
-    expect(numberFormat.clean(true).unformat('!@#$%^&*()')).toEqual('')
+    expect(numberFormat.unformat('')).toEqual('')
+    expect(numberFormat.unformat('foo')).toEqual('')
+    expect(numberFormat.unformat('-foo')).toEqual('')
+    expect(numberFormat.unformat('-fo.o-')).toEqual('')
+    expect(numberFormat.unformat('!@#$%^&*()')).toEqual('')
   })
 })
 test('format when options are custom', () => {
