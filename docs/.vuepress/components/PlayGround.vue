@@ -25,7 +25,7 @@
           :value="priceDirective"
           v-number="config"
           type="text"
-          @change="({target})=>priceDirective=target.value"
+          @change="({ target }) => (priceDirective = target.value)"
           @input="onInput"
           @focus="onFocus"
           @blur="onBlur"
@@ -145,14 +145,14 @@ export default {
       price: 1234.567,
       priceDirective: 1234.567,
       config: {
-        decimal: '.',
-        separator: ',',
-        prefix: '$',
+        decimal: ',',
+        separator: '.',
+        prefix: 'Rs.',
         suffix: '',
         precision: 2,
         nullValue: '',
         masked: false,
-        reverseFill: false
+        reverseFill: true
       }
     }
   },
