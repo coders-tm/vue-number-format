@@ -1,8 +1,8 @@
 import { mount } from '@vue/test-utils'
 import VueNumber from '../../src/component.vue'
 
-describe('VueNumber', () => {
-  test('should emit input event within range', async () => {
+describe('VueNumber within range', () => {
+  test('should emit input event with the new maskedValue on input', async () => {
     const wrapper = mount(VueNumber, {
       propsData: {
         value: 1.893,
@@ -34,5 +34,39 @@ describe('VueNumber', () => {
     await input.trigger('blur')
 
     expect(wrapper.vm.maskedValue).toBe('12.57')
+  })
+
+  test('should emit input event with the new unmaskedValue on input', async () => {
+    const wrapper = mount(VueNumber, {
+      propsData: {
+        value: 1.893,
+        min: 0,
+        max: 50
+      }
+    })
+
+    const input = wrapper.find('input')
+
+    await input.trigger('blur')
+
+    expect(wrapper.vm.unmaskedValue).toBe('1.89')
+
+    input.element.value = '1234.568'
+
+    await input.trigger('blur')
+
+    expect(wrapper.vm.unmaskedValue).toBe('50')
+
+    input.element.value = '-1234.568'
+
+    await input.trigger('blur')
+
+    expect(wrapper.vm.unmaskedValue).toBe('0')
+
+    input.element.value = '12.568'
+
+    await input.trigger('blur')
+
+    expect(wrapper.vm.unmaskedValue).toBe('12.57')
   })
 })
