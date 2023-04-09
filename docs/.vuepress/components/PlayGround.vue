@@ -151,8 +151,7 @@ export default {
         suffix: '',
         precision: 2,
         nullValue: '',
-        masked: false,
-        reverseFill: true
+        masked: false
       }
     }
   },
