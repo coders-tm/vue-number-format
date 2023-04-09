@@ -54,7 +54,7 @@ export default class NumberFormat {
   }
 
   isNull() {
-    return !this.numberOnly((this.isClean ? this.cleanRegExp : this.negativeRegExp)
+    return !this.numberOnly(this.isClean ? this.cleanRegExp : this.negativeRegExp)
   }
 
   clean(clean = false) {
@@ -75,7 +75,7 @@ export default class NumberFormat {
 
   toFixed() {
     const exp = Math.pow(10, this.options.precision)
-    const float = parseFloat(this.numberOnly()) / exp || 0
+    const float = parseFloat(this.numberOnly(/\D+/g)) / exp || 0
     return float.toFixed(fixed(this.options.precision))
   }
 

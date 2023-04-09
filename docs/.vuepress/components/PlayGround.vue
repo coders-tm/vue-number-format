@@ -140,8 +140,8 @@ export default {
     return {
       updated: true,
       exportDialogVisible: false,
-      price: 1234.50,
-      priceDirective: 1234.50,
+      price: 1234.5,
+      priceDirective: 1234.5,
       config: {
         decimal: '.',
         separator: ',',
