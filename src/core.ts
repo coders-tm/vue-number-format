@@ -83,13 +83,12 @@ export function getInputElement(el: HTMLElement | HTMLInputElement): CustomInput
  * Updates the cursor position to the right place after the masking rule was applied
  */
 export function updateCursor(el: HTMLInputElement, position: number) {
-  return false
   const setSelectionRange = (): any => {
     el.setSelectionRange(position, position)
   }
   setSelectionRange()
   // Android Fix
-  setTimeout(setSelectionRange(), 1)
+  setTimeout(setSelectionRange, 1)
 }
 
 /**

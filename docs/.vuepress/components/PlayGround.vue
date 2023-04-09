@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="grid gap-y-4 md:grid-cols-2 md:gap-x-8 items-center my-8">
-      <!-- <div class="grid">
+      <div class="grid">
         <div class="font-medium mb-2">Component</div>
         <VueNumber
           v-if="updated"
@@ -16,7 +16,7 @@
         <div class="mt-2">
           Number value: <code class="ml-2">{{ price }}</code>
         </div>
-      </div> -->
+      </div>
       <div class="grid">
         <div class="font-medium mb-2">Directive</div>
         <BaseInput
