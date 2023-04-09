@@ -2,14 +2,22 @@ import { VNode } from 'vue'
 import { DirectiveBinding } from 'vue/types/options'
 import * as core from './core'
 import defaultOptions from './options'
+import NumberFormat from './number-format'
 
 export default {
   bind: (el: core.CustomInputElement, { value, modifiers }: DirectiveBinding, vnode: VNode) => {
     el = core.getInputElement(el)
     const options = Object.assign(core.cloneDeep(defaultOptions), value, modifiers)
+    const { reverseFill, precision } = options
     el.options = options
+    if (reverseFill && el.value) {
+      el.value = parseFloat(new NumberFormat({ ...options, reverseFill: false }).unformat(el.value)).toFixed(precision)
+      if (vnode && vnode.data && vnode.data.domProps) {
+        vnode.data.domProps.value = el.value
+      }
+    }
     // set initial value
-    core.updateValue(el, vnode, { force: options.prefill, clean: true, emit: false })
+    core.updateValue(el, vnode, { force: options.prefill, clean: false, emit: false })
   },
 
   inserted: (el: core.CustomInputElement) => {

@@ -149,8 +149,7 @@ export default {
         suffix: '',
         precision: 2,
         nullValue: '',
-        masked: false,
-        reverseFill: false
+        masked: false
       }
     }
   },

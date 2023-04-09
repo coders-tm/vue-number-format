@@ -101,21 +101,22 @@ export function updateCursor(el: HTMLInputElement, position: number) {
  */
 export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit = true, force = false, clean = false } = {}) {
   const { options, oldValue } = el
+  const { reverseFill, max, min } = options
   const currentValue = vnode && vnode.data && vnode.data.domProps ? vnode.data.domProps.value : el.value
 
   if (force || oldValue !== currentValue) {
-    const number = new NumberFormat(options).clean(clean && !options.reverseFill)
+    const number = new NumberFormat(options).clean(clean && !reverseFill)
     let masked = number.format(currentValue)
-    let unmasked = number.clean(options && !options.reverseFill).unformat(currentValue)
+    let unmasked = number.clean(!reverseFill).unformat(currentValue)
 
     // check value with in range max and min value
     if (clean) {
-      if (Number(options.max) === options.max && Number(unmasked) > options.max) {
-        masked = number.format(options.max)
-        unmasked = number.unformat(options.max)
-      } else if (Number(options.min) === options.min && Number(unmasked) < options.min) {
-        masked = number.format(options.min)
-        unmasked = number.unformat(options.min)
+      if (Number(max) === max && Number(unmasked) > max) {
+        masked = number.format(max)
+        unmasked = number.unformat(max)
+      } else if (Number(min) === min && Number(unmasked) < min) {
+        masked = number.format(min)
+        unmasked = number.unformat(min)
       }
     }
 
@@ -184,9 +185,9 @@ export function blurHandler(event: Event) {
     return false
   }
 
-  const { oldValue, masked, options } = target
+  const { oldValue, masked } = target
 
-  updateValue(target, null, { force: true, emit: false, clean: options && !options.reverseFill })
+  updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
     target.oldValue = masked
