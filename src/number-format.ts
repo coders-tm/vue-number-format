@@ -24,12 +24,6 @@ function fixed(precision: number) {
   return between(0, precision, 20)
 }
 
-function toFixed(numbers: string, precision: number) {
-  const exp = Math.pow(10, precision)
-  const float = parseFloat(numbers) / exp || 0
-  return float.toFixed(fixed(precision))
-}
-
 /**
  * Number format class
  * @param {Options} config
@@ -46,12 +40,11 @@ export default class NumberFormat {
 
   constructor(config?: Options) {
     this.options = Object.assign(defaultOptions, config)
+    const { prefix, suffix, decimal, reverseFill } = this.options
 
     this.input = ''
     this.number = ''
-    this.isClean = true
-
-    const { prefix, suffix, decimal } = this.options
+    this.isClean = !reverseFill
 
     this.preSurRegExp = new RegExp(`${prefix}|${suffix}`, 'g')
     this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
@@ -60,10 +53,7 @@ export default class NumberFormat {
   }
 
   isNull() {
-    if (this.isClean) {
-      return !this.numberOnly(this.input, this.cleanRegExp)
-    }
-    return !this.numberOnly(this.input, this.negativeRegExp)
+    return !this.numberOnly(this.isClean ? this.cleanRegExp : this.negativeRegExp)
   }
 
   clean(clean = false) {
@@ -82,12 +72,21 @@ export default class NumberFormat {
     return hasMinus ? '-' : ''
   }
 
+  toFixed() {
+    const exp = Math.pow(10, this.options.precision)
+    const float = parseFloat(this.numberOnly(/\D+/g)) / exp || 0
+    return float.toFixed(fixed(this.options.precision))
+  }
+
   toNumber(str: Input) {
     return Number(str)
   }
 
-  numberOnly(str: Input, regExp: RegExp) {
-    return str?.toString().replace(regExp, '')
+  numberOnly(regExp?: RegExp) {
+    return this.input
+      ?.toString()
+      .replace(this.preSurRegExp, '')
+      .replace(regExp || this.numberRegExp, '')
   }
 
   isNegative() {
@@ -95,25 +94,30 @@ export default class NumberFormat {
   }
 
   numbers() {
-    if (this.options.reverseFill) {
-      this.number = toFixed(this.numberOnly(this.input, /\D+/g), this.options.precision).replace('.', this.options.decimal)
+    const { reverseFill, decimal } = this.options
+    if (reverseFill) {
+      this.number = this.toFixed().replace('.', decimal)
     } else if (typeof this.input === 'number') {
-      this.number = this.parts(this.input.toString().replace('-', ''), '.').join(this.options.decimal)
+      this.number = this.parts(this.input.toString().replace('-', ''), '.').join(decimal)
+    } else if (!isNaN(this.toNumber(this.input))) {
+      this.number = this.parts(this.input.replace('-', ''), '.').join(decimal)
     } else {
-      const input = this.input.replace(this.preSurRegExp, '')
-      this.number = this.numberOnly(input, this.numberRegExp)
-      this.number = this.parts(this.number).join(this.options.decimal)
+      this.number = this.parts(this.numberOnly()).join(decimal)
     }
     return this.number
   }
 
+  unformatNumber(): string {
+    return this.numbers().toString().replace(this.options.decimal, '.')
+  }
+
   realNumber(): number {
-    return parseFloat(this.numbers().toString().replace(this.options.decimal, '.'))
+    return parseFloat(this.unformatNumber())
   }
 
   parts(num: Input, separator?: string) {
-    const decimal = separator || this.options.decimal
-    let parts: Input[] = num.toString().split(decimal)
+    const { precision, minimumFractionDigits, decimal } = this.options
+    let parts: Input[] = num.toString().split(separator || decimal)
 
     if (parts.length > 1) {
       parts[0] = this.toNumber(parts[0]) || 0
@@ -122,10 +126,10 @@ export default class NumberFormat {
     }
 
     if (this.isClean) {
-      const newNumber = this.toNumber(parts.join('.')).toFixed(this.options.precision)
+      const newNumber = this.toNumber(parts.join('.')).toFixed(precision)
       const cleanNumber = this.toNumber(newNumber)
-      const minimumDigits = cleanNumber.toFixed(this.options.minimumFractionDigits)
-      const hasMinFraction = this.options.minimumFractionDigits >= 0 && cleanNumber.toString().length < minimumDigits.length
+      const minimumDigits = cleanNumber.toFixed(minimumFractionDigits)
+      const hasMinFraction = minimumFractionDigits >= 0 && cleanNumber.toString().length < minimumDigits.length
 
       if (hasMinFraction) {
         parts = minimumDigits.toString().split('.')
@@ -138,9 +142,10 @@ export default class NumberFormat {
   }
 
   addSeparator() {
-    const parts: Input[] = this.numbers().split(this.options.decimal)
-    parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${this.options.separator}`)
-    return parts.join(this.options.decimal)
+    const { decimal, separator } = this.options
+    const parts: Input[] = this.numbers().split(decimal)
+    parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${separator}`)
+    return parts.join(decimal)
   }
 
   /**
@@ -150,10 +155,11 @@ export default class NumberFormat {
    */
   format(input: Input): string {
     this.input = input
-    if (this.isNull() && !this.options.reverseFill) {
-      return this.options.nullValue
+    const { reverseFill, nullValue, prefix, suffix } = this.options
+    if (this.isNull() && !reverseFill) {
+      return nullValue
     }
-    return this.sign() + this.options.prefix + this.addSeparator() + this.options.suffix
+    return this.sign() + prefix + this.addSeparator() + suffix
   }
 
   /**
@@ -163,11 +169,12 @@ export default class NumberFormat {
    */
   unformat(input: Input): string {
     this.input = input
+    const { reverseFill, nullValue } = this.options
     if (this.isNull()) {
-      return this.options.nullValue
+      return nullValue
     }
-    if (this.options.reverseFill && this.realNumber() === 0) {
-      return this.options.nullValue
+    if (reverseFill && this.realNumber() === 0) {
+      return nullValue
     }
     return this.sign() + this.realNumber()
   }
