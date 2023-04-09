@@ -97,11 +97,15 @@ export default class NumberFormat {
     const { reverseFill, decimal } = this.options
     if (reverseFill) {
       this.number = this.toFixed().replace('.', decimal)
+      console.log('reverseFill', this.number)
     } else if (typeof this.input === 'number') {
       this.number = this.parts(this.input.toString().replace('-', ''), '.').join(decimal)
+      console.log('number', this.number)
     } else {
       this.number = this.parts(this.numberOnly()).join(decimal)
+      console.log('else', this.numberRegExp, this.numberOnly(), this.number)
     }
+
     return this.number
   }
 
