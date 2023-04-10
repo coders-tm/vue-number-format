@@ -10,11 +10,11 @@ test('when the value is invalid with default config', () => {
     expect(numberFormat.format('!@#$%^&*()')).toEqual('')
   })
   test('should return as follows', () => {
-    expect(numberFormat.clean(true).format('')).toEqual('')
-    expect(numberFormat.clean(true).format('foo')).toEqual('')
-    expect(numberFormat.clean(true).format('-foo')).toEqual('')
-    expect(numberFormat.clean(true).format('-fo,o-')).toEqual('')
-    expect(numberFormat.clean(true).format('!@#$%^&*()')).toEqual('')
+    expect(numberFormat.format('')).toEqual('')
+    expect(numberFormat.format('foo')).toEqual('')
+    expect(numberFormat.format('-foo')).toEqual('')
+    expect(numberFormat.format('-fo,o-')).toEqual('')
+    expect(numberFormat.format('!@#$%^&*()')).toEqual('')
   })
   test('should return as follows', () => {
     expect(numberFormat.unformat('')).toEqual('')

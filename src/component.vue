@@ -110,6 +110,7 @@ export default defineComponent({
     return {
       config,
       maskedValue,
+      unmaskedValue,
       input,
       change
     }

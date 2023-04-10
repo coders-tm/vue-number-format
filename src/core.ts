@@ -196,6 +196,8 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { options } = el
   const { prefix, suffix, decimal, min, separator } = options as Options
   const { key } = event
+
+  console.log(key)
   const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
   const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
