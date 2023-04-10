@@ -20,9 +20,8 @@ Get all the essentials features Starting at £0.99/mo<br>
 ## Installation
 
 ::: warning
-Install the npm package @coders-tm/vue-number-format@^2.14.0 for Vue 2.0
+Install the npm package @coders-tm/vue-number-format@^2.15.0 for Vue 2.0
 :::
-
 
 ```bash:no-line-numbers
 yarn add @coders-tm/vue-number-format
@@ -50,7 +49,13 @@ Vue.use(number, { precision: 4 })
 
 ```html
 <template>
-  <div><vue-number v-model="price" v-bind="number"></vue-number> {{price}}</div>
+  <div>
+    <vue-number
+      v-model="price"
+      v-bind="number"
+    ></vue-number>
+    {{price}}
+  </div>
 </template>
 
 <script>
@@ -58,7 +63,7 @@ Vue.use(number, { precision: 4 })
 
   export default {
     components: {
-      component,
+      component
     },
 
     data() {
@@ -69,10 +74,10 @@ Vue.use(number, { precision: 4 })
           separator: ',',
           prefix: '$ ',
           precision: 2,
-          masked: false,
-        },
+          masked: false
+        }
       }
-    },
+    }
   }
 </script>
 ```
@@ -87,7 +92,13 @@ Masking doesn't work with directive
 
 ```html
 <template>
-  <div><input v-model.lazy="price" v-number="number" /> {{price}}</div>
+  <div>
+    <input
+      v-model.lazy="price"
+      v-number="number"
+    />
+    {{price}}
+  </div>
 </template>
 
 <script>
@@ -101,14 +112,14 @@ Masking doesn't work with directive
           decimal: '.',
           separator: ',',
           prefix: '$ ',
-          precision: 2,
-        },
+          precision: 2
+        }
       }
     },
 
     directives: {
-      number: directive,
-    },
+      number: directive
+    }
   }
 </script>
 ```
