@@ -90,7 +90,7 @@ export default defineComponent({
     const input = (event: Event) => {
       const { target } = event as CustomInputEvent
       maskedValue.value = target.value
-      unmaskedValue.value = target.unmaskedValue
+      unmaskedValue.value = target.unmasked
       emit('input:model-value', emittedValue.value)
     }
 

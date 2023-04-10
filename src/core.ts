@@ -23,7 +23,7 @@ export interface Config {
   options: Options
   oldValue: Input
   masked: Input
-  unmaskedValue: Input
+  unmasked: Input
 }
 
 export class CustomInputEvent<T = any> extends CustomEvent<T> {
@@ -32,7 +32,7 @@ export class CustomInputEvent<T = any> extends CustomEvent<T> {
 export interface CustomInputElement extends HTMLInputElement {
   options: Options
   masked?: Input
-  unmaskedValue?: Input
+  unmasked?: Input
   oldValue?: Input
   cleanup: () => void
 }
@@ -114,7 +114,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
 
     el.oldValue = masked
     el.masked = masked
-    el.unmaskedValue = unmasked
+    el.unmasked = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
     if (el.value !== masked) {
