@@ -17,18 +17,16 @@ describe('v-number directive', () => {
     })
 
     const input = wrapper.find('input')
+
     input.element.value = '1234'
     await input.trigger('input')
-
     expect(input.element.value).toBe('1,234')
 
     input.element.value = '1234.529'
     await input.trigger('input')
-
     expect(input.element.value).toBe('1,234.529')
 
     await input.trigger('blur')
-
     expect(input.element.value).toBe('1,234.53')
   })
 })

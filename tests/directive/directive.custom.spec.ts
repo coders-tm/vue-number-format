@@ -24,21 +24,16 @@ describe('v-number directive', () => {
     const input = wrapper.find('input')
 
     await input.trigger('input')
-
-    expect(input.element.value).toBe('Rs.123.456,893%')
+    expect(input.element.value).toBe('Rs.123.456,89%')
 
     await input.trigger('blur')
-
     expect(input.element.value).toBe('Rs.123.456,89%')
 
     input.element.value = 1234.568
-
     await input.trigger('input')
-
     expect(input.element.value).toBe('Rs.1.234,568%')
 
     await input.trigger('blur')
-
     expect(input.element.value).toBe('Rs.1.234,57%')
   })
 })

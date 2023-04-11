@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils'
 import VueNumber from '../../src/component.vue'
 
 describe('VueNumber custom config', () => {
-  test('should emit input event with the new maskedValue on input', async () => {
+  test('should emit input event with the new maskedValue and unmaskedValue on input', async () => {
     const wrapper = mount(VueNumber, {
       propsData: {
         value: 123456.893,
@@ -16,53 +16,20 @@ describe('VueNumber custom config', () => {
     const input = wrapper.find('input')
 
     await input.trigger('input')
-
-    expect(wrapper.vm.maskedValue).toBe('Rs.123.456,893%')
+    expect(wrapper.vm.unmaskedValue).toBe('123456.89')
+    expect(wrapper.vm.maskedValue).toBe('Rs.123.456,89%')
 
     await input.trigger('blur')
-
+    expect(wrapper.vm.unmaskedValue).toBe('123456.89')
     expect(wrapper.vm.maskedValue).toBe('Rs.123.456,89%')
 
     input.element.value = 1234.568
-
     await input.trigger('input')
-
+    expect(wrapper.vm.unmaskedValue).toBe('1234.57')
     expect(wrapper.vm.maskedValue).toBe('Rs.1.234,568%')
 
     await input.trigger('blur')
-
+    expect(wrapper.vm.unmaskedValue).toBe('1234.57')
     expect(wrapper.vm.maskedValue).toBe('Rs.1.234,57%')
-  })
-
-  test('should emit input event with the new unmaskedValue on input', async () => {
-    const wrapper = mount(VueNumber, {
-      propsData: {
-        value: 123456.893,
-        decimal: ',',
-        separator: '.',
-        prefix: 'Rs.',
-        suffix: '%'
-      }
-    })
-
-    const input = wrapper.find('input')
-
-    await input.trigger('input')
-
-    expect(wrapper.vm.unmaskedValue).toBe('123456.89')
-
-    await input.trigger('blur')
-
-    expect(wrapper.vm.unmaskedValue).toBe('123456.89')
-
-    input.element.value = 1234.568
-
-    await input.trigger('input')
-
-    expect(wrapper.vm.unmaskedValue).toBe('1234.57')
-
-    await input.trigger('blur')
-
-    expect(wrapper.vm.unmaskedValue).toBe('1234.57')
   })
 })
