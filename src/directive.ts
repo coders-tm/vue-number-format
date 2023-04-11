@@ -17,7 +17,7 @@ export default {
       }
     }
     // set initial value
-    core.updateValue(el, vnode, { force: options.prefill, clean: false, emit: false })
+    core.updateValue(el, vnode, { force: options.prefill, clean: true, emit: false })
   },
 
   inserted: (el: core.CustomInputElement) => {
