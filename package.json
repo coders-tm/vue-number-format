@@ -1,6 +1,6 @@
 {
   "name": "@coders-tm/vue-number-format",
-  "version": "2.15.0",
+  "version": "2.17.0",
   "private": false,
   "description": "Easy formatted numbers, currency and percentage with input/directive mask for Vue.js",
   "author": "Dipak Sarkar <hello@dipaksarkar.in> (https://dipaksarkar.in/)",
