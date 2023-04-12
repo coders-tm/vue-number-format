@@ -19,8 +19,6 @@ describe('v-number directive', () => {
     })
 
     const input = wrapper.find('input')
-
-    await input.trigger('input')
     expect(input.element.value).toBe('123,456.89')
 
     await input.trigger('blur')

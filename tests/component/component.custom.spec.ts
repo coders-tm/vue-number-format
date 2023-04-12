@@ -14,10 +14,12 @@ describe('VueNumber custom config', () => {
     })
 
     const input = wrapper.find('input')
+    expect(input.element.value).toBe('Rs.123.456,89%')
 
+    input.element.value = 123456.893
     await input.trigger('input')
     expect(wrapper.vm.unmaskedValue).toBe('123456.89')
-    expect(wrapper.vm.maskedValue).toBe('Rs.123.456,89%')
+    expect(wrapper.vm.maskedValue).toBe('Rs.123.456,893%')
 
     await input.trigger('blur')
     expect(wrapper.vm.unmaskedValue).toBe('123456.89')

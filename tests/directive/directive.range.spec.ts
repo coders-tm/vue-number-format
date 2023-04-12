@@ -10,30 +10,28 @@ describe('v-number directive', () => {
       },
       data() {
         return {
-          value: 1.53,
+          value: 1234.53,
           options: {
             min: 0,
-            max: 50
+            max: 2000
           }
         }
       }
     })
 
     const input = wrapper.find('input')
+    expect(input.element.value).toBe('1,234.53')
 
-    await input.trigger('input')
-    expect(input.element.value).toBe('1.53')
-
-    input.element.value = '1234.529'
+    input.element.value = '2234.529'
     await input.trigger('blur')
-    expect(input.element.value).toBe('50')
+    expect(input.element.value).toBe('2,000')
 
     input.element.value = '-1234.568'
     await input.trigger('blur')
     expect(input.element.value).toBe('0')
 
-    input.element.value = '12.568'
+    input.element.value = '1234.568'
     await input.trigger('blur')
-    expect(input.element.value).toBe('12.57')
+    expect(input.element.value).toBe('1,234.57')
   })
 })
