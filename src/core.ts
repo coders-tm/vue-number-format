@@ -120,7 +120,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
       }
     }
 
-    el.masked = masked
+    el.oldValue = masked
     el.unmaskedValue = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -151,8 +151,8 @@ export function inputHandler(event: CustomInputEvent) {
   // we can stop propagation of this native event
   event.stopPropagation()
 
-  const { oldValue, options } = target
   let positionFromEnd = target.value.length
+  const { oldValue, options } = target
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
   }
@@ -185,12 +185,11 @@ export function blurHandler(event: Event) {
     return false
   }
 
-  const { oldValue, masked } = target
+  const { oldValue } = target
 
   updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
-    target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
