@@ -13,9 +13,9 @@ Vue Number Format is used to format a number using fixed-point notation. It can 
 ## Installation
 
 ```bash
-npm install @coders-tm/vue-number-format@2.17.1
+npm install @coders-tm/vue-number-format@2.18.0
 or
-yarn add @coders-tm/vue-number-format@2.17.1
+yarn add @coders-tm/vue-number-format@2.18.0
 ```
 
 ## Features
