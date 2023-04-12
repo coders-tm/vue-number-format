@@ -19,13 +19,11 @@
       </div>
       <div class="grid">
         <div class="font-medium mb-2">Directive</div>
-        <input
+        <BaseInput
           v-if="updated"
-          class="shadow-sm rounded-md text-base transition-all disabled:cursor-not-allowed disabled:border-gray-300 disabled:text-gray-300 focus:border-primary focus:ring focus:ring-offset-0 focus:ring-primary focus:ring-opacity-50"
-          :value="priceDirective"
+          v-model="priceDirective"
           v-number="config"
-          type="text"
-          @change="({ target }) => (priceDirective = target.value)"
+          @change="onChange"
           @input="onInput"
           @focus="onFocus"
           @blur="onBlur"
@@ -169,10 +167,6 @@ export default {
   methods: {
     onChange() {
       console.log('onChange', arguments)
-      // setTimeout(() => {
-      //   this.price = 1500.629
-      //   this.priceDirective = 1500.629
-      // }, 3000)
     },
     onInput() {
       console.log('onInput', arguments)

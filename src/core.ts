@@ -113,7 +113,6 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
     }
 
     el.oldValue = masked
-    el.masked = masked
     el.unmasked = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -144,8 +143,8 @@ export function inputHandler(event: CustomInputEvent) {
   // we can stop propagation of this native event
   event.stopPropagation()
 
-  const { oldValue, options, masked } = target
   let positionFromEnd = target.value.length
+  const { oldValue, options } = target
   if (target.selectionEnd) {
     positionFromEnd = target.value.length - target.selectionEnd
   }
@@ -163,7 +162,6 @@ export function inputHandler(event: CustomInputEvent) {
   updateCursor(target, positionFromEnd)
 
   if (oldValue !== target.value) {
-    target.oldValue = masked
     target.dispatchEvent(InputEvent('input'))
   }
 }
@@ -179,12 +177,11 @@ export function blurHandler(event: Event) {
     return false
   }
 
-  const { oldValue, masked } = target
+  const { oldValue } = target
 
   updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
-    target.oldValue = masked
     target.dispatchEvent(InputEvent('change'))
   }
 }
@@ -196,8 +193,6 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { options } = el
   const { prefix, suffix, decimal, min, separator } = options as Options
   const { key } = event
-
-  console.log(key)
   const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
   const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
