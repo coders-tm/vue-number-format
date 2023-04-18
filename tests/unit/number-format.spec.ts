@@ -1,4 +1,4 @@
-import NumberFormat from '../../src/number-format'
+import { NumberFormat } from '../../src'
 
 test('test number format', async () => {
   const number = new NumberFormat({

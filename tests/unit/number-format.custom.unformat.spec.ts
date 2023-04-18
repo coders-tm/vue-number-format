@@ -1,4 +1,4 @@
-import NumberFormat from '../../src/number-format'
+import { NumberFormat } from '../../src'
 
 test('unformat when options are default', () => {
   const numberFormat = new NumberFormat({
