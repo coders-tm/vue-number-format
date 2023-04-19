@@ -113,7 +113,7 @@ export default Vue.extend({
     input(event: Event) {
       const { target } = event as CustomInputEvent
       this.maskedValue = target.value
-      this.unmaskedValue = target.unmaskedValue
+      this.unmaskedValue = target.unmasked
       this.$emit('input', this.emittedValue)
     },
     change() {

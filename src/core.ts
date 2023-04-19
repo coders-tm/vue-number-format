@@ -23,7 +23,7 @@ export interface Config {
   options: Options
   oldValue: Input
   masked: Input
-  unmaskedValue: Input
+  unmasked: Input
 }
 
 export class CustomInputEvent<T = any> extends CustomEvent<T> {
@@ -32,7 +32,7 @@ export class CustomInputEvent<T = any> extends CustomEvent<T> {
 export interface CustomInputElement extends HTMLInputElement {
   options: Options
   masked?: Input
-  unmaskedValue?: Input
+  unmasked?: Input
   oldValue?: Input
   cleanup: () => void
 }
@@ -45,11 +45,11 @@ export function cloneDeep(data: object) {
 }
 
 /**
- * Creates a CustomEvent('input') with detail = { facade: true }
- * used as a way to identify our own input event
+ * Creates a CustomEvent with detail = { facade: true }
+ * used as a way to identify our own event
  */
-export function InputEvent(type: string) {
-  return new CustomEvent(type, {
+export function InputEvent(event: string) {
+  return new CustomEvent(event, {
     bubbles: true,
     cancelable: true,
     detail: { facade: true }
@@ -113,7 +113,7 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
     }
 
     el.oldValue = masked
-    el.unmaskedValue = unmasked
+    el.unmasked = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
     if (el.value !== masked) {
