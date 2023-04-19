@@ -1,4 +1,5 @@
 import { NumberFormat } from '../../src'
+import { expect, test } from 'vitest'
 
 test('test number format', async () => {
   const number = new NumberFormat({
