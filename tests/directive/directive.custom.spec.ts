@@ -27,7 +27,7 @@ describe('v-number directive', () => {
     await input.trigger('blur')
     expect(input.element.value).toBe('Rs.123.456,89%')
 
-    input.setValue(1234.568)
+    input.setValue('1234,568')
     expect(input.element.value).toBe('Rs.1.234,568%')
 
     await input.trigger('blur')

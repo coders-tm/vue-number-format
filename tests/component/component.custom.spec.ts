@@ -15,7 +15,7 @@ describe('VueNumber', () => {
 
     const input = wrapper.find('input')
     expect(input.element.value).toBe('Rs.123.456,89%')
-    wrapper.setProps({ modelValue: '1234.568' })
+    wrapper.setProps({ modelValue: '1234,568' })
     await input.trigger('input')
     await input.trigger('change')
 
