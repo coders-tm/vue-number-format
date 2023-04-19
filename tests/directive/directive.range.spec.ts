@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import directive from '../../src/directive'
+import { directive } from '../../src'
 
 describe('v-number directive', () => {
   it('should emit input event within range', async () => {

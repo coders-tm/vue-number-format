@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import VueNumber from '../../src/component.vue'
+import { component as VueNumber } from '../../src'
 
 describe('VueNumber', () => {
   it('updates the maskedValue when input is changed', async () => {
