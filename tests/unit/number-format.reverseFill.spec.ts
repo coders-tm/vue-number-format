@@ -1,4 +1,4 @@
-import NumberFormat from '../../src/number-format'
+import { NumberFormat } from '../../src'
 
 test('when enabled reverse fill', () => {
   const numberFormat = new NumberFormat({

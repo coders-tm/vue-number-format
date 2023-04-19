@@ -1,4 +1,4 @@
-import NumberFormat from '../../src/number-format'
+import { NumberFormat } from '../../src'
 
 test('when the value is invalid with custom config', () => {
   const numberFormat = new NumberFormat({
