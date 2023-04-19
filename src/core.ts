@@ -157,7 +157,7 @@ export function inputHandler(event: CustomInputEvent) {
     positionFromEnd = target.value.length - target.selectionEnd
   }
 
-  updateValue(target, null, { emit: false })
+  updateValue(target, null, { emit: false, clean: !options.precision })
 
   // updated cursor position
   if (options.suffix) {
