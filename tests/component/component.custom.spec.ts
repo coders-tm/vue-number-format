@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import VueNumber from '../../src/component.vue'
+import { component as VueNumber } from '../../src'
 
 describe('VueNumber custom config', () => {
   test('should emit input event with the new maskedValue and unmaskedValue on input', async () => {

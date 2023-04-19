@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import directive from '../../src/directive'
+import { directive } from '../../src'
 
 describe('v-number directive', () => {
   test('should emit input event with minimum fraction digits', async () => {
