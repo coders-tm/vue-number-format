@@ -12,6 +12,7 @@ describe('v-number directive', () => {
         return {
           value: 123456.893,
           options: {
+            precision: 3,
             minimumFractionDigits: 2
           }
         }
@@ -19,10 +20,10 @@ describe('v-number directive', () => {
     })
 
     const input = wrapper.find('input')
-    expect(input.element.value).toBe('123,456.89')
+    expect(input.element.value).toBe('123,456.893')
 
     await input.trigger('blur')
-    expect(input.element.value).toBe('123,456.89')
+    expect(input.element.value).toBe('123,456.893')
 
     input.element.value = '1234.5'
     await input.trigger('input')
