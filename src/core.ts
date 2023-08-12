@@ -168,6 +168,8 @@ export function inputHandler(event: CustomInputEvent) {
 
 /**
  * Blur event handler
+ *
+ * @param {Event} event The event object
  */
 export function blurHandler(event: Event) {
   const { target, detail } = event as CustomInputEvent
@@ -182,7 +184,7 @@ export function blurHandler(event: Event) {
   updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(InputEvent('input'))
+    target.dispatchEvent(InputEvent('change'))
   }
 }
 

@@ -29,7 +29,6 @@ export default defineComponent({
     },
     nullValue: {
       type: [Number, String],
-      required: false,
       default: options.nullValue
     },
     masked: {
