@@ -105,14 +105,14 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
     if (clean) {
       if (Number(max) === max && Number(unmasked) > max) {
         masked = number.format(max)
-        unmasked = number.unformat(max)
+        unmasked = max.toString()
       } else if (Number(min) === min && Number(unmasked) < min) {
         masked = number.format(min)
-        unmasked = number.unformat(min)
+        unmasked = min.toString()
       }
+      el.oldValue = masked
     }
 
-    el.oldValue = masked
     el.unmasked = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -195,7 +195,7 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { key } = event
   const regExp = new RegExp(`${prefix}|${suffix}`, 'g')
   const newValue = el.value.replace(regExp, '')
-  const canNegativeInput = min === undefined || Number(min) < 0 || Number(min) !== min
+  const canBeNegative = min === undefined || Number(min) < 0 || Number(min) !== min
   if (key === decimal) {
     if (newValue.includes(decimal)) {
       event.preventDefault()
@@ -204,7 +204,7 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
       // trigger input event
       el.dispatchEvent(new Event('input'))
     }
-  } else if (key === MINUS && !canNegativeInput) {
+  } else if (key === MINUS && !canBeNegative) {
     event.preventDefault()
   } else if (key === 'Backspace') {
     // check current cursor position is after separator when backspace key down

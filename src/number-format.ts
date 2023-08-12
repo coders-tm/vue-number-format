@@ -33,7 +33,6 @@ export default class NumberFormat {
   input: Input
   number: Input
   isClean: boolean
-  isCustomDecimal: boolean
   preSurRegExp: RegExp
   numberRegExp: RegExp
   cleanRegExp: RegExp
@@ -51,7 +50,6 @@ export default class NumberFormat {
     this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
     this.cleanRegExp = new RegExp('[^0-9]+', 'gi')
     this.negativeRegExp = new RegExp('[^0-9\\-]+', 'gi')
-    this.isCustomDecimal = decimal !== '.'
   }
 
   isNull() {
@@ -97,13 +95,11 @@ export default class NumberFormat {
 
   numbers() {
     const { reverseFill, decimal } = this.options
-    const hasDeciaml = this.input.toString().indexOf(decimal) >= 0
-    const input = !hasDeciaml && this.isCustomDecimal ? this.input + decimal : this.input
     if (reverseFill) {
       this.number = this.toFixed().replace('.', decimal)
     } else if (typeof this.input === 'number') {
       this.number = this.parts(this.input.toString().replace('-', ''), '.').join(decimal)
-    } else if (!isNaN(this.toNumber(input))) {
+    } else if (!isNaN(this.toNumber(this.input))) {
       this.number = this.parts(this.input.replace('-', ''), '.').join(decimal)
     } else {
       this.number = this.parts(this.numberOnly()).join(decimal)

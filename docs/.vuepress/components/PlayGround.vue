@@ -46,8 +46,9 @@
           <pre
             class="m-0"
             style="margin: 0"
-            >{{ config }}</pre
           >
+            {{ config }}
+          </pre>
         </Dialog>
       </div>
     </div>
@@ -149,6 +150,7 @@ export default {
         suffix: '',
         precision: 2,
         nullValue: '',
+        max: 1234.567,
         masked: false
       }
     }
