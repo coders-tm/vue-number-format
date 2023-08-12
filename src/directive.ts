@@ -49,9 +49,9 @@ export default {
 
   updated: (el: core.CustomInputElement, { value, oldValue, modifiers }: DirectiveBinding, vnode: VNode) => {
     el = core.getInputElement(el)
-    const options = el.options
-    el.options = Object.assign(options, value, modifiers)
     if (value !== oldValue) {
+      const options = el.options
+      el.options = Object.assign(options, value, modifiers)
       core.updateValue(el, vnode, { force: true, clean: true })
     } else {
       core.updateValue(el, vnode)

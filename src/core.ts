@@ -182,7 +182,7 @@ export function blurHandler(event: Event) {
   updateValue(target, null, { force: true, emit: false, clean: true })
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(InputEvent('change'))
+    target.dispatchEvent(InputEvent('input'))
   }
 }
 
