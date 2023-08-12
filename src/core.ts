@@ -65,7 +65,7 @@ export function getInputElement(el: HTMLElement | HTMLInputElement): CustomInput
 
   /* istanbul ignore next */
   if (!inputElement) {
-    throw new Error('facade directive requires an input element')
+    throw new Error('number directive requires an input element')
   }
 
   return inputElement as CustomInputElement
@@ -149,7 +149,7 @@ export function inputHandler(event: CustomInputEvent) {
     positionFromEnd = target.value.length - target.selectionEnd
   }
 
-  updateValue(target, null, { emit: false, clean: !options.precision })
+  updateValue(target, null, { clean: !options.precision })
 
   // updated cursor position
   if (options.suffix) {
@@ -172,12 +172,11 @@ export function inputHandler(event: CustomInputEvent) {
  * @param {Event} event The event object
  */
 export function blurHandler(event: Event) {
-  const { target, detail } = event as CustomInputEvent
+  const { target } = event as CustomInputEvent
 
-  // We dont need to run this method on the event we emit (prevent event loop)
-  if (detail?.facade) {
-    return false
-  }
+  // since we will be emitting our own custom input event
+  // we can stop propagation of this native event
+  event.stopPropagation()
 
   const { oldValue } = target
 
