@@ -1,12 +1,39 @@
 # Integration
 
-### Quasar
+## Quasar
 
-<p>
-  <iframe src="https://codesandbox.io/embed/vue-number-format-integration-with-quasar-nxqb77?fontsize=14&hidenavigation=1&theme=dark"
-    style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;"
-    title="Vue Number Format: Integration with Quasar"
-    allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
-    sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
-  ></iframe>
-</p>
+The QNumber component is used to capture number input from the user. It uses v-model, similar to a regular input. It has support for errors and validation, and comes in a variety of styles, colors, and types.
+
+### Install
+```bash
+quasar ext add qnumber
+```
+Quasar CLI will retrieve it from the NPM registry and install the extension to your project.
+
+### Example
+
+```html
+<q-number
+    v-model="modelValue"
+    @update:model-value="onChange"
+
+    <!-- options: https://vue-number-format.netlify.app/guide/config.html -->
+    :options="{
+        prefix: '$',
+        suffix: '',
+        separator: ',',
+        decimal: '.',
+        precision: 2,
+        prefill: true,
+        reverseFill: false,
+        min: false,
+        max: false,
+        nullValue: ''
+    }"
+/>
+```
+
+### Uninstall
+```bash
+quasar ext remove qnumber
+```
