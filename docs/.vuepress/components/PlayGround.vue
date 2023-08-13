@@ -150,7 +150,6 @@ export default {
         suffix: '',
         precision: 2,
         nullValue: '',
-        max: 1234.567,
         masked: false
       }
     }
