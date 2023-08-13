@@ -169,18 +169,14 @@ export function inputHandler(event: CustomInputEvent) {
 /**
  * Blur event handler
  *
- * @param {Event} event The event object
+ * @param {CustomInputEvent} event The event object
  */
-export function blurHandler(event: Event) {
-  const { target } = event as CustomInputEvent
-
-  // since we will be emitting our own custom input event
-  // we can stop propagation of this native event
-  event.stopPropagation()
+export function blurHandler(event: CustomInputEvent) {
+  const { target } = event
 
   const { oldValue } = target
 
-  updateValue(target, null, { force: true, emit: false, clean: true })
+  updateValue(target, null, { force: true, clean: true })
 
   if (oldValue !== target.value) {
     target.dispatchEvent(InputEvent('change'))
@@ -189,6 +185,8 @@ export function blurHandler(event: Event) {
 
 /**
  * Keydown event handler
+ *
+ * @param {KeyboardEvent} event The event object
  */
 export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
   const { options } = el

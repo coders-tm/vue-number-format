@@ -36,15 +36,31 @@ export default {
       core.inputHandler(e as core.CustomInputEvent)
     }
 
-    handlerOwner.addEventListener('input', oninput, true)
-
-    el.onblur = (e) => core.blurHandler(e)
+    const onblur = (e: Event) => {
+      if (e.target !== el) {
+        return
+      }
+      core.blurHandler(e as core.CustomInputEvent)
+    }
 
     // check decimal key and insert to current element
     // updated cursor position after format the value
-    el.onkeydown = (e) => core.keydownHandler(e, el)
+    const onkeydown = (e: Event) => {
+      if (e.target !== el) {
+        return
+      }
+      core.keydownHandler(e as KeyboardEvent, el)
+    }
 
-    el.cleanup = () => handlerOwner.removeEventListener('input', oninput, true)
+    handlerOwner.addEventListener('input', oninput, true)
+    handlerOwner.addEventListener('blur', onblur, true)
+    handlerOwner.addEventListener('keydown', onkeydown, true)
+
+    el.cleanup = () => {
+      handlerOwner.removeEventListener('input', oninput, true)
+      handlerOwner.removeEventListener('blur', onblur, true)
+      handlerOwner.removeEventListener('keydown', onkeydown, true)
+    }
   },
 
   updated: (el: core.CustomInputElement, { value, oldValue, modifiers }: DirectiveBinding, vnode: VNode) => {
