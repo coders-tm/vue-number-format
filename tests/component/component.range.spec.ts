@@ -25,21 +25,19 @@ describe('VueNumber', () => {
 
     input.setValue('10000.52')
     await input.trigger('blur')
-    await input.trigger('change')
 
     expect(wrapper.vm.maskedValue).toBe('5,000')
     expect(wrapper.vm.unmaskedValue).toBe('5000')
     expect(wrapper.emitted()['input:model-value'][3]).toEqual(['5000'])
-    expect(wrapper.emitted()['update:model-value'][3]).toEqual(['5000'])
+    expect(wrapper.emitted()['update:model-value'][4]).toEqual(['5000'])
 
     input.setValue('1325.259')
     await input.trigger('blur')
-    await input.trigger('change')
 
     expect(input.element.value).toBe('1,325.26')
     expect(wrapper.vm.maskedValue).toBe('1,325.26')
     expect(wrapper.vm.unmaskedValue).toBe('1325.26')
-    expect(wrapper.emitted()['update:model-value'][4]).toEqual(['1325.26'])
+    expect(wrapper.emitted()['update:model-value'][6]).toEqual(['1325.26'])
     expect(wrapper.emitted()['input:model-value'][4]).toEqual(['1325.26'])
   })
 })

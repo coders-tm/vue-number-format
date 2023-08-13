@@ -29,6 +29,6 @@ describe('VueNumber', () => {
     expect(wrapper.vm.maskedValue).toBe('1,234.0')
     expect(wrapper.vm.unmaskedValue).toBe('1234')
     expect(wrapper.emitted()['input:model-value'][2]).toEqual(['1234'])
-    expect(wrapper.emitted()['update:model-value'][1]).toEqual(['1234'])
+    expect(wrapper.emitted()['update:model-value'][2]).toEqual(['1234'])
   })
 })
