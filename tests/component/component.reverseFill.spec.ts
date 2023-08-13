@@ -12,9 +12,8 @@ describe('VueNumber', () => {
 
     const input = wrapper.find('input')
     expect(input.element.value).toBe('1,000.00')
-    wrapper.setProps({ modelValue: '1234.505' })
-    await input.trigger('input')
-    await input.trigger('change')
+
+    input.setValue('1234.505')
 
     expect(input.element.value).toBe('12,345.05')
     expect(wrapper.vm.maskedValue).toBe('12,345.05')
@@ -22,9 +21,7 @@ describe('VueNumber', () => {
     expect(wrapper.emitted()['input:model-value'][0]).toEqual(['12345.05'])
     expect(wrapper.emitted()['update:model-value'][0]).toEqual(['12345.05'])
 
-    wrapper.setProps({ modelValue: '1234.00' })
-    await input.trigger('input')
-    await input.trigger('change')
+    input.setValue('1234.00')
 
     expect(input.element.value).toBe('1,234.00')
     expect(wrapper.vm.maskedValue).toBe('1,234.00')

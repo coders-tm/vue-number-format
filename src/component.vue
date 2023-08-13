@@ -82,9 +82,13 @@ export default defineComponent({
     const maskedValue = ref(props.modelValue)
     const unmaskedValue = ref('' as Input | undefined)
     const config = computed(() => ({ ...props }))
+    const formatNumber = new NumberFormat(config.value as Options)
 
     const emittedValue = computed(() => {
-      return props.masked ? maskedValue.value : unmaskedValue.value
+      if (props.masked) {
+        return formatNumber.format(maskedValue.value)
+      }
+      return unmaskedValue.value
     })
 
     const input = (event: Event) => {
@@ -101,9 +105,9 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (newValue) => {
-        const formatNumber = new NumberFormat(config as Options).format(newValue)
-        if (formatNumber !== maskedValue.value) {
-          maskedValue.value = formatNumber
+        const number = formatNumber.format(newValue)
+        if (number !== maskedValue.value) {
+          maskedValue.value = number
         }
       }
     )

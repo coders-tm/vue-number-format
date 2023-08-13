@@ -15,11 +15,11 @@ describe('VueNumber', () => {
 
     const input = wrapper.find('input')
     expect(input.element.value).toBe('Rs.123.456,89%')
-    wrapper.setProps({ modelValue: '1234,568' })
-    await input.trigger('input')
-    await input.trigger('change')
 
-    expect(input.element.value).toBe('Rs.1.234,57%')
+    input.setValue('1234,568')
+    expect(input.element.value).toBe('Rs.1.234,568%')
+    await input.trigger('blur')
+
     expect(wrapper.vm.maskedValue).toBe('Rs.1.234,57%')
     expect(wrapper.vm.unmaskedValue).toBe('1234.57')
     expect(wrapper.emitted()['update:model-value'][0]).toEqual(['1234.57'])

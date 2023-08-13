@@ -31,7 +31,9 @@ describe('VueNumber', () => {
 
     const input = wrapper.find('input')
     expect(input.element.value).toBe('1,000')
+
     input.setValue('1234.5')
+    await input.trigger('blur')
 
     expect(wrapper.vm.maskedValue).toBe('1,235')
     expect(wrapper.vm.unmaskedValue).toBe('1235')
