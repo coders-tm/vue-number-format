@@ -3,6 +3,7 @@ import vue from 'rollup-plugin-vue'
 import dts from 'rollup-plugin-dts'
 import cleanup from 'rollup-plugin-cleanup'
 import filesize from 'rollup-plugin-filesize'
+import { terser } from 'rollup-plugin-terser' // Import the Terser plugin
 import pkg from './package.json'
 
 const banner = `/**
@@ -38,7 +39,8 @@ export default [
       }),
       vue(),
       cleanup({ extensions: ['js', 'ts'] }),
-      filesize()
+      filesize(),
+      terser() // Add the Terser plugin for minification
     ],
     external: ['vue']
   },

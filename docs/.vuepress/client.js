@@ -1,5 +1,5 @@
 import { defineClientConfig } from '@vuepress/client'
-import VueNumber from '../../src'
+import VueNumber from '../../'
 
 import 'virtual:windi.css'
 

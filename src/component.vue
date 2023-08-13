@@ -81,6 +81,7 @@ export default defineComponent({
   emits: ['update:model-value', 'input:model-value'],
   setup(props, { emit }) {
     const maskedValue = ref(props.modelValue)
+    const canEmit = ref(false)
     const unmaskedValue = ref('' as Input | undefined)
     const config = computed(() => ({ ...props }))
     const formatNumber = new NumberFormat(config.value as Options)
@@ -96,6 +97,7 @@ export default defineComponent({
       const { target } = event as CustomInputEvent
       maskedValue.value = target.value
       unmaskedValue.value = target.unmasked
+      canEmit.value = true
       emit('input:model-value', emittedValue.value)
     }
 
@@ -104,7 +106,7 @@ export default defineComponent({
     }
 
     const blur = () => {
-      if (emittedValue.value !== props.modelValue) {
+      if (canEmit.value && emittedValue.value !== props.modelValue) {
         emit('update:model-value', emittedValue.value)
       }
     }
