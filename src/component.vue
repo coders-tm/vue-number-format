@@ -107,7 +107,7 @@ export default defineComponent({
 
     const blur = () => {
       if (canEmit.value && emittedValue.value !== props.modelValue) {
-        emit('update:model-value', emittedValue.value)
+        change()
       }
     }
 
