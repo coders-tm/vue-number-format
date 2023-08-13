@@ -92,8 +92,6 @@ export function updateCursor(el: HTMLInputElement, position: number) {
  * @param {Boolean} options.force Forces the update even if the old value and the new value are the same
  */
 export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit = true, force = false, clean = false } = {}) {
-  // console.log('updateValue', arguments)
-
   const { options, oldValue } = el
   const { reverseFill, max, min } = options
   const currentValue = vnode?.props?.value || el.value
