@@ -29,6 +29,7 @@ export interface Config {
 export class CustomInputEvent<T = any> extends CustomEvent<T> {
   target!: CustomInputElement
 }
+
 export interface CustomInputElement extends HTMLInputElement {
   options: Options
   masked?: Input
