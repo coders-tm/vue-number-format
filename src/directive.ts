@@ -68,9 +68,9 @@ export default {
     if (value !== oldValue) {
       const options = el.options
       el.options = Object.assign(options, value, modifiers)
-      core.updateValue(el, vnode, { force: true, clean: true })
+      core.updateValue(el, vnode, { force: true, clean: true, emit: false })
     } else {
-      core.updateValue(el, vnode)
+      core.updateValue(el, vnode, { emit: false })
     }
   },
 

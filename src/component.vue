@@ -12,8 +12,9 @@
 <script lang="ts">
 import { defineComponent, ref, computed, watch } from 'vue'
 import { cloneDeep, CustomInputEvent, Input } from './core'
+import NumberFormat from './number-format'
 import directive from './directive'
-import defaultOptions from './options'
+import defaultOptions, { Options } from './options'
 
 const options = cloneDeep(defaultOptions)
 
@@ -99,9 +100,10 @@ export default defineComponent({
 
     watch(
       () => props.modelValue,
-      (newValue, oldValue) => {
-        if (newValue !== oldValue) {
-          maskedValue.value = newValue
+      (newValue) => {
+        const formatNumber = new NumberFormat(config as Options).format(newValue)
+        if (formatNumber !== maskedValue.value) {
+          maskedValue.value = formatNumber
         }
       }
     )

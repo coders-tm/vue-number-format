@@ -92,6 +92,8 @@ export function updateCursor(el: HTMLInputElement, position: number) {
  * @param {Boolean} options.force Forces the update even if the old value and the new value are the same
  */
 export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit = true, force = false, clean = false } = {}) {
+  // console.log('updateValue', arguments)
+
   const { options, oldValue } = el
   const { reverseFill, max, min } = options
   const currentValue = vnode?.props?.value || el.value
@@ -110,9 +112,9 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
         masked = number.format(min)
         unmasked = min.toString()
       }
-      el.oldValue = masked
     }
 
+    el.oldValue = masked
     el.unmasked = unmasked
 
     // safari makes the cursor jump to the end if el.value gets assign even if to the same value
@@ -149,7 +151,7 @@ export function inputHandler(event: CustomInputEvent) {
     positionFromEnd = target.value.length - target.selectionEnd
   }
 
-  updateValue(target, null, { clean: !options.precision })
+  updateValue(target, null, { clean: !options.precision, emit: false })
 
   // updated cursor position
   if (options.suffix) {
@@ -176,10 +178,10 @@ export function blurHandler(event: CustomInputEvent) {
 
   const { oldValue } = target
 
-  updateValue(target, null, { force: true, clean: true })
+  updateValue(target, null, { force: true, clean: true, emit: false })
 
   if (oldValue !== target.value) {
-    target.dispatchEvent(InputEvent('change'))
+    target.dispatchEvent(InputEvent('input'))
   }
 }
 
