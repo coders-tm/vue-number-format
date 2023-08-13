@@ -7,6 +7,7 @@
     class="v-number vue-number-format"
     @change="change"
     @input="input"
+    @blur="blur"
   />
 </template>
 <script lang="ts">
@@ -102,6 +103,12 @@ export default defineComponent({
       emit('update:model-value', emittedValue.value)
     }
 
+    const blur = () => {
+      if (emittedValue.value !== props.modelValue) {
+        emit('update:model-value', emittedValue.value)
+      }
+    }
+
     watch(
       () => props.modelValue,
       (newValue) => {
@@ -117,6 +124,7 @@ export default defineComponent({
       maskedValue,
       unmaskedValue,
       input,
+      blur,
       change
     }
   }
