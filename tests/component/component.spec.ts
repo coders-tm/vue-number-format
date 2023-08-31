@@ -11,6 +11,18 @@ describe('VueNumber', () => {
     expect(wrapper.contains('input')).toBe(true)
   })
 
+  test('When the value is cleared externally, maskedValue should also be cleared', async () => {
+    const wrapper = mount(VueNumber, {
+      propsData: {
+        value: '1234.536'
+      }
+    })
+
+    await wrapper.setProps({ value: '' })
+
+    expect(wrapper.vm.maskedValue).toBe('')
+  })
+
   test('should emit input event with the new maskedValue and unmaskedValue on input', async () => {
     const wrapper = mount(VueNumber, {
       propsData: {

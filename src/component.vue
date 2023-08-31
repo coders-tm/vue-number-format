@@ -78,7 +78,7 @@ export default Vue.extend({
   data() {
     return {
       maskedValue: this.value,
-      unmaskedValue: '' as Input | undefined
+      unmaskedValue: this.value as Input | undefined
     }
   },
   computed: {
