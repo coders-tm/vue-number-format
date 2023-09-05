@@ -3,6 +3,7 @@
     v-number="config"
     type="text"
     autocomplete="off"
+    inputmode="numeric"
     :value="maskedValue"
     class="v-number vue-number-format"
     @change="change"
