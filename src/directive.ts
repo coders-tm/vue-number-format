@@ -9,6 +9,7 @@ export default {
     const options = Object.assign(core.cloneDeep(defaultOptions), value, modifiers)
     const { reverseFill, precision, decimal } = options
     el.options = options
+    el.setAttribute('inputmode', 'numeric')
     if (reverseFill && el.value) {
       el.value = parseFloat(new NumberFormat({ ...options, reverseFill: false }).unformat(el.value)).toFixed(precision)
       if (vnode?.props?.value) {
