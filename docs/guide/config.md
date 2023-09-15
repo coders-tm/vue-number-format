@@ -2,15 +2,6 @@
 
 The following options can be passed as an object literal to the NumberFormat function.
 
-::: tip SPONSOR
-[We Offer Web Hosting Fast, Secure & Easy To Manage](https://goazh.com/) <br>
-<small>
-Unlimited Storage, 99% Uptime Guarantee, Free Wildcard SSL Certificates, 30-Day Money-Back Guarantee<br>
-Get all the essentials features Starting at £0.99/mo<br>
-[https://goazh.com/](https://goazh.com/)
-</small>
-:::
-
 ## prefix
 
 A word, letter, or number placed before `value`
