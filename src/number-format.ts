@@ -46,7 +46,10 @@ export default class NumberFormat {
     this.number = ''
     this.isClean = !reverseFill
 
-    this.preSurRegExp = new RegExp(`${prefix}|${suffix}`, 'g')
+    const escapedPrefix = prefix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+    const escapedSuffix = suffix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+
+    this.preSurRegExp = new RegExp(`${escapedPrefix}|${escapedSuffix}`, 'g')
     this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
     this.cleanRegExp = new RegExp('[^0-9]+', 'gi')
     this.negativeRegExp = new RegExp('[^0-9\\-]+', 'gi')
@@ -170,12 +173,14 @@ export default class NumberFormat {
   unformat(input: Input): string {
     this.input = input
     const { reverseFill, nullValue } = this.options
+    const realNumber = this.realNumber()
+    const unformatNumber = this.unformatNumber()
     if (this.isNull()) {
       return nullValue
     }
-    if (reverseFill && this.realNumber() === 0) {
+    if (reverseFill && realNumber === 0) {
       return nullValue
     }
-    return this.sign() + this.realNumber()
+    return this.sign() + unformatNumber
   }
 }
