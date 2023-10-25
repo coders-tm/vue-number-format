@@ -4,6 +4,8 @@
     type="text"
     autocomplete="off"
     :value="maskedValue"
+    :readonly="readonly"
+    :disabled="disabled"
     class="v-number vue-number-format"
     @change="change"
     @input="input"
@@ -33,10 +35,9 @@ export default defineComponent({
       type: [Number, String],
       default: options.nullValue
     },
-    masked: {
-      type: Boolean,
-      default: false
-    },
+    masked: Boolean,
+    readonly: Boolean,
+    disabled: Boolean,
     reverseFill: {
       type: Boolean,
       default: options.reverseFill
