@@ -146,9 +146,12 @@ export default class NumberFormat {
   }
 
   addSeparator() {
-    const { decimal, separator } = this.options
+    const { decimal, separator, precision } = this.options
     const parts: Input[] = this.numbers().split(decimal)
     parts[0] = parts[0].toString().replace(/(\d)(?=(?:\d{3})+\b)/gm, `$1${separator}`)
+    if (parts[1]) {
+      parts[1] = parts[1].toString().slice(0, fixed(precision))
+    }
     return parts.join(decimal)
   }
 
