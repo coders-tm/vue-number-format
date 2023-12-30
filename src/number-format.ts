@@ -1,5 +1,5 @@
 import defaultOptions, { Options } from './options'
-import { Input } from './core'
+import { Input, cloneDeep } from './core'
 
 export interface Config {
   prefix: string
@@ -39,7 +39,7 @@ export default class NumberFormat {
   negativeRegExp: RegExp
 
   constructor(config?: Options) {
-    this.options = Object.assign(defaultOptions, config)
+    this.options = Object.assign(cloneDeep(defaultOptions), config)
     const { prefix, suffix, decimal, reverseFill } = this.options
 
     this.input = ''
