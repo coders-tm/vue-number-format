@@ -117,6 +117,13 @@
           v-model.number="config.max"
         />
       </div>
+      <div class="mb-5 min-w-0 grid">
+        <div class="mb-2 font-medium">Input mode</div>
+        <BaseSelect
+          :options="['decimal', 'numeric']"
+          v-model="config.inputmode"
+        />
+      </div>
     </div>
     <div class="mb-8">
       <Checkbox
@@ -150,6 +157,7 @@ export default {
         suffix: '',
         precision: 2,
         nullValue: '',
+        inputmode: 'numeric',
         masked: false,
         reverseFill: false
       }

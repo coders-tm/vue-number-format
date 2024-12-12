@@ -7,9 +7,9 @@ export default {
   beforeMount: (el: core.CustomInputElement, { value, modifiers }: DirectiveBinding, vnode: VNode) => {
     el = core.getInputElement(el)
     const options = Object.assign(core.cloneDeep(defaultOptions), value, modifiers)
-    const { reverseFill, precision, decimal } = options
+    const { reverseFill, precision, decimal, inputmode } = options
     el.options = options
-    el.setAttribute('inputmode', 'numeric')
+    el.setAttribute('inputmode', inputmode)
     if (reverseFill && el.value) {
       el.value = parseFloat(new NumberFormat({ ...options, reverseFill: false }).unformat(el.value)).toFixed(precision)
       if (vnode?.props?.value) {

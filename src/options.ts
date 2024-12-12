@@ -3,6 +3,7 @@ export interface Options {
   suffix?: string
   separator?: string
   decimal?: string
+  inputmode?: string
   precision?: number
   minimumFractionDigits?: number
   prefill?: boolean
@@ -17,6 +18,7 @@ export default {
   suffix: '',
   separator: ',',
   decimal: '.',
+  inputmode: 'numeric',
   precision: 2,
   minimumFractionDigits: null,
   prefill: true,

@@ -101,3 +101,11 @@ Value of `<input>` element is set to a default when no `value` present
 - Type: `string`
 - Default: `''`
 - Required: `false`
+
+## inputmode
+
+The [inputmode](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/inputmode) global attribute is an enumerated attribute that hints at the type of data that might be entered by the user while editing the element or its contents. This allows a browser to display an appropriate virtual keyboard.
+
+- Type: `string`
+- Default: `numeric`
+- Required: `false`

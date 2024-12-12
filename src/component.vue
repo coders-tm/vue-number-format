@@ -77,6 +77,10 @@ export default defineComponent({
     suffix: {
       type: String,
       default: () => options.suffix
+    },
+    inputmode: {
+      type: String,
+      default: () => options.inputmode
     }
   },
   emits: ['update:model-value', 'input:model-value'],
