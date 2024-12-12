@@ -76,6 +76,6 @@ export default {
   },
 
   unmounted: (el: core.CustomInputElement) => {
-    core.getInputElement(el).cleanup()
+    core.getInputElement(el)?.cleanup()
   }
 }
