@@ -3,6 +3,7 @@
 [![github Stars](https://badgen.net/github/stars/coders-tm/vue-number-format?color=green)](https://github.com/coders-tm/vue-number-format)
 [![Bundlephobia](https://badgen.net/bundlephobia/minzip/@coders-tm/vue-number-format?color=green)](https://bundlephobia.com/result?p=@coders-tm/vue-number-format)
 [![License](https://badgen.net/github/license/coders-tm/vue-number-format?color=green)](https://github.com/coders-tm/vue-number-format/blob/master/LICENSE)
+[![Sponsor Me on GitHub](https://img.shields.io/badge/sponsor-me-blue?logo=github)](https://github.com/sponsors/dipaksarkar)
 
 # vue-number-format
 
@@ -30,3 +31,9 @@ yarn add @coders-tm/vue-number-format
 ## Documentation
 
 Please refer to the [project home page](https://vue-number-format.netlify.app) for a detailed documentation.
+
+## Support me
+
+If you find my work helpful, or you want to support the development, star the repo or buy me a coffee:
+
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/dipaksarkar)
