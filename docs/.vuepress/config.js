@@ -59,6 +59,12 @@ export default defineUserConfig({
     editLinks: false,
     repo: 'coders-tm/vue-number-format',
     lastUpdated: true,
+    navbar: [
+      {
+        text: '❤ Sponsor',
+        link: 'https://ko-fi.com/dipaksarkar'
+      }
+    ],
     sidebar: {
       '/guide/': [
         {
