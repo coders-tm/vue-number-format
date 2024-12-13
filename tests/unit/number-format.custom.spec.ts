@@ -31,4 +31,7 @@ test('format when options are custom', () => {
   expect(numberFormat.format(12345.12345)).toEqual('$12.345,12')
   expect(numberFormat.format(12345.54321)).toEqual('$12.345,54')
   expect(numberFormat.format(12345.54321)).toEqual('$12.345,54')
+
+  expect(numberFormat.format('0,539')).toEqual('$0,54')
+  expect(numberFormat.format(0.539)).toEqual('$0,54')
 })

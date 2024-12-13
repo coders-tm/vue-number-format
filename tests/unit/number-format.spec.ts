@@ -31,4 +31,7 @@ test('test number format: minimumFractionDigits', async () => {
   })
 
   expect(number.format('458.2')).toBe('$458.20')
+
+  expect(number.format('0.539')).toEqual('$0.539')
+  expect(number.format(0.539)).toEqual('$0.539')
 })

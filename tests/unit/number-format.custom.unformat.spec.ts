@@ -30,4 +30,7 @@ test('unformat when options are default', () => {
   expect(numberFormat.unformat(12345.12345)).toEqual('12345.12')
   expect(numberFormat.unformat(12345.54321)).toEqual('12345.54')
   expect(numberFormat.unformat(12345.54321)).toEqual('12345.54')
+
+  expect(numberFormat.unformat('0,539')).toEqual('0.54')
+  expect(numberFormat.unformat(0.539)).toEqual('0.54')
 })

@@ -1,5 +1,5 @@
 import defaultOptions, { Options } from './options'
-import { Input, cloneDeep } from './core'
+import { Input, cloneDeep, MINUS } from './core'
 
 export interface Config {
   prefix: string
@@ -34,7 +34,12 @@ export default class NumberFormat {
   number: Input
   isClean: boolean
   isCustomDecimal: boolean
-  preSurRegExp: RegExp
+  noPreSuffix: boolean
+  hasPreOrSuffix: boolean
+  prefix: string
+  preSufRegExp?: RegExp
+  prefixRegExp?: RegExp
+  suffixRegExp?: RegExp
   numberRegExp: RegExp
   cleanRegExp: RegExp
   negativeRegExp: RegExp
@@ -47,14 +52,28 @@ export default class NumberFormat {
     this.number = ''
     this.isClean = !reverseFill
 
-    const escapedPrefix = prefix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
-    const escapedSuffix = suffix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+    // Use Negative Medium Space Unicode as default prefix if none provided
+    const safePrefix = prefix
+    const safeSuffix = suffix
 
-    this.preSurRegExp = new RegExp(`${escapedPrefix}|${escapedSuffix}`, 'g')
+    const escapedPrefix = safePrefix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+    const escapedSuffix = safeSuffix.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')
+
+    if (escapedPrefix) {
+      this.prefixRegExp = new RegExp(`^${escapedPrefix}`)
+    }
+
+    if (escapedSuffix) {
+      this.suffixRegExp = new RegExp(`${escapedSuffix}$`)
+    }
+
+    this.prefix = prefix
     this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
     this.cleanRegExp = new RegExp('[^0-9]+', 'gi')
     this.negativeRegExp = new RegExp('[^0-9\\-]+', 'gi')
     this.isCustomDecimal = decimal !== '.'
+    this.noPreSuffix = !safePrefix && !safeSuffix
+    this.hasPreOrSuffix = !this.noPreSuffix
   }
 
   isNull() {
@@ -70,11 +89,11 @@ export default class NumberFormat {
     if (this.input === null || this.input === undefined) {
       return ''
     }
-    const hasMinus = this.input.toString().indexOf('-') >= 0
+    const hasMinus = this.input.toString().indexOf(MINUS) >= 0
     if (this.isClean) {
-      return hasMinus && this.realNumber() > 0 ? '-' : ''
+      return hasMinus && this.realNumber() > 0 ? MINUS : ''
     }
-    return hasMinus ? '-' : ''
+    return hasMinus ? MINUS : ''
   }
 
   toFixed() {
@@ -88,29 +107,65 @@ export default class NumberFormat {
   }
 
   numberOnly(regExp?: RegExp) {
-    return this.input
-      ?.toString()
-      .replace(this.preSurRegExp, '')
-      .replace(regExp || this.numberRegExp, '')
+    let number = this.input?.toString()
+
+    if (this.prefixRegExp) {
+      number = number.replace(this.prefixRegExp, '')
+    }
+
+    if (this.suffixRegExp) {
+      number = number.replace(this.suffixRegExp, '')
+    }
+
+    return number.replace(regExp || this.numberRegExp, '')
+  }
+
+  inputWithPreOrSuffix() {
+    if (this.input && this.prefixRegExp) {
+      return this.prefixRegExp.test(this.input.toString())
+    }
+
+    if (this.input && this.suffixRegExp) {
+      return this.suffixRegExp.test(this.input.toString())
+    }
+
+    return true
   }
 
   isNegative() {
-    return this.sign() === '-'
+    return this.sign() === MINUS
+  }
+
+  isNumber(val?: any) {
+    return !isNaN(this.toNumber(val || this.input))
   }
 
   numbers() {
-    const { reverseFill, decimal } = this.options
-    const hasDeciaml = this.input.toString().indexOf(decimal) >= 0
-    const input = !hasDeciaml && this.isCustomDecimal ? this.input + decimal : this.input
+    const { reverseFill, decimal, separator } = this.options
 
     if (reverseFill) {
       this.number = this.toFixed().replace('.', decimal)
-    } else if (typeof this.input === 'number') {
-      this.number = this.parts(this.input.toString().replace('-', ''), '.').join(decimal)
-    } else if (!isNaN(this.toNumber(input))) {
-      this.number = this.parts(this.input.replace('-', ''), '.').join(decimal)
     } else {
-      this.number = this.parts(this.numberOnly()).join(decimal)
+      const number = this.input
+        ?.toString()
+        .replace(this.prefixRegExp ?? '', '')
+        .replace(this.suffixRegExp ?? '', '')
+        .replace(new RegExp(MINUS, 'g'), '')
+
+      const hasCustomDecimal = this.input.toString().indexOf(decimal) >= 0 && this.isCustomDecimal
+      const realNumber = number.replace(new RegExp(`\\${separator}`, 'g'), '').replace(decimal, '.')
+
+      if (typeof this.input === 'number') {
+        this.number = this.parts(number, '.').join(decimal)
+      } else if (this.isNumber() && !hasCustomDecimal && !this.inputWithPreOrSuffix() && this.hasPreOrSuffix) {
+        // Only process separator-to-decimal conversion when necessary
+        this.number = this.parts(number, '.').join(decimal)
+      } else if (this.isNumber(realNumber) && !hasCustomDecimal && this.inputWithPreOrSuffix() && this.hasPreOrSuffix) {
+        this.number = this.parts(realNumber, '.').join(decimal)
+      } else {
+        // If no custom decimal is detected, do not convert the separator
+        this.number = this.parts(this.numberOnly()).join(decimal)
+      }
     }
 
     return this.number

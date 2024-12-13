@@ -120,11 +120,11 @@ export function updateValue(el: CustomInputElement, vnode: VNode | null, { emit 
     if (el.value !== masked) {
       el.value = masked
     }
-
-    // this part needs to be outside the above IF statement for vuetify in firefox
-    // drawback is that we endup with two's input events in firefox
-    return emit && el.dispatchEvent(InputEvent('input'))
   }
+
+  // this part needs to be outside the above IF statement for vuetify in firefox
+  // drawback is that we endup with two's input events in firefox
+  return emit && el.dispatchEvent(InputEvent('input'))
 }
 
 /**
@@ -200,7 +200,7 @@ export function keydownHandler(event: KeyboardEvent, el: CustomInputElement) {
     if (newValue.includes(decimal)) {
       event.preventDefault()
     } else if (!newValue) {
-      el.value = '0' + decimal
+      el.value = '0'
       // trigger input event
       el.dispatchEvent(new Event('input'))
     }
