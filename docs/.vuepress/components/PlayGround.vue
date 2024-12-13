@@ -33,15 +33,13 @@
         </div>
       </div>
     </div>
+    <div class="reset mb-4">
+      <a @click="onReset"> Reset Default </a>
+    </div>
     <div class="flex items-center justify-between mb-2">
       <span class="text-2xl font-bold">Options</span>
       <div>
-        <button
-          class="transition-all bg-white hover:bg-gray-100 text-gray-800 font-semibold text-sm py-2 px-4 border border-gray-300 rounded shadow focus:outline-none focus:border-primary focus:ring focus:ring-primary focus:ring-opacity-50"
-          @click="exportDialogVisible = true"
-        >
-          Export
-        </button>
+        <button @click="exportDialogVisible = true">Export</button>
         <Dialog v-model="exportDialogVisible">
           <pre
             class="m-0"
@@ -52,7 +50,11 @@
         </Dialog>
       </div>
     </div>
-    <hr class="mb-8" />
+    <hr />
+    <div class="custom-container warning">
+      <p class="custom-container-title">WARNING</p>
+      <p>Masking doesn't work with directive</p>
+    </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8">
       <div class="mb-5 min-w-0 grid">
         <div class="mb-2 font-medium">Separator</div>
@@ -186,6 +188,23 @@ export default {
     },
     onBlur() {
       console.log('onBlur', arguments)
+    },
+    onReset() {
+      Object.assign(this, {
+        price: 1234.567,
+        priceDirective: 1234.567,
+        config: {
+          decimal: ',',
+          separator: '.',
+          prefix: 'Rs.',
+          suffix: '',
+          precision: 2,
+          nullValue: '',
+          inputmode: 'numeric',
+          masked: false,
+          reverseFill: false
+        }
+      })
     }
   }
 }
