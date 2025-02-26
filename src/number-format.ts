@@ -68,7 +68,7 @@ export default class NumberFormat {
     }
 
     this.prefix = prefix
-    this.numberRegExp = new RegExp(`[^0-9\\${decimal}]+`, 'gi')
+    this.numberRegExp = new RegExp(`[^0-9\\${decimal || '.'}]+`, 'gi')
     this.cleanRegExp = new RegExp('[^0-9]+', 'gi')
     this.negativeRegExp = new RegExp('[^0-9\\-]+', 'gi')
     this.isCustomDecimal = decimal !== '.'
@@ -153,7 +153,13 @@ export default class NumberFormat {
         .replace(new RegExp(MINUS, 'g'), '')
 
       const hasCustomDecimal = this.input.toString().indexOf(decimal) >= 0 && this.isCustomDecimal
-      const realNumber = number.replace(new RegExp(`\\${separator}`, 'g'), '').replace(decimal, '.')
+      let realNumber = number
+
+      if (separator) {
+        realNumber = realNumber.replace(new RegExp(`\\${separator}`, 'g'), '')
+      }
+
+      realNumber = realNumber.replace(decimal, '.')
 
       if (typeof this.input === 'number') {
         this.number = this.parts(number, '.').join(decimal)
