@@ -119,7 +119,7 @@ export default defineComponent({
     watch(
       () => props.modelValue,
       (newValue) => {
-        if (emittedValue.value != newValue) {
+        if (emittedValue.value !== newValue) {
           maskedValue.value = formatNumber.format(newValue)
         }
       }
